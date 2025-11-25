@@ -2,7 +2,7 @@ import React from 'react'
 import './Dropdown.css'
 import { Link } from 'react-router-dom';
 import { Mycontext } from '../../context/ContextGlobalUser';
-import concluirEvento from '../../server/alterardados/concluirEvento';
+
 
 
 function Dropdown({perfil,transparent}) {
@@ -18,27 +18,7 @@ function Dropdown({perfil,transparent}) {
         
     }
 
-    async function test() {
-
-        const dados ={
-            email:" test",
-            celular:"12",
-            senha:"123",
-            novaSenha:'1234'
-        }
-        console.log(user.token);
-        
-        const token = user.token
-
-        const idEvento = 2
-
-        const resposta = await concluirEvento(token,idEvento)
-
-        console.log(resposta);
-
-        alert(resposta)
-        
-    }
+ 
 
     return (
         <div className={`dropdown`}>
