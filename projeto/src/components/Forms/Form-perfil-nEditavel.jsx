@@ -19,13 +19,16 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
         const dados = await buscarDadosUsuario(user.token)
         console.log(dados);
 
-        setTimeout(() => {
+        if (dados.ok) {
 
-            setInfouser(dados)
+            setInfouser(dados.result)
             setCarregando(false)
+            return
+        }
 
-                ;
-        }, 1000);
+
+
+
 
 
     }
@@ -55,7 +58,7 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
 
             <div className='icone_nome'>
                 <VscAccount size={90} />
-            
+
                 <p>Nome: {infouser.nome}</p>
 
             </div>
