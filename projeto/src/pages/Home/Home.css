@@ -42,15 +42,15 @@
 .cont-button-explore {
     display: flex;
     width: 100%;
-    min-height: 40%;
+    height: 40%;
     padding: 1.8rem;
 
     button {
         font-family: 'Trade Winds', cursive;
-        padding: 1.7%;
-        height: 50%;
-        width: 30%;
-        font-size: clamp(1.5rem, 4vw, 3rem);
+        padding: 0.2rem;
+        height: 15vh;
+        width: 35vw;
+        font-size: clamp(1.5rem, 3vw, 3rem);
         background-color: #7B1E1E;
         color: white;
         border: none;
