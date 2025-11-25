@@ -11,7 +11,7 @@
 .dropdown-menu {
     position: absolute;
     top: 65px;
-    background-color: var(--colorNavBarOpacidade);
+    background-color: #7b1e1e;
     border-radius: 12px;
     padding: 10px 0;
     display: flex;
@@ -23,6 +23,10 @@
     pointer-events: none;
     transition: 0.3s ease;
 
+}
+
+.transparente{
+    background-color: #7b1e1ecc;
 }
 
 .dropdown-menu button{
@@ -56,4 +60,6 @@
     opacity: 1;
     transform: translateY(0);
     pointer-events: all;
+    z-index: 900;
+
 }

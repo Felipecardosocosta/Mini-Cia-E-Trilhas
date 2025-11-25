@@ -2,9 +2,10 @@ import React from 'react'
 import './Dropdown.css'
 import { Link } from 'react-router-dom';
 import { Mycontext } from '../../context/ContextGlobalUser';
-import concluirEvento from '../../server/alterarDados/concluirEvento';
+import concluirEvento from '../../server/alterardados/concluirEvento';
 
-function Dropdown({perfil}) {
+
+function Dropdown({perfil,transparent}) {
 
     const [alterarSenha, setAlterarSenha] = React.useState(false);
     const [sair, setSair] = React.useState(false);
@@ -40,9 +41,9 @@ function Dropdown({perfil}) {
     }
 
     return (
-        <div className='dropdown'>
+        <div className={`dropdown`}>
             <Link className='link' onClick={()=> modalPerfil? setModalPerfil(false):setModalPerfil(true) }>Perfil</Link>
-            <div className={`dropdown-menu ${perfil ? 'show' : ''}`}>
+            <div className={`dropdown-menu ${perfil ? 'show' : ''} ${transparent? "transparente": ""}`}>
                 <button onClick={()=> setMeusDados(true)}>Meus dados</button>
                 <button onClick={(e)=> setAlterarSenha(e.target.value)}>Alterar senha</button>
                 <button onClick={botaoDeslogar}>Sair</button>
