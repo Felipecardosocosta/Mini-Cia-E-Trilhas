@@ -1,0 +1,18 @@
+.Agenda-cont{
+    height: 100vh;
+}
+
+.Cont-MenuPesq{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 93px;
+}
+
+.Cards-Eventos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: black;
+}

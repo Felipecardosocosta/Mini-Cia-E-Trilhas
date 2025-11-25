@@ -1,0 +1,23 @@
+.cont-navBar{
+    display: flex;
+    padding: 1rem;
+    background-color: #7B1E1E;
+    border-radius: 20px;
+    width: 95%;
+    height: 80px;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 32px;
+
+}
+.link{
+    text-decoration: none;
+    color: white;
+    transition: ease-in-out 0.2s;
+    
+}
+
+.link:hover{
+    
+    scale: 1.1;
+}
