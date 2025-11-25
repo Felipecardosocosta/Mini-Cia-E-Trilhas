@@ -36,9 +36,7 @@ function Home() {
 
         </div>
         <div className='cont-button-explore'>
-
           <button className='button-explore' onClick={() => navigate('/trilhas')}>Explorar agora</button>
-
         </div>
       </div>
 
