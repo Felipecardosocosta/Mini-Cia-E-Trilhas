@@ -10,7 +10,7 @@
 /* Menu escondido */
 .dropdown-menu {
     position: absolute;
-    top: 65px;
+    top: 69px;
     background-color: #7b1e1e;
     border-radius: 12px;
     padding: 10px 0;
@@ -24,7 +24,6 @@
     transition: 0.3s ease;
 
 }
-
 .transparente{
     background-color: #7b1e1ecc;
 }
@@ -61,5 +60,4 @@
     transform: translateY(0);
     pointer-events: all;
     z-index: 900;
-
 }

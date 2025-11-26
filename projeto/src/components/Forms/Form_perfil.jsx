@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import Perfil from '../Perfil/Perfil';
+import { Form } from 'react-router-dom';
 import Form_perfil_nEditavel from './Form-perfil-nEditavel';
 import Form_perfil_editavel from './Form_perfil_editavel';
 
@@ -45,16 +46,14 @@ function Form_perfil() {
 
 
     return (
-        <div>
-            <form className='form-perfil' >
+            <>
                 {!editar ?
                     <Form_perfil_nEditavel setEditar={setEditar} editar={editar} /> :
                     <Form_perfil_editavel />
                 }
 
 
-            </form>
-        </div>
+            </>
     )
 }
 
