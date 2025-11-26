@@ -7,6 +7,7 @@ import MenuPesq from '../../components/MenuPesq/MenuPesq'
 import CardsTrilhaOff from '../../components/Cards/CardsTrilhaOff'
 import buscarCardsTrilhaOff from '../../server/buscarInformacao/buscarCardsTrilhaOff'
 import buscarCardsTrilhaOn from '../../server/buscarInformacao/buscarCardsTrilhaOn'
+import CardsTrilhaOn from '../../components/Cards/CardsTrilhaOn'
 
 
 
@@ -31,7 +32,7 @@ function Trilhas() {
     if (infsTrilhas.ok) {
       setTrilhasBD(infsTrilhas.result)
       console.log(infsTrilhas);
-      
+
       return
     }
     console.log(`Erro ao fazer a busca ${infsTrilhas}`);
@@ -57,22 +58,22 @@ function Trilhas() {
             {console.log(TrilhasBD)}
 
             {TrilhasBD.length > 0 && TrilhasBD.map(trilha => (
-              <CardsTrilhaOff
-                nome={trilha["nomeTrilha"]}
-                dis={trilha["distância"]}
-                tmp={trilha["tempo"]}
-                dif={trilha["dificuldade"]}
-              />
+              user ? (
+                <CardsTrilhaOn />
+              ) : (
+                <CardsTrilhaOff
+                  key={trilha.id}
+                  nome={trilha.nomeTrilha}
+                  dis={trilha.distância}
+                  tmp={trilha.tempo}
+                  dif={trilha.dificuldade}
+                />
+              )
             ))}
+
           </div>
-
         </div>
-
       </div>
-
-
-
-
     </div>
   )
 }
