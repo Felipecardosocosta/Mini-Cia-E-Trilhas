@@ -56,7 +56,7 @@ function Trilhas() {
                   fim={trilha.pontoFinal}
                   dis={trilha.distância}
                   tmp={trilha.tempo}
-                  rlv={tipoRelevo}
+                  rlv={trilha.tipoRelevo}
                   dif={trilha.dificuldade}
                 />
               ) : (
