@@ -23,7 +23,8 @@ const buscarCardsTrilhaOn = async (token) => {
 
         
     } catch (error) {
-
+        console.log(error);
+        
         if (error.response) {
             
             return {ok:false,mensagem:error.response.data.mensagem}
