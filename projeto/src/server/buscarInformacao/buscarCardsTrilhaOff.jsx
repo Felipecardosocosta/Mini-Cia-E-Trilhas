@@ -7,7 +7,7 @@ const buscarCardsTrilhaOff = async () => {
       const result = await axios.get("https://api-mine-cia.vercel.app/buscar/cards/trilha/off")
 
       // return result.data
-      return { ok: true, resultado: result.data.result }
+      return { ok: true, result: result.data.result }
 
    } catch (error) {
 

@@ -2,6 +2,8 @@ import axios from "axios"
 
 const buscarCardsTrilhaOn = async (token) => {
 
+    console.log(token);
+    
     if (!token) {
         
         return {ok:false, mensagem: "Token nao fornecido"}
@@ -11,11 +13,12 @@ const buscarCardsTrilhaOn = async (token) => {
 
         const result = await axios.get("https://api-mine-cia.vercel.app/buscar/cards/trilha/on",{headers:{Authorization: token}})
 
+        console.log(result);
         
 
         if (result.status===200) {
             
-            return {ok:true, result:result.data}
+            return {ok:true, result:result.data.result}
         }
 
         

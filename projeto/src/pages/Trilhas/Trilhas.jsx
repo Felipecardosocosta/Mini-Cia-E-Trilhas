@@ -19,7 +19,8 @@ function Trilhas() {
   async function pesquisaAPI(params) {
     let infsTrilhas
     if (user) {
-      infsTrilhas = await buscarCardsTrilhaOn()
+
+      infsTrilhas = await buscarCardsTrilhaOn(user.token)
     } else {
       infsTrilhas = await buscarCardsTrilhaOff()
     }
@@ -28,7 +29,9 @@ function Trilhas() {
 
 
     if (infsTrilhas.ok) {
-      setTrilhasBD(infsTrilhas.resultado)
+      setTrilhasBD(infsTrilhas.result)
+      console.log(infsTrilhas);
+      
       return
     }
     console.log(`Erro ao fazer a busca ${infsTrilhas}`);
