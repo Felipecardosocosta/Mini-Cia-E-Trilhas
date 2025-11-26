@@ -12,7 +12,6 @@ import CardsTrilhaOn from '../../components/Cards/CardsTrilhaOn'
 
 
 function Trilhas() {
-
   useEffect(() => { pesquisaAPI() }, [])
   const { user, modalLogin, setModalLogin, regTrilhas, setRegiao } = useContext(Mycontext)
   const [TrilhasBD, setTrilhasBD] = useState([])
@@ -20,26 +19,18 @@ function Trilhas() {
   async function pesquisaAPI(params) {
     let infsTrilhas
     if (user) {
-
       infsTrilhas = await buscarCardsTrilhaOn(user.token)
     } else {
       infsTrilhas = await buscarCardsTrilhaOff()
     }
 
-    // const infsTrilhas = await buscarCardsTrilhaOff()
-
-
     if (infsTrilhas.ok) {
       setTrilhasBD(infsTrilhas.result)
       console.log(infsTrilhas);
-
       return
     }
     console.log(`Erro ao fazer a busca ${infsTrilhas}`);
   }
-
-
-
 
   return (
     <div>
@@ -59,10 +50,17 @@ function Trilhas() {
 
             {TrilhasBD.length > 0 && TrilhasBD.map(trilha => (
               user ? (
-                <CardsTrilhaOn />
+                <CardsTrilhaOn
+                  tri={trilha.nomeTrilha}
+                  ini={trilha.pontoInicial}
+                  fim={trilha.pontoFinal}
+                  dis={trilha.distância}
+                  tmp={trilha.tempo}
+                  rlv={tipoRelevo}
+                  dif={trilha.dificuldade}
+                />
               ) : (
                 <CardsTrilhaOff
-                  key={trilha.id}
                   nome={trilha.nomeTrilha}
                   dis={trilha.distância}
                   tmp={trilha.tempo}
