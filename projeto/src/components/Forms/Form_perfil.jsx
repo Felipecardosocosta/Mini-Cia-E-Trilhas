@@ -3,9 +3,10 @@ import Perfil from '../Perfil/Perfil';
 import { Form } from 'react-router-dom';
 import Form_perfil_nEditavel from './Form-perfil-nEditavel';
 import Form_perfil_editavel from './Form_perfil_editavel';
+import { Mycontext } from '../../context/ContextGlobalUser';
 
 function Form_perfil() {
-
+     const { meusDados,setMeusDados, user, setUser, infouser, setInfouser } = React.useContext(Mycontext)
     const [email, setEmail] = React.useState('')
     const [telefone, setTelefone] = React.useState('')
     const [senha, setsenha] = React.useState('')
@@ -19,7 +20,7 @@ function Form_perfil() {
             setEmail(currentUser.email || '');
             setTelefone(currentUser.telefone || '');
         }
-    }, []);
+    }, [meusDados]);
 
     async function alterações(e) {
         e.preventDefault();
@@ -28,9 +29,8 @@ function Form_perfil() {
 
         const dadosAlterados = {
             email: email,
-            telefone: telefone,
-            senha: senha,
-            senhanova: senhanova
+            telefone: telefone
+            
         }
 
         const resposta = await (Perfil)
@@ -49,7 +49,7 @@ function Form_perfil() {
             <>
                 {!editar ?
                     <Form_perfil_nEditavel setEditar={setEditar} editar={editar} /> :
-                    <Form_perfil_editavel />
+                    <Form_perfil_editavel setEditar={setEditar} editar={editar} />
                 }
 
 
