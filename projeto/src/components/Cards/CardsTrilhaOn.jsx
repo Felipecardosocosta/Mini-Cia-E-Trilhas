@@ -4,8 +4,17 @@ import { Mycontext } from "../../context/ContextGlobalUser"
 function CardsTrilhaOn(props) {
     const { user, setUser, modalLogin, setModalLogin, setModalPerfil, modalPerfil } = useContext(Mycontext)
 
+    const inverter = {
+    flexDirection: "row"
+    }
+    if (props.ind %2!==0) {
+        inverter.flexDirection = "row-reverse"
+        console.log(props.ind);
+        
+    }
+
     return (
-        <div className='Cont-CardsTrilhasOff'>
+        <div className='Cont-CardsTrilhasOff' style={inverter}>
             <div className='CardsTrilhasOff'>
                 <p>{props.id}</p>
                 <p>{props.tri}</p>

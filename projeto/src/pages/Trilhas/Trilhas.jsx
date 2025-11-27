@@ -48,9 +48,10 @@ function Trilhas() {
           <div className='Cards-trilhas'>
             {console.log(TrilhasBD)}
 
-            {TrilhasBD.length > 0 && TrilhasBD.map(trilha => (
+            {TrilhasBD.length > 0 && TrilhasBD.map((trilha,index) => (
               user ? (
                 <CardsTrilhaOn
+                  ind={index}
                   tri={trilha.nomeTrilha}
                   ini={trilha.pontoInicial}
                   fim={trilha.pontoFinal}
