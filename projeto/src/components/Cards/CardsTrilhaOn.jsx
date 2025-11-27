@@ -9,13 +9,13 @@ function CardsTrilhaOn(props) {
     }
     if (props.ind %2!==0) {
         inverter.flexDirection = "row-reverse"
-        console.log(props.ind);
+        console.log(props.ind)
         
     }
 
     return (
-        <div className='Cont-CardsTrilhasOff' style={inverter}>
-            <div className='CardsTrilhasOff'>
+        <div className='Cont-CardsTrilhas' style={inverter}>
+            <div className='CardsTrilhas'>
                 <p>{props.id}</p>
                 <p>{props.tri}</p>
                 <p>Ponto de Partida: {props.ini}</p>
@@ -26,8 +26,10 @@ function CardsTrilhaOn(props) {
                 <p>Nível: {props.dif}</p>
             </div>
 
+            {console.log(props.tri)}
+
             <div className='Login-bttn'>
-                <button className='Bttn' onClick={!user ? () => {} : () => {}}> <img className='Bttn-img' src="Icones/icon-bttnTrilhas.svg" alt="icone" /> </button>
+                <button className='Bttn' onClick={user ? ()=> props.abrirModal() : ()=> {}}> <img className='Bttn-img' src="Icones/icon-bttnTrilhas.svg" alt="icone" /> </button>
             </div>
 
         </div>

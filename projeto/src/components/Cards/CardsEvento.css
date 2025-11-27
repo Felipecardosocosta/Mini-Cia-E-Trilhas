@@ -1,9 +1,11 @@
 .CardsEvento{
     height: 100px;
+    width: 100%;
 }
 
-.Cont-CardsTrilhasOff{
+.Cont-CardsTrilhas{
     height: 200px;
+    gap: 1%;
 
     display: flex;
     flex-direction: row;
@@ -12,10 +14,11 @@
 
     border: solid 2px;
     border-color: black;
+
+    background-color: rgb(191, 191, 191);
 }
 
-.CardsTrilhasOff{
-
+.CardsTrilhas{
     height: 100%;
     width: 80%;
 
@@ -26,13 +29,14 @@
 }
 
 .Login-bttn{
-
     height: 100%;
     width: 20%;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: rgba(217, 217, 217, 1);
 }
 
 .Bttn{
@@ -42,10 +46,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: transparent;
+    border: none;
 }
 .Bttn-img{
-    height: 95%;
-    width: 95%;
-
+    height: 97%;
+    width: 97%;
     background-color: rgba(112, 8, 8, 1);
 }

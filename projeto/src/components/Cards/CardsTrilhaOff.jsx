@@ -8,8 +8,8 @@ function CardsTrilhaOff(props) {
     const {user,setUser, modalLogin, setModalLogin, setModalPerfil,modalPerfil} = useContext(Mycontext)
 
     return (
-        <div className='Cont-CardsTrilhasOff'>
-            <div className='CardsTrilhasOff'>
+        <div className='Cont-CardsTrilhas'>
+            <div className='CardsTrilhas'>
                 <p>{props.nome}</p>
                 <p>Dist.: {props.dis}</p>
                 <p>Tempo: {props.tmp}</p>

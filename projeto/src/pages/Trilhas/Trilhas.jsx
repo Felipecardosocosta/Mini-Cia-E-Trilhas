@@ -12,9 +12,14 @@ import CardsTrilhaOn from '../../components/Cards/CardsTrilhaOn'
 
 
 function Trilhas() {
-  useEffect(() => { pesquisaAPI() }, [])
   const { user, modalLogin, setModalLogin, regTrilhas, setRegiao } = useContext(Mycontext)
   const [TrilhasBD, setTrilhasBD] = useState([])
+
+  const [trilhaSelecionada, setTrilhaSelecionada] = useState(null)
+  const [modalMarcarTrilha, setModalMarcarTrilha] = useState(false)
+
+
+  useEffect(() => { pesquisaAPI() }, [user])
 
   async function pesquisaAPI(params) {
     let infsTrilhas
@@ -46,9 +51,9 @@ function Trilhas() {
         <div className='Cont-cards'>
 
           <div className='Cards-trilhas'>
-            {console.log(TrilhasBD)}
+            {console.log("AQUI =>", TrilhasBD)}
 
-            {TrilhasBD.length > 0 && TrilhasBD.map((trilha,index) => (
+            {TrilhasBD.length > 0 && TrilhasBD.map((trilha, index) => (
               user ? (
                 <CardsTrilhaOn
                   ind={index}
@@ -59,6 +64,7 @@ function Trilhas() {
                   tmp={trilha.tempo}
                   rlv={trilha.tipoRelevo}
                   dif={trilha.dificuldade}
+                  abrirModal={() => { setTrilhaSelecionada(trilha), setModalMarcarTrilha(true) }}
                 />
               ) : (
                 <CardsTrilhaOff
@@ -70,7 +76,25 @@ function Trilhas() {
               )
             ))}
 
+            {modalMarcarTrilha && trilhaSelecionada && (
+              <div className="ModalTrilha">
+                <div className="ModalContent">
+                  <h2>{trilhaSelecionada.nomeTrilha}</h2>
+                  <p>Ponto inicial: {trilhaSelecionada.pontoInicial}</p>
+                  <p>Ponto final: {trilhaSelecionada.pontoFinal}</p>
+                  <p>Distância: {trilhaSelecionada.distância}</p>
+                  <p>Tempo: {trilhaSelecionada.tempo}</p>
+                  <p>Dificuldade: {trilhaSelecionada.dificuldade}</p>
+                  <p>Relevo: {trilhaSelecionada.tipoRelevo}</p>
+
+                  <button onClick={() => setModalMarcarTrilha(false)}>Marcar Trilha</button>
+                  <button onClick={() => setModalMarcarTrilha(false)}>Fechar</button>
+                </div>
+              </div>
+            )}
+
           </div>
+
         </div>
       </div>
     </div>
