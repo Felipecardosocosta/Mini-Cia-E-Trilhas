@@ -16,6 +16,9 @@
 
 .close-button {
     margin-bottom: 30rem;
+    position: relative;
+    right: 3rem;
+    top: 2rem;
     background-color: transparent;
     border: none;
     font-size: 35px;
@@ -23,6 +26,7 @@
     cursor: pointer;
     z-index: 1000;
     transition: .2s ease, color 0.2s ease;
+
 }
 
 .cont-login {

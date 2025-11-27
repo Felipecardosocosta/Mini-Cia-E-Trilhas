@@ -35,7 +35,7 @@ function Login() {
 
           <Toggle setStado={setIsActive} />
       </div>
-      <button className="close-button" onClick={()=> setModalLogin(false)} style={stilobotao} >x</button>
+          <button className="close-button" onClick={()=> setModalLogin(false)} style={stilobotao} >x</button>
     </div>
   )
 
