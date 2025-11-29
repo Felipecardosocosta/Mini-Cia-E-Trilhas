@@ -7,6 +7,7 @@ import Grafico from '../../components/Grafico/Grafico'
 function Dashboard() {
 
   const {modalLogin, setModalLogin} = React.useContext(Mycontext)
+  
   return (
     <div>
       {modalLogin && <Login/>}
