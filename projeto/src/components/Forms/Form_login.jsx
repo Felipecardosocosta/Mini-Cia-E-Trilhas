@@ -2,6 +2,7 @@ import React from 'react'
 import login from '../../server/login'
 import { Mycontext } from '../../context/ContextGlobalUser'
 import Swal from 'sweetalert2'
+import { IoIosCheckmarkCircle } from "react-icons/io";
 
 function Form_login() {
 
@@ -21,10 +22,10 @@ function Form_login() {
         if (resposta.status === 200) {
             Swal.fire({
                 position: "top-end",
-                icon: "success",
+                
                 title: "Login realizado com sucesso!",
                 showConfirmButton: false,
-                timer: 1500,
+                timer: 2000,
                 customClass:{
                     popup: 'alerta'
                 }
