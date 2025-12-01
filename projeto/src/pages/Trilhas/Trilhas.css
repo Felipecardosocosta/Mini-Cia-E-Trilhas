@@ -24,46 +24,104 @@
 
 /* ===== Fundo escurecido + blur ===== */
 .ModalTrilha {
+    width: 100vw;
+    height: 100vh;
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(3px);
+
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
     z-index: 1000;
-}
 
+    backdrop-filter: blur(3px);    
+}
 /* ===== Caixa do modal ===== */
 .ModalContent {
-  background: rgba(255, 255, 255, 0.85);
-  padding: 25px 35px;
-  width: 450px;
-  max-width: 90%;
-  border-radius: 14px;
+  width: 50%;
+  border-radius: 25px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-  animation: slideUp 0.35s ease;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
+
+
+  background: rgba(255, 255, 255,1);
   color: #222;
   font-family: Arial, sans-serif;
+  
+  animation: slideUp 0.35s ease; 
+}
+.ModalContent-Meio{
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #0F5C3B;
+}
+.ContentMeio-Esq{
+  height: 100%;
+  width: 60%;
+  background-color: papayawhip;
+}
+.ContentMeio-Dir{
+  height: 100%;
+  width: 40%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:10px;
+
+  background-color: palevioletred;
+}
+.MeioDir-cima{
+  height: 60%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;  
+}
+.MeioDir-baixo{
+  height: 40%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+.ModalContent-Inf{
+  height: 100%;
+  width: 75%;
+}
 /* ===== Título ===== */
 .ModalContent h2 {
-  margin-bottom: 15px;
-  font-size: 26px;
-  color: #0F5C3B;
-  font-weight: bold;
   text-align: center;
-}
+  margin-bottom: 2%;
 
+  font-size: 26px;
+  font-weight: bold;
+
+  color: #0F5C3B;
+}
 /* ===== Parágrafos ===== */
 .ModalContent p {
   margin: 8px 0;
+
   font-size: 16px;
+  
   color: #333;
 }
 
@@ -106,4 +164,45 @@
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.campo label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.campo input {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.controle-participantes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.controle-participantes button {
+  padding: 5px 12px;
+  font-size: 18px;
+  border: none;
+  background: #1d5f91;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.controle-participantes input {
+  width: 55px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
 }
