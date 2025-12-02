@@ -102,84 +102,97 @@ function Trilhas() {
 
             {modalMarcarTrilha && trilhaSelecionada && (
               <div className="ModalTrilha">
+
                 <div className="ModalContent">
+
                   <div className='ModalContent-Sup'>
-                    <h2>{trilhaSelecionada.nomeTrilha}</h2>
-                  </div>
 
-                  <div className='ModalContent-Meio'>
+                    <div className='ContentSup-Esq'>
+                      <h2>{trilhaSelecionada.nomeTrilha}</h2>
 
-                    <div className='ContentMeio-Esq'>
                       <p>Ponto inicial: {trilhaSelecionada.pontoInicial}</p>
                       <p>Ponto final: {trilhaSelecionada.pontoFinal}</p>
-                      <p>Distância: {trilhaSelecionada.distância}</p>
-                      <p>Tempo: {trilhaSelecionada.tempo}</p>
-                      <p>Dificuldade: {trilhaSelecionada.dificuldade}</p>
-                      <p>Relevo: {trilhaSelecionada.tipoRelevo}</p>
+                      <br></br>
+                      <p>Distância: {trilhaSelecionada.distância}Km / Tempo: {trilhaSelecionada.tempo}</p>
+                      <p>Dificuldade: {trilhaSelecionada.dificuldade} // Relevo: {trilhaSelecionada.tipoRelevo}</p>
+                    </div>
+                    <div className='ContentSup-Meio'>
+                      
                     </div>
 
-                    <div className='ContentMeio-Dir'>
-                      <div className='MeioDir-cima'>
+                    <div className='ContentSup-Dir'>
 
-                        {/* Data */}
-                        <div className="campo">
-                          <label>Dia:</label>
-                          <input
-                            type="date"
-                            value={dataTrilha}
-                            min={new Date().toISOString().split("T")[0]}
-                            onChange={(e) => setDataTrilha(e.target.value)}
-                          />
+                      <div className='SupDir-cima'>
+
+                        <div className='SupDirCima-sup'>
+
+                          <div className='SupDirCimaSup1'>
+
+                            {/* Data */}
+                            <div className="campo">
+                              <label>Dia: </label>
+                              <input
+                                type="date"
+                                value={dataTrilha}
+                                min={new Date().toISOString().split("T")[0]}
+                                onChange={(e) => setDataTrilha(e.target.value)}
+                              />
+                            </div>
+
+                            {/* Horário */}
+                            <div className="campo">
+                              <label>Horário:</label>
+                              <input
+                                type="time"
+                                value={horaTrilha}
+                                onChange={validarHora}
+                                disabled={!dataTrilha} // só libera depois de escolher a data
+                              />
+                            </div>
+
+                          </div>
+
+                          <div className='SupDirCimaSup2'>
+                            {/* Ponto de Encontro */}
+                            <label>Ponto de Encontro:</label>
+                            <textarea
+                              value={pntEnc}
+                              placeholder="Digite o local..."
+                              onChange={(e) => setPntEnc(e.target.value)}
+                            />
+                          </div>
+
                         </div>
 
-                        {/* Horário */}
-                        <div className="campo">
-                          <label>Horário:</label>
-                          <input
-                            type="time"
-                            value={horaTrilha}
-                            onChange={validarHora}
-                            disabled={!dataTrilha} // só libera depois de escolher a data
-                          />
-                        </div>
+                        <div className='SupDirCima-inf'>
+                          {/* Participantes */}
+                            <h4>Nº de Participantes</h4>
 
-                        {/* Ponto de Encontro */}
-                        <div className="campo">
-                          <label>Ponto de Encontro:</label>
-                          <input
-                            type="text"
-                            value={pntEnc}
-                            placeholder="Digite o local..."
-                            onChange={(e) => setPntEnc(e.target.value)}
-                          />
+                            <div className="controle-participantes">
+                              <button onClick={() => setNPart(prev => Math.max(1, prev - 1))}>-</button>
+                              <input
+                                type="number"
+                                value={nPart}
+                                min="1"
+                                onChange={(e) => setNPart(Math.max(1, Number(e.target.value)))}
+                              />
+                              <button onClick={() => setNPart(prev => prev + 1)}>+</button>
+                            </div>
+                          
                         </div>
 
                       </div>
 
-                      {/* Participantes */}
-                      <div className='MeioDir-baixo'>
-                        <h4>Nº de Participantes</h4>
-
-                        <div className="controle-participantes">
-                          <button onClick={() => setNPart(prev => Math.max(1, prev - 1))}>-</button>
-                          <input
-                            type="number"
-                            value={nPart}
-                            min="1"
-                            onChange={(e) => setNPart(Math.max(1, Number(e.target.value)))}
-                          />
-                          <button onClick={() => setNPart(prev => prev + 1)}>+</button>
-                        </div>
+                      <div className='SupDir-baixo'>
+                        <button onClick={() => setModalMarcarTrilha(false)}>Marcar Trilha</button>
                       </div>
-                    </div>
 
+                    </div>
                   </div>
 
                   <div className='ModalContent-Inf'>
-                    <button onClick={() => setModalMarcarTrilha(false)}>Marcar Trilha</button>
                     <button onClick={() => setModalMarcarTrilha(false)}>Fechar</button>
                   </div>
-
 
                 </div>
               </div>

@@ -40,14 +40,16 @@
 }
 /* ===== Caixa do modal ===== */
 .ModalContent {
+  height: 400px;
   width: 50%;
   border-radius: 25px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  gap: 25px;
   padding: 1%;
 
 
@@ -57,22 +59,27 @@
   
   animation: slideUp 0.35s ease; 
 }
-.ModalContent-Meio{
-  height: 100%;
+.ModalContent-Sup{
+  height: 90%;
   width: 100%;
 
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #0F5C3B;
+  
 }
-.ContentMeio-Esq{
+.ContentSup-Esq{
   height: 100%;
   width: 60%;
-  background-color: papayawhip;
+
+  display: flex;
+  flex-direction: column;
+
+  border-right: 2.5px solid #0F5C3B;
+  padding-right: 15px; 
 }
-.ContentMeio-Dir{
+.ContentSup-Dir{
   height: 100%;
   width: 40%;
 
@@ -80,20 +87,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap:10px;
 
-  background-color: palevioletred;
+  border-left: 2.5px dotted #0F5C3B;
+  padding-left: 15px;
 }
-.MeioDir-cima{
-  height: 60%;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: start;  
-}
-.MeioDir-baixo{
-  height: 40%;
+.SupDir-cima{
+  height: 75%;
   width: 100%;
 
   display: flex;
@@ -101,17 +100,74 @@
   justify-content: center;
   align-items: center;
 }
+.SupDirCima-sup{
+  height: 60%;
+  width: 100%;
+}
+.SupDirCima-sup{
+
+}
+.SupDirCimaSup1{
+  display: flex;
+  flex-direction: row;
+  gap: 7%;
+}
+.SupDirCimaSup2{
+  display: flex;
+  flex-direction: column;
+}
+.SupDirCimaSup2 label {
+  font-weight: 600;
+  margin-bottom: 2.5px;
+}
+.SupDirCimaSup2 textarea {
+  height: 75px;
+  width: 100%;
+  
+  display: flex;
+  text-align: start;
+  padding: 5px;
+
+  border-radius: 6px;
+  border: 1px solid #ccc;
+
+  resize: none;
+  font-family: inherit;
+}
+
+.SupDirCima-inf{
+  background-color: magenta;
+}
+.SupDirCima-inf{
+  height: 40%;
+  width: 100%;
+
+}
+.SupDir-baixo{
+  height: 25%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .ModalContent-Inf{
-  height: 100%;
-  width: 75%;
+  height: 10%;
+  width: 90%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 /* ===== Título ===== */
 .ModalContent h2 {
   text-align: center;
-  margin-bottom: 2%;
+  margin-bottom: 7%;
 
-  font-size: 26px;
+  font-size: 30px;
   font-weight: bold;
 
   color: #0F5C3B;
@@ -120,14 +176,13 @@
 .ModalContent p {
   margin: 8px 0;
 
-  font-size: 16px;
+  font-size: 20px;
   
   color: #333;
 }
 
 /* ===== Botão de Fechar ===== */
 .ModalContent button {
-  margin-top: 20px;
   width: 100%;
   padding: 12px;
   background-color: #0F5C3B;
@@ -168,15 +223,13 @@
 
 .campo {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 12px;
+  flex-direction: row;
+  align-items: center;
 }
-
 .campo label {
   font-weight: 600;
   margin-bottom: 4px;
 }
-
 .campo input {
   padding: 6px;
   border-radius: 6px;
