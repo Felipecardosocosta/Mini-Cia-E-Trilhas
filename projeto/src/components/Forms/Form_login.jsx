@@ -22,7 +22,7 @@ function Form_login() {
         if (resposta.status === 200) {
             Swal.fire({
                 position: "top-end",
-                
+                icon:"success",
                 title: "Login realizado com sucesso!",
                 showConfirmButton: false,
                 timer: 2000,
