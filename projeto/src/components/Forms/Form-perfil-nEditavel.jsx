@@ -28,6 +28,16 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
             setInfouser(dados.result)
             setCarregando(false)
             return
+        }else if(dados.mensagem ==="Token Invalido ou expirado"){
+
+            alert("Nessecarios fazer o login novamente")
+            setUser(false)
+            setMeusDados(false)
+
+            // apagar o localStorage "user"
+
+            
+
         }
 
 
@@ -100,8 +110,8 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
 
         <>
 
-            <div className='icone_nome'>
                 <button className='close_button' onClick={() => setMeusDados(false)}><SlClose color='#fff' /></button>
+            <div className='icone_nome'>
                 <VscAccount size={90} />
 
                 <h1>{infouser.nome}</h1>
@@ -112,7 +122,7 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
             <div className='dados_usuario'>
                 <p>E-mail: {infouser.email}</p>
                 <p>CPF: {infouser.cpf}</p>
-                <p>Telefone: {infouser.telefone} Ex: (48)99999-9999</p>
+                <p>Telefone: {infouser.num_celular || 'Ex: (48)99999-9999'} </p>
                 <button className='botao_editar' onClick={iniciarEdicao}>Editar Perfil</button>
                 <button className='botao_excluir' onClick={excluirPerfil}>Excluir perfil</button>
             </div>

@@ -3,8 +3,10 @@ import {Link} from 'react-router-dom'
 import './NavBar.css'
 import { Mycontext } from '../../context/ContextGlobalUser'
 import Dropdown from '../DropdownPerfil/Dropdown';
+import Perfil from '../Perfil/Perfil';
 
 function NavBar({transparent=false}) {
+
 
   // useEffect(() => {
   //   const localStorege = localStorage.getItem('user')
@@ -19,7 +21,7 @@ function NavBar({transparent=false}) {
     backgroundColor: transparent ? '#7b1e1ec5' : '#7B1E1E',
   };
 
-  const {user,setUser, setModalLogin, setModalPerfil,modalPerfil} = useContext(Mycontext)
+  const {user,setUser, setModalLogin, setModalPerfil,modalPerfil,meusDados} = useContext(Mycontext)
 
 
   return (
@@ -31,6 +33,7 @@ function NavBar({transparent=false}) {
         {!user ? <Link className='link' onClick={()=> setModalLogin(true)}>Login</Link>: <Dropdown transparent={transparent} perfil={modalPerfil}/> }
       
         {/* {!user && <Link className='link' to={'/cadastro'}>Cadastro</Link>}         */}
+        {meusDados && <Perfil/>}
         
     </nav>
   )
