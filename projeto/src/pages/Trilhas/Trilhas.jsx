@@ -37,7 +37,7 @@ function Trilhas() {
 
     if (infsTrilhas.ok) {
       setTrilhasBD(infsTrilhas.result)
-      console.log(infsTrilhas);
+      console.log("Inf TRILHAS", infsTrilhas);
       return
     }
     console.log(`Erro ao fazer a busca ${infsTrilhas}`);
@@ -129,7 +129,7 @@ function Trilhas() {
                           <div className='SupDirCimaSup1'>
 
                             {/* Data */}
-                            <div className="campo">
+                            <div className="SupDirCimaSup1-campo1">
                               <label>Dia: </label>
                               <input
                                 type="date"
@@ -140,7 +140,7 @@ function Trilhas() {
                             </div>
 
                             {/* Horário */}
-                            <div className="campo">
+                            <div className="SupDirCimaSup1-campo2">
                               <label>Horário:</label>
                               <input
                                 type="time"
@@ -166,7 +166,7 @@ function Trilhas() {
 
                         <div className='SupDirCima-inf'>
                           {/* Participantes */}
-                            <h4>Nº de Participantes</h4>
+                            <h4>Participantes, você e mais:</h4>
 
                             <div className="controle-participantes">
                               <button onClick={() => setNPart(prev => Math.max(1, prev - 1))}>-</button>

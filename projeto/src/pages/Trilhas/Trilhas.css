@@ -22,7 +22,7 @@
 }
 
 
-/* ===== Fundo escurecido + blur ===== */
+
 .ModalTrilha {
     width: 100vw;
     height: 100vh;
@@ -38,10 +38,10 @@
 
     backdrop-filter: blur(3px);    
 }
-/* ===== Caixa do modal ===== */
 .ModalContent {
   height: 400px;
-  width: 50%;
+  width: 75%;
+  max-width: 50%;
   border-radius: 25px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 
@@ -92,7 +92,7 @@
   padding-left: 15px;
 }
 .SupDir-cima{
-  height: 75%;
+  height: 80%;
   width: 100%;
 
   display: flex;
@@ -101,20 +101,59 @@
   align-items: center;
 }
 .SupDirCima-sup{
-  height: 60%;
+  height: 75%;
   width: 100%;
 }
-.SupDirCima-sup{
-
-}
 .SupDirCimaSup1{
-  display: flex;
-  flex-direction: row;
-  gap: 7%;
-}
-.SupDirCimaSup2{
+  height: 30%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 7%;
+}
+.SupDirCimaSup1-campo1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 75px;
+}
+.SupDirCimaSup1-campo1 label {
+  font-weight: 700;
+}
+.SupDirCimaSup1-campo1 input {
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.SupDirCimaSup1-campo2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 85px;
+}
+.SupDirCimaSup1-campo2 label {
+  font-weight: 700;
+}
+.SupDirCimaSup1-campo2 input {
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.SupDirCimaSup2{
+
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .SupDirCimaSup2 label {
   font-weight: 600;
@@ -134,25 +173,22 @@
   resize: none;
   font-family: inherit;
 }
-
 .SupDirCima-inf{
-  background-color: magenta;
-}
-.SupDirCima-inf{
-  height: 40%;
+  height: 25%;
   width: 100%;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .SupDir-baixo{
-  height: 25%;
+  height: 20%;
   width: 100%;
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-
 .ModalContent-Inf{
   height: 10%;
   width: 90%;
@@ -162,7 +198,7 @@
   align-items: center;
 }
 
-/* ===== Título ===== */
+
 .ModalContent h2 {
   text-align: center;
   margin-bottom: 7%;
@@ -172,7 +208,7 @@
 
   color: #0F5C3B;
 }
-/* ===== Parágrafos ===== */
+
 .ModalContent p {
   margin: 8px 0;
 
@@ -221,20 +257,6 @@
   }
 }
 
-.campo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.campo label {
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-.campo input {
-  padding: 6px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
 
 .controle-participantes {
   display: flex;
@@ -244,7 +266,7 @@
 
 .controle-participantes button {
   padding: 5px 12px;
-  font-size: 18px;
+  font-size: 20px;
   border: none;
   background: #1d5f91;
   color: white;
@@ -253,9 +275,20 @@
 }
 
 .controle-participantes input {
-  width: 55px;
+  width: 50px;
   text-align: center;
   padding: 5px;
   border-radius: 6px;
   border: 1px solid #bbb;
+}
+/* Remove as setas no Chrome, Edge e Safari */
+.controle-participantes input::-webkit-inner-spin-button,
+.controle-participantes input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove as setas no Firefox */
+.controle-participantes input[type=number] {
+  -moz-appearance: textfield;
 }
