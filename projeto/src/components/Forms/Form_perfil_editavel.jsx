@@ -47,9 +47,9 @@ function Form_perfil_editavel({editar, setEditar}) {
     return (
 
 
-        <div>
+        <>
 
-
+            <button className='close_button' onClick={() => setMeusDados(false)}><SlClose color='#fff' /></button>
             <div>
                 <div className='icone_nome'>
                     <VscAccount size={90} />
@@ -62,15 +62,15 @@ function Form_perfil_editavel({editar, setEditar}) {
                 <div className='dados_usuario'>
                     <p>Nome: {infouser.nome}</p>
                     <p>CPF: {infouser.cpf}</p>
-                    <label> E-mail: <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} placeholder=''/></label>
+                    <label style={{gap:'2rem'}}> E-mail: <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} placeholder=''/></label>
                     <label>Telefone: <input type="tel" value={telefone} onChange={(e)=> {setTelefone(e.target.value)}} placeholder='Ex: (48)99999-9999' /></label>
-                    <button className='botao_editar' onClick={salvardados}>Salvar dados</button>
+                    <button className='botao_editar' onClick={salvardados}>Salvar Dados</button>
                     <button className='botao_voltar' onClick={() => setEditar(false)}>Voltar</button>
 
                 </div>
             </div>
 
-        </div>
+        </>
     )
 }
 
