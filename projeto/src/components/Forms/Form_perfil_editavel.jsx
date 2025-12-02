@@ -39,9 +39,14 @@ function Form_perfil_editavel({editar, setEditar}) {
         console.log(resposta);
         
 
-        console.log("Dados enviados:", dadosAtualizados);
+        if(!resposta.ok){
+            alert(`mensagem de erro é :  ${resposta.mensagem}`)
+            return
+        }
 
-
+        alert("Dados alterados com sucesso")
+        setEditar(false)
+        return
     }
 
     return (

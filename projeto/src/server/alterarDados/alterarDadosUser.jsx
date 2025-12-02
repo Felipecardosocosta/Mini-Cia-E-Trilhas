@@ -34,7 +34,7 @@ const alterarDadosUser = async (token,user) => {
             return {ok:false, mensagem: error.response.data.mensagem}
         }
 
-        return {ok:false, error:error,mensagem:"Sem resposta do servidor"}
+        return {ok:false, error:error, mensagem:"Sem resposta do servidor"}
         
     }
 
