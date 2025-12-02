@@ -8,6 +8,8 @@ import CardsTrilhaOff from '../../components/Cards/CardsTrilhaOff'
 import buscarCardsTrilhaOff from '../../server/buscarInformacao/buscarCardsTrilhaOff'
 import buscarCardsTrilhaOn from '../../server/buscarInformacao/buscarCardsTrilhaOn'
 import CardsTrilhaOn from '../../components/Cards/CardsTrilhaOn'
+import cadastrarEvento from '../../server/inserirDados/cadastrarEvento'
+
 
 
 
@@ -60,6 +62,46 @@ function Trilhas() {
       alert("O horário não pode ser anterior ao horário atual.");
     }
   }
+
+  async function salvarTrilhaMarcada() {
+    if (!dataTrilha || !horaTrilha || !pntEnc) {
+      alert("Certifique-se de que você preencheu todos os campos")
+      return
+    }
+
+    const marcarTrilha = {
+      index: trilhaSelecionada.id_trilha,
+
+      nomeTrilha: trilhaSelecionada.nomeTrilha,
+      pontoInicial: trilhaSelecionada.pontoInicial,
+      pontoFinal: trilhaSelecionada.pontoFinal,
+      distancia: trilhaSelecionada.distância,
+      tempo: trilhaSelecionada.tempo,
+      relevo: trilhaSelecionada.tipoRelevo,
+      dificuldade: trilhaSelecionada.dificuldade,
+
+      dia: dataTrilha,
+      horario: horaTrilha,
+      pontoEncontro: pntEnc,
+      participantes: nPart
+    }
+
+    console.log("Dados da Trilha Marcada", marcarTrilha)
+
+    const result = await cadastrarEvento(user.token, marcarTrilha)
+
+    console.log("RETORNO DA API:", result); 
+    if (result.ok) {
+      alert("Trilha Marcada com Sucesso!")
+    } else {
+      alert(result.mensagem)
+    }
+
+    
+  }
+
+  
+
 
   return (
     <div>
@@ -117,7 +159,7 @@ function Trilhas() {
                       <p>Dificuldade: {trilhaSelecionada.dificuldade} // Relevo: {trilhaSelecionada.tipoRelevo}</p>
                     </div>
                     <div className='ContentSup-Meio'>
-                      
+
                     </div>
 
                     <div className='ContentSup-Dir'>
@@ -166,25 +208,25 @@ function Trilhas() {
 
                         <div className='SupDirCima-inf'>
                           {/* Participantes */}
-                            <h4>Participantes, você e mais:</h4>
+                          <h4>Participantes, você e mais:</h4>
 
-                            <div className="controle-participantes">
-                              <button onClick={() => setNPart(prev => Math.max(1, prev - 1))}>-</button>
-                              <input
-                                type="number"
-                                value={nPart}
-                                min="1"
-                                onChange={(e) => setNPart(Math.max(1, Number(e.target.value)))}
-                              />
-                              <button onClick={() => setNPart(prev => prev + 1)}>+</button>
-                            </div>
-                          
+                          <div className="controle-participantes">
+                            <button onClick={() => setNPart(prev => Math.max(1, prev - 1))}>-</button>
+                            <input
+                              type="number"
+                              value={nPart}
+                              min="1"
+                              onChange={(e) => setNPart(Math.max(1, Number(e.target.value)))}
+                            />
+                            <button onClick={() => setNPart(prev => prev + 1)}>+</button>
+                          </div>
+
                         </div>
 
                       </div>
 
                       <div className='SupDir-baixo'>
-                        <button onClick={() => setModalMarcarTrilha(false)}>Marcar Trilha</button>
+                        <button onClick={salvarTrilhaMarcada}>Marcar Trilha</button>
                       </div>
 
                     </div>
