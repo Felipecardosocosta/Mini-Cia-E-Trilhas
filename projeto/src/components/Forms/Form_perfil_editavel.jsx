@@ -1,12 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Mycontext } from '../../context/ContextGlobalUser'
 import { SlClose } from "react-icons/sl";
 import { VscAccount } from 'react-icons/vsc'
+import alterarDadosUser from '../../server/alterarDados/alterarDadosUser';
+
 
 
 function Form_perfil_editavel({editar, setEditar}) {
+    const [email, setEmail] = useState('');
+    const [telefone, setTelefone] = useState('');
 
-    const { infouser, setInfouser, setMeusDados } = React.useContext(Mycontext)
+    const { infouser, setInfouser, setMeusDados, user } = React.useContext(Mycontext)
+
+    useEffect(()=>{ 
+        console.log(infouser);
+        
+        setEmail(infouser.email)
+        if (infouser.num_celular) {
+            
+            setTelefone(infouser.num_celular)
+        }
+
+    },[])
+
+    async function salvardados(){
+
+        const dadosAtualizados = {
+          email,
+          celular:telefone,
+          senha: '1'
+        };
+          if (!dadosAtualizados.email || !dadosAtualizados.celular ) {
+            
+            return alert("Preencha os campos")
+        }
+        const resposta = await alterarDadosUser(user.token, dadosAtualizados);
+
+        console.log(resposta);
+        
+
+        console.log("Dados enviados:", dadosAtualizados);
+
+
+    }
 
     return (
 
@@ -15,15 +51,6 @@ function Form_perfil_editavel({editar, setEditar}) {
 
 
             <div>
-                {/* <label >Nome</label>
-            <input type="text" disabled value={infouser.nome} />
-            <label >E-mail</label>
-            <input type="text" value={infouser.email} />
-            <label >CPF</label>
-            <input type="text" disabled value={infouser.cpf} />
-            <label>Telefone:</label>
-            <input type="tel" disabled value={infouser.telefone} /> */}
-
                 <div className='icone_nome'>
                     <VscAccount size={90} />
 
@@ -33,11 +60,12 @@ function Form_perfil_editavel({editar, setEditar}) {
 
                 <div className='linha'></div>
                 <div className='dados_usuario'>
-                    <p>E-mail: {infouser.email}</p>
+                    <p>Nome: {infouser.nome}</p>
                     <p>CPF: {infouser.cpf}</p>
-                    <p>Telefone: {infouser.telefone} Ex: (48)99999-9999</p>
-                    <button className='botao_editar'>Salvar dados</button>
-                    <button className='botao_excluir' onClick={() => setEditar(false)}>Voltar</button>
+                    <label> E-mail: <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} placeholder=''/></label>
+                    <label>Telefone: <input type="tel" value={telefone} onChange={(e)=> {setTelefone(e.target.value)}} placeholder='Ex: (48)99999-9999' /></label>
+                    <button className='botao_editar' onClick={salvardados}>Salvar dados</button>
+                    <button className='botao_voltar' onClick={() => setEditar(false)}>Voltar</button>
 
                 </div>
             </div>

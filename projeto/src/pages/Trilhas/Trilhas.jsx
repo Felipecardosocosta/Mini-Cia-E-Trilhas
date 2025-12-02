@@ -13,10 +13,16 @@ import CardsTrilhaOn from '../../components/Cards/CardsTrilhaOn'
 
 function Trilhas() {
   const { user, modalLogin, setModalLogin, regTrilhas, setRegiao } = useContext(Mycontext)
+
   const [TrilhasBD, setTrilhasBD] = useState([])
 
   const [trilhaSelecionada, setTrilhaSelecionada] = useState(null)
   const [modalMarcarTrilha, setModalMarcarTrilha] = useState(false)
+
+  const [dataTrilha, setDataTrilha] = useState("")
+  const [horaTrilha, setHoraTrilha] = useState("")
+  const [pntEnc, setPntEnc] = useState("")
+  const [nPart, setNPart] = useState(1)
 
 
   useEffect(() => { pesquisaAPI() }, [user])
@@ -35,6 +41,24 @@ function Trilhas() {
       return
     }
     console.log(`Erro ao fazer a busca ${infsTrilhas}`);
+  }
+
+  function validarDiaHora(dataStr, horaStr) {
+    const agora = new Date();
+    const dataHora = new Date(`${dataStr}T${horaStr}`);
+
+    return dataHora >= agora;
+  }
+  function validarHora(e) {
+    const value = e.target.value;
+
+    if (!dataTrilha) return;
+
+    if (validarDiaHora(dataTrilha, value)) {
+      setHoraTrilha(value);
+    } else {
+      alert("O horário não pode ser anterior ao horário atual.");
+    }
   }
 
   return (
@@ -78,17 +102,98 @@ function Trilhas() {
 
             {modalMarcarTrilha && trilhaSelecionada && (
               <div className="ModalTrilha">
-                <div className="ModalContent">
-                  <h2>{trilhaSelecionada.nomeTrilha}</h2>
-                  <p>Ponto inicial: {trilhaSelecionada.pontoInicial}</p>
-                  <p>Ponto final: {trilhaSelecionada.pontoFinal}</p>
-                  <p>Distância: {trilhaSelecionada.distância}</p>
-                  <p>Tempo: {trilhaSelecionada.tempo}</p>
-                  <p>Dificuldade: {trilhaSelecionada.dificuldade}</p>
-                  <p>Relevo: {trilhaSelecionada.tipoRelevo}</p>
 
-                  <button onClick={() => setModalMarcarTrilha(false)}>Marcar Trilha</button>
-                  <button onClick={() => setModalMarcarTrilha(false)}>Fechar</button>
+                <div className="ModalContent">
+
+                  <div className='ModalContent-Sup'>
+
+                    <div className='ContentSup-Esq'>
+                      <h2>{trilhaSelecionada.nomeTrilha}</h2>
+
+                      <p>Ponto inicial: {trilhaSelecionada.pontoInicial}</p>
+                      <p>Ponto final: {trilhaSelecionada.pontoFinal}</p>
+                      <br></br>
+                      <p>Distância: {trilhaSelecionada.distância}Km / Tempo: {trilhaSelecionada.tempo}</p>
+                      <p>Dificuldade: {trilhaSelecionada.dificuldade} // Relevo: {trilhaSelecionada.tipoRelevo}</p>
+                    </div>
+                    <div className='ContentSup-Meio'>
+                      
+                    </div>
+
+                    <div className='ContentSup-Dir'>
+
+                      <div className='SupDir-cima'>
+
+                        <div className='SupDirCima-sup'>
+
+                          <div className='SupDirCimaSup1'>
+
+                            {/* Data */}
+                            <div className="campo">
+                              <label>Dia: </label>
+                              <input
+                                type="date"
+                                value={dataTrilha}
+                                min={new Date().toISOString().split("T")[0]}
+                                onChange={(e) => setDataTrilha(e.target.value)}
+                              />
+                            </div>
+
+                            {/* Horário */}
+                            <div className="campo">
+                              <label>Horário:</label>
+                              <input
+                                type="time"
+                                value={horaTrilha}
+                                onChange={validarHora}
+                                disabled={!dataTrilha} // só libera depois de escolher a data
+                              />
+                            </div>
+
+                          </div>
+
+                          <div className='SupDirCimaSup2'>
+                            {/* Ponto de Encontro */}
+                            <label>Ponto de Encontro:</label>
+                            <textarea
+                              value={pntEnc}
+                              placeholder="Digite o local..."
+                              onChange={(e) => setPntEnc(e.target.value)}
+                            />
+                          </div>
+
+                        </div>
+
+                        <div className='SupDirCima-inf'>
+                          {/* Participantes */}
+                            <h4>Nº de Participantes</h4>
+
+                            <div className="controle-participantes">
+                              <button onClick={() => setNPart(prev => Math.max(1, prev - 1))}>-</button>
+                              <input
+                                type="number"
+                                value={nPart}
+                                min="1"
+                                onChange={(e) => setNPart(Math.max(1, Number(e.target.value)))}
+                              />
+                              <button onClick={() => setNPart(prev => prev + 1)}>+</button>
+                            </div>
+                          
+                        </div>
+
+                      </div>
+
+                      <div className='SupDir-baixo'>
+                        <button onClick={() => setModalMarcarTrilha(false)}>Marcar Trilha</button>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div className='ModalContent-Inf'>
+                    <button onClick={() => setModalMarcarTrilha(false)}>Fechar</button>
+                  </div>
+
                 </div>
               </div>
             )}
