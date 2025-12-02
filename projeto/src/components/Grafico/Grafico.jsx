@@ -1,17 +1,48 @@
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import './Grafico.css'; 
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Mycontext } from '../../context/ContextGlobalUser';
+import buscarInfosDashBord from '../../server/buscarInformacao/buscarInfosDashBord';
 
 const Grafico = () => {
 
   const {user} = useContext(Mycontext)
-  console.log(user);
+
+  const [dadosDas,setDadosDas]= useState({})
+
+  console.log(user.token);
   
+  async function buscarDados(localStorege) {
+    
+     const dados= await buscarInfosDashBord(localStorege.token)
+
+     console.log(dados);
+     
+    if (dados.ok) {
+
+      setDadosDas(dados.result)
+      return
+      
+    }
+
+  }
+
+  useEffect(()=>{ 
+    const localStorege = JSON.parse(localStorage.getItem('user'))
+  
+      if (localStorege) {
+        buscarDados(localStorege)
+        
+      }
+    
+    
+  },[])
+
+
  
   const dataLine = [
-    { name: 'Jan', trilhas: 2 },
+    { name: 'Jan', trilhas: 1 },
     { name: 'Fev', trilhas: 3 },
     { name: 'Mar', trilhas: 1 },
     { name: 'Abr', trilhas: 4 },
@@ -24,13 +55,19 @@ const Grafico = () => {
     { name: 'Nov', trilhas: 5 },
     { name: 'Dez', trilhas: 4 },
   ];
+   
+
 
  
-  const dataPie = [
-    { name: 'Norte', value: 30, color: '#4F46E5' },   
-    { name: 'Leste', value: 40, color: '#10B981' },   
-    { name: 'Norte', value: 30, color: '#EF4444' },   
+  const dataPie = [ 
+     
+    
+    { name: 'Região Central', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Central) , color: '#4F46E5' },   
+    { name: 'Região Leste', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Leste), color: '#10B981' },   
+    { name: 'Região Norte', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Norte), color: '#EF4444' },   
+    { name: 'Região Sul', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Sul), color: '#44efe1ff' }
   ];
+
 
   return (
     <div className="dashboard-container">
@@ -55,6 +92,8 @@ const Grafico = () => {
 
       
         <div className="chart-card pie-chart">
+          <h3>Quantidade de Trilhas</h3>
+      
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
@@ -90,16 +129,24 @@ const Grafico = () => {
         <div className="stats-card">
           <h3>Estatísticas</h3>
           <div className="stat-item">
-            <span>Trilhas concluídas:</span>
-            <strong>32</strong>
+            <span>Total De Distancia Percorrida:</span>
+            <strong>{dadosDas && dadosDas.Distancia_Total_Percorrida_em_Km}</strong>
           </div>
           <div className="stat-item">
-            <span>Horas em trilha:</span>
-            <strong>50h</strong>
+            <span>Distancia Percorrida Região Central:</span>
+            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Central_em_Km}</strong>
           </div>
           <div className="stat-item">
-            <span>Horas em trilha:</span>
-            <strong>50h</strong>
+            <span>Distancia Percorrida Região Leste:</span>
+            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Leste_em_Km}</strong>
+          </div>
+           <div className="stat-item">
+            <span>Distancia Percorrida Região Norte:</span>
+            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Norte_em_Km}</strong>
+          </div>
+           <div className="stat-item">
+            <span>Distancia Percorrida Região Sul:</span>
+            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Sul_em_Km}</strong>
           </div>
         </div>
 
