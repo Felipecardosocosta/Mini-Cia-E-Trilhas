@@ -14,7 +14,7 @@ function Form_alterarSenha() {
               <div className='circulo_lock'>
               <RiLock2Fill/>
               </div>
-                <h1>ALTERAR SENHA</h1>
+                <h1 className='testeH1'>ALTERAR SENHA</h1>
             </div>
 
             <div className='alterarSenha_inputs'>
