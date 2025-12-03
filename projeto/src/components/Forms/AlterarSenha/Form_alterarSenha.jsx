@@ -4,6 +4,7 @@ import React from 'react'
 
 
 function Form_alterarSenha() {
+   const {user,setUser, setModalLogin, setModalPerfil,modalPerfil,meusDados, setMeusDados, setModalPerfi, setAlterarSenha } = React.useContext(Mycontext)
   return (
     <div className='fundo_modal_alter'>
         <div className='modal_alterarSenha'>
@@ -27,7 +28,7 @@ function Form_alterarSenha() {
               </div>
             <div className='buttons_alterarSenha'>
 
-                <button className='button_cancelar'>Calcelar</button>
+                <button className='button_cancelar' onClick={()=>setAlterarSenha(false)}>Calcelar</button>
                 <button className='button_alterar'>Alterar Senha</button>
             </div>
             </div>
