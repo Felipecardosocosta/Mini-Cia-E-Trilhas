@@ -1,6 +1,7 @@
 import React from 'react'
  import './form_alterarSenha.css'
  import { RiLock2Fill } from "react-icons/ri";
+import { Mycontext } from '../../../context/ContextGlobalUser';
 
 
 function Form_alterarSenha() {
