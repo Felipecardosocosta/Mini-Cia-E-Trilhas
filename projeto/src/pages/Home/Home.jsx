@@ -20,7 +20,6 @@ function Home() {
     <div className='cont-home'>
       <Header transparent/>
       {modalLogin && <Login/>}
-      {/* {meusDados && <Perfil/>} */}
 
       <div className='cont-info-home'>
 

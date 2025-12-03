@@ -7,9 +7,8 @@ import { Mycontext } from '../../context/ContextGlobalUser';
 
 function Dropdown({perfil,transparent}) {
 
-    const [alterarSenha, setAlterarSenha] = React.useState(false);
     const [sair, setSair] = React.useState(false);
-    const {user,setUser, setModalLogin, setModalPerfil,modalPerfil,meusDados, setMeusDados, setModalPerfi} = React.useContext(Mycontext)
+    const {user,setUser, setModalLogin, setModalPerfil,modalPerfil,meusDados, setMeusDados, setModalPerfi, setAlterarSenha } = React.useContext(Mycontext)
 
 
     function botaoDeslogar() {
@@ -23,14 +22,18 @@ function Dropdown({perfil,transparent}) {
         setModalPerfil(false)
     }
 
+    function abrirAlterarSenha() {
+        setAlterarSenha(true)
+    }
+
 
     return (
         <div className='dropdown'>
             <Link className='link' onClick={()=> modalPerfil? setModalPerfil(false):setModalPerfil(true) }>Perfil</Link>
-          
+            
             <div className={`dropdown-menu ${perfil ? 'show' : ''} ${transparent? "transparente": ""}`}>
                 <button onClick={abrirdados}>Meus dados</button>
-                <button onClick={(e)=> setAlterarSenha(e.target.value)}>Alterar senha</button>
+                <button onClick={abrirAlterarSenha}>Alterar senha</button>
                 <button onClick={botaoDeslogar}>Sair</button>
             </div>
             

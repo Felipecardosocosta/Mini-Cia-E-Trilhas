@@ -12,6 +12,7 @@ export const  ContextGlobalUser = ({children})=> {
   const [modalPerfil, setModalPerfil] = useState(false)
   const [meusDados, setMeusDados] = useState(false)
   const [infouser, setInfouser] = useState({})
+  const [alterarSenha, setAlterarSenha] = useState(false)
 
 
   useEffect(() => {
@@ -24,7 +25,8 @@ export const  ContextGlobalUser = ({children})=> {
 
   return (
 
-    <Mycontext.Provider value={{regTrilhas, setRegiao, barraPesq, setBarraPesq, user,setUser, modalLogin, setModalLogin, isActive, setIsActive, modalPerfil,meusDados, setMeusDados, setModalPerfil, infouser, setInfouser}}>
+    <Mycontext.Provider value={{regTrilhas, setRegiao, barraPesq, setBarraPesq, user,setUser, modalLogin, setModalLogin, isActive, setIsActive, 
+    modalPerfil,meusDados, setMeusDados, setModalPerfil, infouser, setInfouser, alterarSenha, setAlterarSenha}}>
         {children}
     </Mycontext.Provider>
 

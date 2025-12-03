@@ -1,0 +1,160 @@
+.fundo_modal_alter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9000;
+    font-size: clamp(.6rem, 1vw, 1.5rem);
+}
+
+.modal_alterarSenha {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(150deg, #700808d3, #1e0202f6);
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    width: 35%;
+    height: 50vh;
+    max-width: 100%;
+}
+
+.circulo_lock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    height: 12vh;
+    width: 12vh;
+    border: solid 2px white;
+    border-radius: 100%;
+}
+
+.icone_h1 {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    height: 50%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    color: #fff;
+}
+
+.alterarSenha_inputs {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 50%;
+}
+
+.input_senhaAtual {
+    padding: 1rem 0 0 0;
+    width: 100%;
+    display: flex;
+    height: 33%;
+
+}
+
+.input_senhaAtual label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 .9rem 0 .9rem;
+    width: 100%;
+    font-size: clamp(1rem, 1vw, 3rem);
+}
+
+.input_senhaAtual input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #D3D3D3;
+    outline: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.input_senhaAtual :focus {
+    border-bottom-color: #700808d3;
+}
+
+.input_senhaNova {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    height: 33%;
+    padding: 0rem .9rem 0 .9rem;
+
+}
+
+.input_senhaNova input {
+    background-color: transparent;
+    border: none;
+    padding: 1rem 0 .5rem 0;
+    border-bottom: 2px solid #D3D3D3;
+    outline: none;
+    font-size: clamp(1rem, 1vw, 3rem);
+    width: 50%;
+}
+
+.input_senhaNova :focus {
+    border-bottom-color: #700808d3;
+}
+
+.input_senhaNova input::placeholder {
+    color: black;
+}
+
+.buttons_alterarSenha {
+    height: 25%;
+    background-color: white;
+}
+
+.buttons_alterarSenha button {}
+
+.button_cancelar {
+    background-color: rgb(170, 14, 14);
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    font-size: clamp(1.5rem, 1vw, 3rem);
+    width: 25%;
+    height: 3rem;
+}
+
+.button_alterar {
+    background-color: #447A9C;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    font-size: clamp(1.5rem, 1vw, 3rem);
+    width: 30%;
+    height: 3rem;
+    
+
+}
+
+.buttons_alterarSenha {
+    display: flex;
+    width: 100%;
+    margin-bottom: .3rem;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 33%;
+    gap: 1rem;
+    padding: 2rem 1rem .5rem 0;
+}
