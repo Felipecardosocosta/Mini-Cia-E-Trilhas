@@ -24,7 +24,7 @@ function Home() {
       <div className='cont-info-home'>
 
         <div className='cont-paragraphs'>
-          <h1>Aventura te espera: Descruba todas
+          <h1 className='teste2ponto0' >Aventura te espera: Descruba todas
             as
             <br />trilhas de Florianopólis</h1>
           <p>
