@@ -1,20 +1,18 @@
 import { useContext } from "react"
 import { Mycontext } from "../../context/ContextGlobalUser"
+import './CardsEvento.css'
 
 function CardsTrilhaOn(props) {
     const { user, setUser, modalLogin, setModalLogin, setModalPerfil, modalPerfil } = useContext(Mycontext)
 
-    const inverter = {
-    flexDirection: "row"
-    }
-    if (props.ind %2!==0) {
-        inverter.flexDirection = "row-reverse"
-        console.log(props.ind)
-        
-    }
+    const ContCardsTrilhas = props.ind % 2 === 0
+    ? "Cont-CardsTrilhas1" : "Cont-CardsTrilhas2"
+
+    const Loginbttn = props.ind % 2 === 0
+    ? "Login-bttn1" : "Login-bttn2"
 
     return (
-        <div className='Cont-CardsTrilhas' style={inverter}>
+        <div className={ContCardsTrilhas}>
             <div className='CardsTrilhas'>
                 <p>{props.id}</p>
                 <p>{props.tri}</p>
@@ -28,7 +26,7 @@ function CardsTrilhaOn(props) {
 
             {console.log(props.tri)}
 
-            <div className='Login-bttn'>
+            <div className={Loginbttn}>
                 <button className='Bttn' onClick={user ? ()=> props.abrirModal() : ()=> {}}> <img className='Bttn-img' src="Icones/icon-bttnTrilhas.svg" alt="icone" /> </button>
             </div>
 

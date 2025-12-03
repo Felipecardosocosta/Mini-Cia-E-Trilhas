@@ -1,43 +1,55 @@
-.Trilha-cont{
-    height: 100%;
-    width: 100%;
+.Trilha-cont {
+  height: 100%;
+  width: 100%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+
 }
 
-.Cont-cards{
-    height: 100%;
-    width: 95%;
+.Cont-cards {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-    display: flex;
-    flex-direction: row;
 }
-.Cards-trilhas{
-    height: 100%;
-    width: 100%;
+
+.Cards-trilhas {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
 }
 
 
 
 .ModalTrilha {
-    width: 100vw;
-    height: 100vh;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100vw;
+  height: 100vh;
 
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    backdrop-filter: blur(3px);    
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  backdrop-filter: blur(3px);
 }
+
 .ModalContent {
   height: 400px;
   width: 75%;
@@ -53,13 +65,14 @@
   padding: 1%;
 
 
-  background: rgba(255, 255, 255,1);
+  background: rgba(255, 255, 255, 1);
   color: #222;
   font-family: Arial, sans-serif;
-  
-  animation: slideUp 0.35s ease; 
+
+  animation: slideUp 0.35s ease;
 }
-.ModalContent-Sup{
+
+.ModalContent-Sup {
   height: 90%;
   width: 100%;
 
@@ -67,9 +80,10 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  
+
 }
-.ContentSup-Esq{
+
+.ContentSup-Esq {
   height: 100%;
   width: 60%;
 
@@ -77,9 +91,10 @@
   flex-direction: column;
 
   border-right: 2.5px solid #0F5C3B;
-  padding-right: 15px; 
+  padding-right: 15px;
 }
-.ContentSup-Dir{
+
+.ContentSup-Dir {
   height: 100%;
   width: 40%;
 
@@ -91,7 +106,8 @@
   border-left: 2.5px dotted #0F5C3B;
   padding-left: 15px;
 }
-.SupDir-cima{
+
+.SupDir-cima {
   height: 80%;
   width: 100%;
 
@@ -100,26 +116,31 @@
   justify-content: center;
   align-items: center;
 }
-.SupDirCima-sup{
+
+.SupDirCima-sup {
   height: 75%;
   width: 100%;
 }
-.SupDirCimaSup1{
+
+.SupDirCimaSup1 {
   height: 30%;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 7%;
 }
+
 .SupDirCimaSup1-campo1 {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 75px;
 }
+
 .SupDirCimaSup1-campo1 label {
   font-weight: 700;
 }
+
 .SupDirCimaSup1-campo1 input {
   height: 25px;
   display: flex;
@@ -129,15 +150,18 @@
   border-radius: 6px;
   border: 1px solid #ccc;
 }
+
 .SupDirCimaSup1-campo2 {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 85px;
 }
+
 .SupDirCimaSup1-campo2 label {
   font-weight: 700;
 }
+
 .SupDirCimaSup1-campo2 input {
   height: 25px;
   display: flex;
@@ -147,7 +171,8 @@
   border-radius: 6px;
   border: 1px solid #ccc;
 }
-.SupDirCimaSup2{
+
+.SupDirCimaSup2 {
 
   height: 70%;
   width: 100%;
@@ -155,14 +180,16 @@
   flex-direction: column;
   justify-content: center;
 }
+
 .SupDirCimaSup2 label {
   font-weight: 600;
   margin-bottom: 2.5px;
 }
+
 .SupDirCimaSup2 textarea {
   height: 75px;
   width: 100%;
-  
+
   display: flex;
   text-align: start;
   padding: 5px;
@@ -173,7 +200,8 @@
   resize: none;
   font-family: inherit;
 }
-.SupDirCima-inf{
+
+.SupDirCima-inf {
   height: 25%;
   width: 100%;
   display: flex;
@@ -181,7 +209,8 @@
   justify-content: center;
   align-items: center;
 }
-.SupDir-baixo{
+
+.SupDir-baixo {
   height: 20%;
   width: 100%;
 
@@ -189,7 +218,8 @@
   justify-content: center;
   align-items: center;
 }
-.ModalContent-Inf{
+
+.ModalContent-Inf {
   height: 10%;
   width: 90%;
 
@@ -213,7 +243,7 @@
   margin: 8px 0;
 
   font-size: 20px;
-  
+
   color: #333;
 }
 
@@ -238,9 +268,10 @@
 /* ===== ANIMAÇÕES ===== */
 
 @keyframes fadeIn {
-  from { 
+  from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -251,6 +282,7 @@
     transform: translateY(40px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -281,6 +313,7 @@
   border-radius: 6px;
   border: 1px solid #bbb;
 }
+
 /* Remove as setas no Chrome, Edge e Safari */
 .controle-participantes input::-webkit-inner-spin-button,
 .controle-participantes input::-webkit-outer-spin-button {

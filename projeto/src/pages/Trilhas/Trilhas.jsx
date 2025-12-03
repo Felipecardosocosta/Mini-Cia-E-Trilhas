@@ -28,11 +28,12 @@ function Trilhas() {
 
 
   useEffect(() => { pesquisaAPI() }, [user])
-
+  const localStorege = JSON.parse(localStorage.getItem('user'))
+  
   async function pesquisaAPI(params) {
     let infsTrilhas
-    if (user) {
-      infsTrilhas = await buscarCardsTrilhaOn(user.token)
+    if (localStorege) {
+      infsTrilhas = await buscarCardsTrilhaOn(localStorege.token)
     } else {
       infsTrilhas = await buscarCardsTrilhaOff()
     }
@@ -70,21 +71,13 @@ function Trilhas() {
     }
 
     const marcarTrilha = {
-      index: trilhaSelecionada.id_trilha,
-
-      nomeTrilha: trilhaSelecionada.nomeTrilha,
-      pontoInicial: trilhaSelecionada.pontoInicial,
-      pontoFinal: trilhaSelecionada.pontoFinal,
-      distancia: trilhaSelecionada.distância,
-      tempo: trilhaSelecionada.tempo,
-      relevo: trilhaSelecionada.tipoRelevo,
-      dificuldade: trilhaSelecionada.dificuldade,
-
+      trilha_id: trilhaSelecionada.id_trilha,
       dia: dataTrilha,
       horario: horaTrilha,
-      pontoEncontro: pntEnc,
-      participantes: nPart
+      ponto_de_encontro: pntEnc,
+      vagas: nPart
     }
+
 
     console.log("Dados da Trilha Marcada", marcarTrilha)
 
@@ -134,6 +127,7 @@ function Trilhas() {
                 />
               ) : (
                 <CardsTrilhaOff
+                  ind={index}
                   nome={trilha.nomeTrilha}
                   dis={trilha.distância}
                   tmp={trilha.tempo}

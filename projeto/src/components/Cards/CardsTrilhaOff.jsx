@@ -1,14 +1,21 @@
-
 import { useContext } from 'react'
 import './CardsEvento.css'
 import { Mycontext } from '../../context/ContextGlobalUser'
 
 function CardsTrilhaOff(props) {
-
     const {user,setUser, modalLogin, setModalLogin, setModalPerfil,modalPerfil} = useContext(Mycontext)
 
+    const inverter = {
+    flexDirection: "row"
+    }
+    if (props.ind %2!==0) {
+        inverter.flexDirection = "row-reverse"
+        console.log(props.ind)
+        
+    }
+
     return (
-        <div className='Cont-CardsTrilhas'>
+        <div className='Cont-CardsTrilhas'style={inverter}>
             <div className='CardsTrilhas'>
                 <p>{props.nome}</p>
                 <p>Dist.: {props.dis}</p>
