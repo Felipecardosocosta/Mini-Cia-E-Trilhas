@@ -2,56 +2,89 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import Login from '../../components/Login/Login'
 import { Mycontext } from '../../context/ContextGlobalUser'
-import CardsEvento from '../../components/Cards/CardsEvento'
+import CardsAgendaOn from '../../components/Cards/CardsAgendaOn'
+import CardsAgendaOff from '../../components/Cards/CardsAgendaOff'
 import buscarCardsAgendaOff from '../../server/buscarInformacao/buscarCardsAgendaOff'
+import participarEvento from '../../server/inserirDados/participarEvento'
 import './Agenda.css'
 import MenuPesq from '../../components/MenuPesq/MenuPesq'
-
+import axios from 'axios';
 function Eventos() {
 
-  const [agenda, setAgenda] = useState ([])
+  const [agenda, setAgenda] = useState([])
 
-  async function pesquisaAPI(params) {
-    
+  const { modalLogin, setModalLogin, user } = React.useContext(Mycontext)
+
+  async function pesquisaAPI() {
     const dados = await buscarCardsAgendaOff()
 
     if (dados.ok) {
-      
-      setAgenda (dados.resultado)
+      setAgenda(dados.resultado)
       return
     }
 
-    console.log(dados);
-    
+    console.log(dados)
   }
 
+  useEffect(() => { pesquisaAPI() }, [])
 
-  useEffect(()=> {pesquisaAPI()}, [])
-  const {modalLogin, setModalLogin} = React.useContext(Mycontext)
+  // ------------------------------
+  // FUNÇÃO DE PARTICIPAR DO EVENTO
+  // ------------------------------
+  async function participar(evento) {
 
-  
+    if (!user || !user.token) {
+      alert("Você precisa fazer login para participar.")
+      setModalLogin(true)
+      return
+    }
+
+    const resposta = await participarEvento(user.token, evento.id_evento)
+
+    if (resposta.ok) {
+      alert(resposta.mensagem)
+    } else {
+      alert(resposta.mensagem)
+    }
+  }
+
   return (
     <div className='Agenda-cont'>
       <div>
-      <Header/>
-      {modalLogin && <Login/>}
+        <Header />
+        {modalLogin && <Login />}
       </div>
 
-
-      <div className='Cont-MenuPesq'> <MenuPesq /> </div>
+      <div className='Cont-MenuPesq'>
+        <MenuPesq />
+      </div>
 
       <div className='Cards-Eventos'>
-        {/* {console.log(agenda)} */}
         
         {agenda.length > 0 &&
-        agenda.map(evento => (
-        <CardsEvento
-          nomeTrilha={evento["nomeTrilha"]}
-          data={new Date(evento["data"]).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
-          horario={evento["horário"]}
-          vagas={evento["vagasDisp"]} />
-          ))}
-    
+          agenda.map((evento, index) => (
+            user ? (
+              <CardsAgendaOn
+                key={index}
+                nomeTrilha={evento.nomeTrilha}
+                data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
+                horario={evento.horário}
+                vagas={evento.vagasDisp}
+                participar={() => participar(evento)}
+              />
+            ) : (
+              <CardsAgendaOff
+                key={index}
+                nomeTrilha={evento.nomeTrilha}
+                data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
+                horario={evento.horário}
+                vagas={evento.vagasDisp}
+                abrirLogin={() => setModalLogin(true)}
+              />
+            )
+          ))
+        }
+
       </div>
     </div>
   )
