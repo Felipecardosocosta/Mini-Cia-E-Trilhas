@@ -19,7 +19,7 @@ function Form_alterarSenha() {
 
             <div className='alterarSenha_inputs'>
               <div className='input_senhaAtual'>
-                <label >Senha Atual<input type="passsword" /></label>
+                <label >Senha Atual;<input type="passsword" /></label>
 
               </div>
               <div className='input_senhaNova'>
