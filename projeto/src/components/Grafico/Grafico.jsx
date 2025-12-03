@@ -42,18 +42,18 @@ const Grafico = () => {
 
  
   const dataLine = [
-    { name: 'Jan', trilhas: 1 },
-    { name: 'Fev', trilhas: 3 },
-    { name: 'Mar', trilhas: 1 },
-    { name: 'Abr', trilhas: 4 },
-    { name: 'Mai', trilhas: 6 },
-    { name: 'Jun', trilhas: 8 },
-    { name: 'Jul', trilhas: 5 },
-    { name: 'Ago', trilhas: 7 },
-    { name: 'Set', trilhas: 4 },
-    { name: 'Out', trilhas: 3 },
-    { name: 'Nov', trilhas: 5 },
-    { name: 'Dez', trilhas: 4 },
+    { name: 'Jan', trilhas: dadosDas.Janeiro},
+    { name: 'Fev', trilhas: dadosDas.Fevereiro},
+    { name: 'Mar', trilhas: dadosDas.Março},
+    { name: 'Abr', trilhas: dadosDas.Abril},
+    { name: 'Mai', trilhas: dadosDas.Maio},
+    { name: 'Jun', trilhas: dadosDas.Junho},
+    { name: 'Jul', trilhas: dadosDas.Julho },
+    { name: 'Ago', trilhas: dadosDas.Agosto },
+    { name: 'Set', trilhas: dadosDas.Setembro },
+    { name: 'Out', trilhas: dadosDas.Outubro },
+    { name: 'Nov', trilhas: dadosDas.Novembro },
+    { name: 'Dez', trilhas: dadosDas.Dezembro },
   ];
    
 
@@ -62,10 +62,10 @@ const Grafico = () => {
   const dataPie = [ 
      
     
-    { name: 'Região Central', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Central) , color: '#4F46E5' },   
-    { name: 'Região Leste', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Leste), color: '#10B981' },   
-    { name: 'Região Norte', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Norte), color: '#EF4444' },   
-    { name: 'Região Sul', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Sul), color: '#44efe1ff' }
+    { name: 'Região Central', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Central) , color: '#000000' },   
+    { name: 'Região Leste', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Leste), color: '#00A2E8' },   
+    { name: 'Região Norte', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Norte), color: '#FFF200' },   
+    { name: 'Região Sul', value: Number(dadosDas.Quantidade_de_Trilhas_na_Regiao_Sul), color: '#22B14C' }
   ];
 
 
@@ -155,16 +155,9 @@ const Grafico = () => {
           <h3>Atividades recentes</h3>
           <div className="activity-list">
             <div className="activity-item">
-              <span>Trilha Lagoinha do Leste</span>
-              <span className="status concluida">Concluída 100%</span>
-            </div>
-            <div className="activity-item">
-              <span>Trilha Do Gravata</span>
-              <span className="status concluida">Concluída 100%</span>
-            </div>
-            <div className="activity-item">
-              <span>Trilha Do Morro Das Aranhas</span>
-              <span className="status concluida">Concluída 100%</span>
+              <span>Total de Trilhas Feitas</span>
+              {dadosDas && dadosDas.Total_de_Trilhas_Feitas}
+            
             </div>
           </div>
           <div className="completion-circle">
