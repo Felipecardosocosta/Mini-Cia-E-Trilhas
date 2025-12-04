@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import './CardsEvento.css'
 import { Mycontext } from '../../context/ContextGlobalUser'
 
 function CardsTrilhaOff(props) {

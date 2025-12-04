@@ -13,6 +13,8 @@ function Eventos() {
 
   const [agenda, setAgenda] = useState([])
 
+  const [atualizar, setAtualiza] = useState(false)
+
   const { modalLogin, setModalLogin, user } = React.useContext(Mycontext)
 
   async function pesquisaAPI() {
@@ -26,7 +28,7 @@ function Eventos() {
     console.log(dados)
   }
 
-  useEffect(() => { pesquisaAPI() }, [])
+  useEffect(() => { pesquisaAPI() }, [atualizar])
 
   // ------------------------------
   // FUNÇÃO DE PARTICIPAR DO EVENTO
@@ -43,6 +45,7 @@ function Eventos() {
 
     if (resposta.ok) {
       alert(resposta.mensagem)
+      setAtualiza(atualizar? false: true)
     } else {
       alert(resposta.mensagem)
     }

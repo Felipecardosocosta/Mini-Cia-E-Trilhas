@@ -1,3 +1,107 @@
-.CardsAgenda{
-    
+.CardsAgenda {}
+
+/* ------------------------ */
+
+.Cont-cardsTrilhas {
+    background-color: magenta;
+    height: 200px;
+    width: 95%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.Bttn{
+    height: 100%;
+    width: 75%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.Bttn-img{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(112, 8, 8, 1);
+
+    border: solid 2px;
+    border-color: black;
+    border-radius: 25px;
+
+}
+
+
+
+.Cont-CardsTrilhasE {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+.CardsTrilha-ImgD{
+    background-color: transparent;
+    height: 100%;
+    width: 20%;
+}
+.CardsTrilhas-InfD{
+    background-color: whitesmoke;
+    color: black;
+    height: 100%;
+    width: 60%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0.5rem 0.5rem;
+}
+.CardsTrilhas-BttnD{
+    background-color: transparent;
+    height: 100%;
+    width: 20%;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+/* ----- INVERTIDO ----- */
+
+
+.Cont-CardsTrilhasD {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row-reverse;
+}
+.CardsTrilha-ImgE{
+    background-color: transparent;
+    height: 100%;
+    width: 20%;
+}
+.CardsTrilhas-InfE{
+    background-color: darkgray;
+    color: white;
+    height: 100%;
+    width: 60%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0.5rem 0.5rem;
+}
+.CardsTrilhas-BttnE{
+    background-color: transparent;
+    height: 100%;
+    width: 20%;
+
+    display: flex;
+    justify-content: flex-start;
 }

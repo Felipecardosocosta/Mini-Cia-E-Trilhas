@@ -29,7 +29,7 @@ function Trilhas() {
 
   useEffect(() => { pesquisaAPI() }, [user])
   const localStorege = JSON.parse(localStorage.getItem('user'))
-  
+
   async function pesquisaAPI(params) {
     let infsTrilhas
     if (localStorege) {
@@ -83,17 +83,17 @@ function Trilhas() {
 
     const result = await cadastrarEvento(user.token, marcarTrilha)
 
-    console.log("RETORNO DA API:", result); 
+    console.log("RETORNO DA API:", result);
     if (result.ok) {
       alert("Trilha Marcada com Sucesso!")
     } else {
       alert(result.mensagem)
     }
 
-    
+
   }
 
-  
+
 
 
   return (
@@ -105,138 +105,136 @@ function Trilhas() {
 
       <div className='Trilha-cont'>
 
-        <MenuPesq />
+        <div className='Cont-menuPesq'> <MenuPesq /> </div>
 
-        <div className='Cont-cards'>
+        <div className='Cards-trilhas'>
+          {console.log("AQUI =>", TrilhasBD)}
 
-          <div className='Cards-trilhas'>
-            {console.log("AQUI =>", TrilhasBD)}
+          {TrilhasBD.length > 0 && TrilhasBD.map((trilha, index) => (
+            user ? (
+              <CardsTrilhaOn
+                ind={index}
+                tri={trilha.nomeTrilha}
+                ini={trilha.pontoInicial}
+                fim={trilha.pontoFinal}
+                dis={trilha.distância}
+                tmp={trilha.tempo}
+                rlv={trilha.tipoRelevo}
+                dif={trilha.dificuldade}
+                abrirModal={() => { setTrilhaSelecionada(trilha), setModalMarcarTrilha(true) }}
+              />
+            ) : (
+              <CardsTrilhaOff
+                ind={index}
+                nome={trilha.nomeTrilha}
+                dis={trilha.distância}
+                tmp={trilha.tempo}
+                dif={trilha.dificuldade}
+              />
+            )
+          ))}
 
-            {TrilhasBD.length > 0 && TrilhasBD.map((trilha, index) => (
-              user ? (
-                <CardsTrilhaOn
-                  ind={index}
-                  tri={trilha.nomeTrilha}
-                  ini={trilha.pontoInicial}
-                  fim={trilha.pontoFinal}
-                  dis={trilha.distância}
-                  tmp={trilha.tempo}
-                  rlv={trilha.tipoRelevo}
-                  dif={trilha.dificuldade}
-                  abrirModal={() => { setTrilhaSelecionada(trilha), setModalMarcarTrilha(true) }}
-                />
-              ) : (
-                <CardsTrilhaOff
-                  ind={index}
-                  nome={trilha.nomeTrilha}
-                  dis={trilha.distância}
-                  tmp={trilha.tempo}
-                  dif={trilha.dificuldade}
-                />
-              )
-            ))}
+          {modalMarcarTrilha && trilhaSelecionada && (
+            <div className="ModalTrilha">
 
-            {modalMarcarTrilha && trilhaSelecionada && (
-              <div className="ModalTrilha">
+              <div className="ModalContent">
 
-                <div className="ModalContent">
+                <div className='ModalContent-Sup'>
 
-                  <div className='ModalContent-Sup'>
+                  <div className='ContentSup-Esq'>
+                    <h2>{trilhaSelecionada.nomeTrilha}</h2>
 
-                    <div className='ContentSup-Esq'>
-                      <h2>{trilhaSelecionada.nomeTrilha}</h2>
+                    <p>Ponto inicial: {trilhaSelecionada.pontoInicial}</p>
+                    <p>Ponto final: {trilhaSelecionada.pontoFinal}</p>
+                    <br></br>
+                    <p>Distância: {trilhaSelecionada.distância}Km / Tempo: {trilhaSelecionada.tempo}</p>
+                    <p>Dificuldade: {trilhaSelecionada.dificuldade} // Relevo: {trilhaSelecionada.tipoRelevo}</p>
+                  </div>
+                  <div className='ContentSup-Meio'>
 
-                      <p>Ponto inicial: {trilhaSelecionada.pontoInicial}</p>
-                      <p>Ponto final: {trilhaSelecionada.pontoFinal}</p>
-                      <br></br>
-                      <p>Distância: {trilhaSelecionada.distância}Km / Tempo: {trilhaSelecionada.tempo}</p>
-                      <p>Dificuldade: {trilhaSelecionada.dificuldade} // Relevo: {trilhaSelecionada.tipoRelevo}</p>
-                    </div>
-                    <div className='ContentSup-Meio'>
+                  </div>
 
-                    </div>
+                  <div className='ContentSup-Dir'>
 
-                    <div className='ContentSup-Dir'>
+                    <div className='SupDir-cima'>
 
-                      <div className='SupDir-cima'>
+                      <div className='SupDirCima-sup'>
 
-                        <div className='SupDirCima-sup'>
+                        <div className='SupDirCimaSup1'>
 
-                          <div className='SupDirCimaSup1'>
-
-                            {/* Data */}
-                            <div className="SupDirCimaSup1-campo1">
-                              <label>Dia: </label>
-                              <input
-                                type="date"
-                                value={dataTrilha}
-                                min={new Date().toISOString().split("T")[0]}
-                                onChange={(e) => setDataTrilha(e.target.value)}
-                              />
-                            </div>
-
-                            {/* Horário */}
-                            <div className="SupDirCimaSup1-campo2">
-                              <label>Horário:</label>
-                              <input
-                                type="time"
-                                value={horaTrilha}
-                                onChange={validarHora}
-                                disabled={!dataTrilha} // só libera depois de escolher a data
-                              />
-                            </div>
-
-                          </div>
-
-                          <div className='SupDirCimaSup2'>
-                            {/* Ponto de Encontro */}
-                            <label>Ponto de Encontro:</label>
-                            <textarea
-                              value={pntEnc}
-                              placeholder="Digite o local..."
-                              onChange={(e) => setPntEnc(e.target.value)}
-                            />
-                          </div>
-
-                        </div>
-
-                        <div className='SupDirCima-inf'>
-                          {/* Participantes */}
-                          <h4>Participantes, você e mais:</h4>
-
-                          <div className="controle-participantes">
-                            <button onClick={() => setNPart(prev => Math.max(1, prev - 1))}>-</button>
+                          {/* Data */}
+                          <div className="SupDirCimaSup1-campo1">
+                            <label>Dia: </label>
                             <input
-                              type="number"
-                              value={nPart}
-                              min="1"
-                              onChange={(e) => setNPart(Math.max(1, Number(e.target.value)))}
+                              type="date"
+                              value={dataTrilha}
+                              min={new Date().toISOString().split("T")[0]}
+                              onChange={(e) => setDataTrilha(e.target.value)}
                             />
-                            <button onClick={() => setNPart(prev => prev + 1)}>+</button>
+                          </div>
+
+                          {/* Horário */}
+                          <div className="SupDirCimaSup1-campo2">
+                            <label>Horário:</label>
+                            <input
+                              type="time"
+                              value={horaTrilha}
+                              onChange={validarHora}
+                              disabled={!dataTrilha} // só libera depois de escolher a data
+                            />
                           </div>
 
                         </div>
 
+                        <div className='SupDirCimaSup2'>
+                          {/* Ponto de Encontro */}
+                          <label>Ponto de Encontro:</label>
+                          <textarea
+                            value={pntEnc}
+                            placeholder="Digite o local..."
+                            onChange={(e) => setPntEnc(e.target.value)}
+                          />
+                        </div>
+
                       </div>
 
-                      <div className='SupDir-baixo'>
-                        <button onClick={salvarTrilhaMarcada}>Marcar Trilha</button>
+                      <div className='SupDirCima-inf'>
+                        {/* Participantes */}
+                        <h4>Participantes, você e mais:</h4>
+
+                        <div className="controle-participantes">
+                          <button onClick={() => setNPart(prev => Math.max(1, prev - 1))}>-</button>
+                          <input
+                            type="number"
+                            value={nPart}
+                            min="1"
+                            onChange={(e) => setNPart(Math.max(1, Number(e.target.value)))}
+                          />
+                          <button onClick={() => setNPart(prev => prev + 1)}>+</button>
+                        </div>
+
                       </div>
 
                     </div>
-                  </div>
 
-                  <div className='ModalContent-Inf'>
-                    <button onClick={() => setModalMarcarTrilha(false)}>Fechar</button>
-                  </div>
+                    <div className='SupDir-baixo'>
+                      <button onClick={salvarTrilhaMarcada}>Marcar Trilha</button>
+                    </div>
 
+                  </div>
                 </div>
-              </div>
-            )}
 
-          </div>
+                <div className='ModalContent-Inf'>
+                  <button onClick={() => setModalMarcarTrilha(false)}>Fechar</button>
+                </div>
+
+              </div>
+            </div>
+          )}
 
         </div>
+
+
       </div>
     </div>
   )
