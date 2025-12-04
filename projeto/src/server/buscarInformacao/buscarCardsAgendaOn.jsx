@@ -16,7 +16,7 @@ const buscarCardsAgendaOn = async (token) => {
         
         if (result.status===200) {
             
-            return {ok:true, result:result.data}
+            return {ok:true, resultado:result.data.result}
         }
 
         
