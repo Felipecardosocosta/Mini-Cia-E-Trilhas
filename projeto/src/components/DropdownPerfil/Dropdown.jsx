@@ -5,10 +5,16 @@ import { Mycontext } from '../../context/ContextGlobalUser';
 
 
 
-function Dropdown({ perfil, transparent }) {
+function Dropdown({ perfil, transparent,minhaAgenda }) {
 
     const [sair, setSair] = React.useState(false);
     const { user, setUser, setModalLogin, modalPerfil, meusDados, setMeusDados, setModalPerfil, setAlterarSenha } = React.useContext(Mycontext)
+
+   
+    function abrirMinhaAgenda() {
+        minhaAgenda.setMinhaAgenda(true)
+        setModalPerfil(false)
+    }
 
     function abrirdados() {
         setMeusDados(true)
@@ -53,6 +59,7 @@ function Dropdown({ perfil, transparent }) {
 
             <div ref={minhaReferencia} className={`dropdown-menu ${perfil ? 'show' : ''} ${transparent ? "transparente" : ""}`}>
                 <button onClick={abrirdados}>Meus dados</button>
+                <button onClick={abrirMinhaAgenda} >Minha Agenda</button>
                 <button onClick={abrirAlterarSenha}>Alterar senha</button>
                 <button onClick={botaoDeslogar}>Sair</button>
             </div>

@@ -1,0 +1,62 @@
+.body-minhaAgenda{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    min-height: 100vh;
+    align-items: center;
+    color: rgb(243, 10, 10);
+    background-color: rgba(20, 20, 20, 0.096);
+    z-index: 8000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.cont-minhaAgenda{
+    border: 1px black solid;
+    width: 80%;
+    min-height: 90vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.7rem;
+    gap: .8rem;
+
+}
+.titulo-espaçado{
+    letter-spacing: .2rem;
+    height: 10%;
+}
+
+.conteudo-minhaAgenda{
+    width: 100%;
+    min-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+}
+
+.nav-minhaAgenda{
+    display: flex;
+    gap: 3rem;
+    height: 10%;
+
+}
+.nav-minhaAgenda a{
+    text-decoration: none;
+    font-size: clamp(.7rem, 1.6vw, 2rem);
+}
+
+.body-cards-minhaAgenda{
+   
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
