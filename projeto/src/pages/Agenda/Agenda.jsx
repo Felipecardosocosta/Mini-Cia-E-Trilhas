@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import Login from '../../components/Login/Login'
 import { Mycontext } from '../../context/ContextGlobalUser'
@@ -8,7 +8,6 @@ import buscarCardsAgendaOff from '../../server/buscarInformacao/buscarCardsAgend
 import participarEvento from '../../server/inserirDados/participarEvento'
 import './Agenda.css'
 import MenuPesq from '../../components/MenuPesq/MenuPesq'
-import axios from 'axios';
 import buscarCardsAgendaOn from '../../server/buscarInformacao/buscarCardsAgendaOn'
 function Eventos() {
 
@@ -16,10 +15,17 @@ function Eventos() {
 
   const [atualizar, setAtualiza] = useState(false)
 
-  const { modalLogin, setModalLogin, user,setAlerta } = React.useContext(Mycontext)
+  const { modalLogin, setModalLogin, user, setAlerta } = React.useContext(Mycontext)
 
- 
-  
+  const { regTrilhas, setRegiao } = useContext(Mycontext);
+
+  const eventosFiltrados = agenda.filter((evento) => {
+    if (regTrilhas === 'Regiões') return true;
+    return evento.regiao === regTrilhas;
+  });
+
+
+
   async function pesquisaAPI(params) {
 
     const localStorege = JSON.parse(localStorage.getItem('user'))
@@ -30,7 +36,7 @@ function Eventos() {
       dados = await buscarCardsAgendaOff()
     }
 
-     await buscarCardsAgendaOff()
+    await buscarCardsAgendaOff()
 
     if (dados.ok) {
       setAgenda(dados.resultado)
@@ -48,7 +54,7 @@ function Eventos() {
   async function participar(evento) {
 
     if (!user || !user.token) {
-      setAlerta({mensagem:"Você precisa fazer login para participar"})
+      setAlerta({ mensagem: "Você precisa fazer login para participar" })
       setModalLogin(true)
       return
     }
@@ -56,11 +62,11 @@ function Eventos() {
     const resposta = await participarEvento(user.token, evento.id_evento)
 
     if (resposta.ok) {
-      setAlerta({mensagem:resposta.mensagem, icon:"ok"})
-      
-      setAtualiza(atualizar? false: true)
+      setAlerta({ mensagem: resposta.mensagem, icon: "ok" })
+
+      setAtualiza(atualizar ? false : true)
     } else {
-      setAlerta({mensagem:resposta.mensagem, icon:"erro"})
+      setAlerta({ mensagem: resposta.mensagem, icon: "erro" })
     }
   }
 
@@ -76,9 +82,9 @@ function Eventos() {
       </div>
 
       <div className='Cards-Eventos'>
-        
-        {agenda.length > 0 &&
-          agenda.map((evento, index) => (
+
+        {eventosFiltrados.length > 0 &&
+          eventosFiltrados.map((evento, index) => (
             user ? (
               <CardsAgendaOn
                 key={index}
@@ -100,6 +106,7 @@ function Eventos() {
             )
           ))
         }
+
 
       </div>
     </div>

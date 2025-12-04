@@ -14,7 +14,7 @@ import cadastrarEvento from '../../server/inserirDados/cadastrarEvento'
 
 
 function Trilhas() {
-  const { user, modalLogin, setModalLogin, regTrilhas, setRegiao,setAlerta } = useContext(Mycontext)
+  const { user, modalLogin, setModalLogin, regTrilhas, setRegiao, setAlerta } = useContext(Mycontext)
 
   const [TrilhasBD, setTrilhasBD] = useState([])
 
@@ -40,10 +40,10 @@ function Trilhas() {
 
     if (infsTrilhas.ok) {
       setTrilhasBD(infsTrilhas.result)
-      console.log("Inf TRILHAS", infsTrilhas);
+      // console.log("Inf TRILHAS", infsTrilhas);
       return
     }
-    console.log(`Erro ao fazer a busca ${infsTrilhas}`);
+    // console.log(`Erro ao fazer a busca ${infsTrilhas}`);
   }
 
   function validarDiaHora(dataStr, horaStr) {
@@ -60,13 +60,13 @@ function Trilhas() {
     if (validarDiaHora(dataTrilha, value)) {
       setHoraTrilha(value);
     } else {
-      setAlerta({mensagem:"O horário não pode ser anterior ao horário atual.", icon:"erro"})
+      setAlerta({ mensagem: "O horário não pode ser anterior ao horário atual.", icon: "erro" })
     }
   }
 
   async function salvarTrilhaMarcada() {
     if (!dataTrilha || !horaTrilha || !pntEnc) {
-      setAlerta({mensagem:"Certifique-se de que você preencheu todos os campos", icon:"erro"})
+      setAlerta({ mensagem: "Certifique-se de que você preencheu todos os campos", icon: "erro" })
       return
     }
 
@@ -79,19 +79,25 @@ function Trilhas() {
     }
 
 
-    console.log("Dados da Trilha Marcada", marcarTrilha)
+    // console.log("Dados da Trilha Marcada", marcarTrilha)
 
     const result = await cadastrarEvento(user.token, marcarTrilha)
 
-    console.log("RETORNO DA API:", result);
+    // console.log("RETORNO DA API:", result);
     if (result.ok) {
-      setAlerta({mensagem:"Trilha Marcada com Sucesso!", icon:"ok"})
+      setAlerta({ mensagem: "Trilha Marcada com Sucesso!", icon: "ok" })
     } else {
-      setAlerta({mensagem:result.mensagem, icon:"erro"})
+      setAlerta({ mensagem: result.mensagem, icon: "erro" })
     }
 
 
   }
+
+  const trilhasFiltradas = TrilhasBD.filter((trilha) => {
+    if (regTrilhas === 'Regiões') return true; // "Todas"
+    return trilha.regiao === regTrilhas;
+  });
+
 
 
 
@@ -108,9 +114,9 @@ function Trilhas() {
         <div className='Cont-menuPesq'> <MenuPesq /> </div>
 
         <div className='Cards-trilhas'>
-          {console.log("AQUI =>", TrilhasBD)}
+          {/* {console.log("AQUI =>", TrilhasBD)} */}
 
-          {TrilhasBD.length > 0 && TrilhasBD.map((trilha, index) => (
+          {trilhasFiltradas.length > 0 && trilhasFiltradas.map((trilha, index) => (
             user ? (
               <CardsTrilhaOn
                 ind={index}
