@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import './NavBar.css'
 import { Mycontext } from '../../context/ContextGlobalUser'
 import Dropdown from '../DropdownPerfil/Dropdown';
 import Perfil from '../Perfil/Perfil';
 import Form_alterarSenha from '../Forms/AlterarSenha/Form_alterarSenha';
+import Alerta from '../Alerta/Alerta';
+import { BsCheck2Circle } from "react-icons/bs";
 
 function NavBar({transparent=false}) {
 
@@ -23,7 +25,7 @@ function NavBar({transparent=false}) {
   };
 
   const {user,setUser, setModalLogin, setModalPerfil,modalPerfil,meusDados, alterarSenha} = useContext(Mycontext)
-
+  const [alerta,setAlerta] = useState(false)
 
   return (
     <nav className='cont-navBar' style={navStyle}> 
@@ -34,7 +36,8 @@ function NavBar({transparent=false}) {
         {!user ? <Link className='link' onClick={()=> setModalLogin(true)}>Login</Link>: <Dropdown transparent={transparent} perfil={modalPerfil}/> }
         {meusDados && <Perfil/>}
         {alterarSenha && <Form_alterarSenha/>}
-        
+      {alerta && <Alerta mensagem={'Ola mundo'} icon={<BsCheck2Circle />} setAlerta={setAlerta} />}
+        <button onClick={()=> setAlerta(true)} >mudar alerta</button>
     </nav>
   )
 }

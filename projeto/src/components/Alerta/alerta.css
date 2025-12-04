@@ -1,0 +1,42 @@
+.cont-alerta{
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: end;
+    backdrop-filter: blur(2px);
+    background-color: #ffffff17;
+    padding: 1rem;
+
+}
+
+.alerta-conteudo{
+    display: flex;
+    color: rgb(32, 30, 30);
+    border: 1px black solid;
+    height: 20%;
+    min-width: 25%;
+    padding: .5rem;
+    align-items: center;
+    margin: 5rem 2.3rem;
+    border-radius: 20px;
+    justify-content: center;
+    gap: 2rem;
+    
+
+
+}
+
+.cont-icon{
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.mensagem-alerta{
+letter-spacing: 0.2rem;
+
+}
