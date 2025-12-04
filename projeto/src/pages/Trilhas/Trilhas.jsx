@@ -14,7 +14,7 @@ import cadastrarEvento from '../../server/inserirDados/cadastrarEvento'
 
 
 function Trilhas() {
-  const { user, modalLogin, setModalLogin, regTrilhas, setRegiao } = useContext(Mycontext)
+  const { user, modalLogin, setModalLogin, regTrilhas, setRegiao,setAlerta } = useContext(Mycontext)
 
   const [TrilhasBD, setTrilhasBD] = useState([])
 
@@ -60,13 +60,13 @@ function Trilhas() {
     if (validarDiaHora(dataTrilha, value)) {
       setHoraTrilha(value);
     } else {
-      alert("O horário não pode ser anterior ao horário atual.");
+      setAlerta({mensagem:"O horário não pode ser anterior ao horário atual.", icon:"erro"})
     }
   }
 
   async function salvarTrilhaMarcada() {
     if (!dataTrilha || !horaTrilha || !pntEnc) {
-      alert("Certifique-se de que você preencheu todos os campos")
+      setAlerta({mensagem:"Certifique-se de que você preencheu todos os campos", icon:"erro"})
       return
     }
 
@@ -85,9 +85,9 @@ function Trilhas() {
 
     console.log("RETORNO DA API:", result);
     if (result.ok) {
-      alert("Trilha Marcada com Sucesso!")
+      setAlerta({mensagem:"Trilha Marcada com Sucesso!", icon:"ok"})
     } else {
-      alert(result.mensagem)
+      setAlerta({mensagem:result.mensagem, icon:"erro"})
     }
 
 

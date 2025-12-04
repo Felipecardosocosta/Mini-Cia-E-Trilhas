@@ -16,7 +16,7 @@ function Eventos() {
 
   const [atualizar, setAtualiza] = useState(false)
 
-  const { modalLogin, setModalLogin, user } = React.useContext(Mycontext)
+  const { modalLogin, setModalLogin, user,setAlerta } = React.useContext(Mycontext)
 
  
   
@@ -48,7 +48,7 @@ function Eventos() {
   async function participar(evento) {
 
     if (!user || !user.token) {
-      alert("Você precisa fazer login para participar.")
+      setAlerta({mensagem:"Você precisa fazer login para participar"})
       setModalLogin(true)
       return
     }
@@ -56,10 +56,11 @@ function Eventos() {
     const resposta = await participarEvento(user.token, evento.id_evento)
 
     if (resposta.ok) {
-      alert(resposta.mensagem)
+      setAlerta({mensagem:resposta.mensagem, icon:"ok"})
+      
       setAtualiza(atualizar? false: true)
     } else {
-      alert(resposta.mensagem)
+      setAlerta({mensagem:resposta.mensagem, icon:"erro"})
     }
   }
 
