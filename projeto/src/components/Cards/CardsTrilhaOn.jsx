@@ -25,14 +25,16 @@ function CardsTrilhaOn(props) {
                     <br></br>
                     <p>Ponto de Partida: {props.ini}</p>
                     <p>Ponto de Chegada: {props.fim}</p>
-                    <p>Dist.: {props.dis}</p>
-                    <p>Tempo: {props.tmp}</p>
-                    <p>Relevo: {props.rlv}</p>
-                    <p>Nível: {props.dif}</p>
-                </div>                
+                    <p>Dist.: {props.dis} // Tempo: {props.tmp}</p>
+                    <p>Nível: {props.dif} // Relevo: {props.rlv}</p>
+
+                </div>
 
                 <div className={CardsTrilhasBttn}>
-                    <button className='Bttn' onClick={user ? () => props.abrirModal() : () => { }}> <img className='Bttn-img' src="Icones/icon-bttnTrilhas.svg" alt="icone" /> </button>
+                    <button className='Bttn' onClick={user ? () => props.abrirModal() : () => { }}>
+                        <div className="Bttn-icon"> <img className='Icon' src="Icones/icon-bttnTrilhas.svg" alt="icone" /></div>
+                        <div className="Bttn-txt"><h1>Marcar Trilha</h1></div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -41,4 +43,3 @@ function CardsTrilhaOn(props) {
 }
 
 export default CardsTrilhaOn
-
