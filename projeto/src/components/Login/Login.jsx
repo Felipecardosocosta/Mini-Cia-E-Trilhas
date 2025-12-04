@@ -14,13 +14,13 @@ function Login() {
 
   if (isActive) {
     stilobotao.color= 'Black'
-    console.log('preto');
+
     
   }else{
     stilobotao.color= 'white'
-    console.log('branco');
+
   }
-  console.log(stilobotao);
+ 
   
   
   return (

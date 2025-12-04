@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Trade+Winds&display=swap');
+
 .fundo_modal_alter {
     display: flex;
     justify-content: center;
@@ -55,6 +57,8 @@
     align-items: center;
     flex-direction: column;
     height: 50%;
+    color: black;
+
 }
 
 .input_senhaAtual {
@@ -84,6 +88,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 35%;
+    font-size: clamp(1.5rem, 1vw, 3rem);    
     
 
 }
@@ -109,6 +115,8 @@
     outline: none;
     font-size: clamp(1rem, 1vw, 3rem);
     width: 50%;
+    font-family: 'Trade Winds', cursive;
+    letter-spacing: .08rem;
 }
 
 .input_senhaNova :focus {
@@ -169,3 +177,4 @@
     letter-spacing: .15rem;
     
 }
+

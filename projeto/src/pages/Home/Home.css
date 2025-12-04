@@ -34,6 +34,7 @@
         font-size: clamp(.6rem, 3vw, 1.5rem);
         color: #fff;
         padding: 2%;
+        letter-spacing: .08rem;
 
     }
 
@@ -57,6 +58,7 @@
         border-radius: 1.5rem;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        letter-spacing: .08rem;
 
         &:hover {
             background-color: #681919;

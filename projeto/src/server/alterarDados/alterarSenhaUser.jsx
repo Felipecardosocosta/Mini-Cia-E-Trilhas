@@ -4,7 +4,8 @@ import axios from 'axios'
 const alterarSenhaUser = async (token, senha, novaSenha) => {
 
     const senhas = {senha:senha,novaSenha:novaSenha}
-
+    
+    
     if (!token) {
 
         return { mensagem: "Erro necessário token" }
@@ -29,6 +30,7 @@ const alterarSenhaUser = async (token, senha, novaSenha) => {
     } catch (error) {
 
           if (error.response) {
+            console.log(error);
             
             return  { ok:false, mensagem:error.response.data.mensagem}
         }

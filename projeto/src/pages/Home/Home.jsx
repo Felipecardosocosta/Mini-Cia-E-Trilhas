@@ -10,7 +10,7 @@ import Perfil from '../../components/Perfil/Perfil'
 
 function Home() {
   const navigate = useNavigate()
-  const {modalLogin, setModalLogin, modalPerfil, setModalPerfi, meusDados} = React.useContext(Mycontext)
+  const {modalLogin, setModalLogin, meusDados} = React.useContext(Mycontext)
 
 // function button_explore() {
 //   navigate('/trilhas')

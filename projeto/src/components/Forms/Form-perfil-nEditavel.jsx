@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Mycontext } from '../../context/ContextGlobalUser'
 import { SlClose } from "react-icons/sl";
 import Swal from 'sweetalert2'
@@ -44,10 +44,13 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
 
     }
 
+    
+
+
     useEffect(() => {
+        
 
         pucharDados()
-        console.log(infouser);
 
     }, [])
 
@@ -69,8 +72,8 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
             title: "Tem certeza que deseja deletar?",
             showDenyButton: true,
             showCancelButton: false,
-            confirmButtonText: "Sim",
-            denyButtonText: `Não`,
+            confirmButtonText: "Deletar",
+            denyButtonText: `Cancelar`,
             customClass: {
                 container: 'cont_alerta',
                 popup: 'cont_background',
