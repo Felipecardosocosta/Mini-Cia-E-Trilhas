@@ -9,6 +9,7 @@ import participarEvento from '../../server/inserirDados/participarEvento'
 import './Agenda.css'
 import MenuPesq from '../../components/MenuPesq/MenuPesq'
 import axios from 'axios';
+import buscarCardsAgendaOn from '../../server/buscarInformacao/buscarCardsAgendaOn'
 function Eventos() {
 
   const [agenda, setAgenda] = useState([])
@@ -17,8 +18,19 @@ function Eventos() {
 
   const { modalLogin, setModalLogin, user } = React.useContext(Mycontext)
 
-  async function pesquisaAPI() {
-    const dados = await buscarCardsAgendaOff()
+ 
+  
+  async function pesquisaAPI(params) {
+
+    const localStorege = JSON.parse(localStorage.getItem('user'))
+    let dados
+    if (localStorege) {
+      dados = await buscarCardsAgendaOn(localStorege.token)
+    } else {
+      dados = await buscarCardsAgendaOff()
+    }
+
+     await buscarCardsAgendaOff()
 
     if (dados.ok) {
       setAgenda(dados.resultado)
