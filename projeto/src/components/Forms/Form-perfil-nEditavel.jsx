@@ -12,7 +12,7 @@ import deletarUsuario from '../../server/deletarDados/deletarUsuario';
 
 function Form_perfil_nEditavel({ editar, setEditar }) {
 
-    const { setMeusDados, user, setUser, infouser, setInfouser } = React.useContext(Mycontext)
+    const { setMeusDados, user, setUser, infouser, setInfouser ,setAlerta} = React.useContext(Mycontext)
     const [carregando, setCarregando] = React.useState(false)
 
 
@@ -29,8 +29,8 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
             setCarregando(false)
             return
         }else if(dados.mensagem ==="Token Invalido ou expirado"){
-
-            alert("Nessecarios fazer o login novamente")
+            
+            setAlerta({mensagem:"Necessário fazer o login novamente",icon:'erro'})
             setUser(false)
             setMeusDados(false)
 
@@ -90,12 +90,12 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
                     localStorage.removeItem('user')
                     setUser(false)
                     setMeusDados(false)
-
-                    Swal.fire(resposta.mensagem, "", "success");
+                    setAlerta({mensagem:resposta.mensagem,icon:'ok'})
+                   
                     return
                 }
-
-                Swal.fire(resposta.mensagem, "", "info");
+                setAlerta({mensagem:resposta.mensagem,icon:'erro'})
+                
 
             } else if (result.isDenied) {
 

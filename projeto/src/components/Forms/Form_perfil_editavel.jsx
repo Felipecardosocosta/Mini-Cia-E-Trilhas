@@ -10,7 +10,7 @@ function Form_perfil_editavel({editar, setEditar}) {
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
 
-    const { infouser, setInfouser, setMeusDados, user } = React.useContext(Mycontext)
+    const { infouser, setInfouser, setMeusDados, user,setAlerta } = React.useContext(Mycontext)
 
     useEffect(()=>{ 
         console.log(infouser);
@@ -32,7 +32,7 @@ function Form_perfil_editavel({editar, setEditar}) {
         };
           if (!dadosAtualizados.email || !dadosAtualizados.celular ) {
             
-            return alert("Preencha os campos")
+            return setAlerta({mensagem:'Preencha todos os campos',icon:'erro'})
         }
         const resposta = await alterarDadosUser(user.token, dadosAtualizados);
 
@@ -40,11 +40,11 @@ function Form_perfil_editavel({editar, setEditar}) {
         
 
         if(!resposta.ok){
-            alert(`mensagem de erro é :  ${resposta.mensagem}`)
+            setAlerta({mensagem:resposta.mensagem,icon:'erro'})
             return
         }
+        setAlerta({mensagem:"Dados alterados com sucesso",icon:'ok'})
 
-        alert("Dados alterados com sucesso")
         setEditar(false)
         return
     }

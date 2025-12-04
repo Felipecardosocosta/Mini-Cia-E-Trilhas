@@ -24,8 +24,8 @@ function NavBar({transparent=false}) {
     backgroundColor: transparent ? '#7b1e1ec5' : '#7B1E1E',
   };
 
-  const {user,setUser, setModalLogin, setModalPerfil,modalPerfil,meusDados, alterarSenha} = useContext(Mycontext)
-  const [alerta,setAlerta] = useState(false)
+  const {user,setUser, setModalLogin, setModalPerfil,modalPerfil,meusDados, alterarSenha,setAlerta,alerta} = useContext(Mycontext)
+ 
 
   return (
     <nav className='cont-navBar' style={navStyle}> 
@@ -36,8 +36,7 @@ function NavBar({transparent=false}) {
         {!user ? <Link className='link' onClick={()=> setModalLogin(true)}>Login</Link>: <Dropdown transparent={transparent} perfil={modalPerfil}/> }
         {meusDados && <Perfil/>}
         {alterarSenha && <Form_alterarSenha/>}
-      {alerta && <Alerta mensagem={'Ola mundo'} icon={<BsCheck2Circle />} setAlerta={setAlerta} />}
-        <button onClick={()=> setAlerta(true)} >mudar alerta</button>
+      {alerta && <Alerta mensagem={alerta.mensagem} icon={alerta.icon} setAlerta={setAlerta} />}
     </nav>
   )
 }

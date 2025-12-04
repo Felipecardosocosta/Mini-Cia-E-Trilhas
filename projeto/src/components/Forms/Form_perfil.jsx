@@ -22,27 +22,7 @@ function Form_perfil() {
         }
     }, [meusDados]);
 
-    async function alterações(e) {
-        e.preventDefault();
-
-
-
-        const dadosAlterados = {
-            email: email,
-            telefone: telefone
-            
-        }
-
-        const resposta = await (Perfil)
-        if (resposta.status !== 200) {
-            alert("Erro ao salvar alterações, verifique seus dados.")
-            return
-        }
-        console.log(dadosAlterados);
-
-        alert("Alterações salvas com sucesso!")
-    }
-
+    
 
 
     return (

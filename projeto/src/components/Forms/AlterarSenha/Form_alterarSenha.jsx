@@ -9,7 +9,7 @@ import { IoIosEyeOff } from "react-icons/io";
 
 
 function Form_alterarSenha() {
-  const { user, setUser, setModalLogin, setModalPerfil, modalPerfil, meusDados, setMeusDados, setModalPerfi, setAlterarSenha } = React.useContext(Mycontext)
+  const { user, setUser, setModalLogin, setModalPerfil, modalPerfil, meusDados, setMeusDados, setModalPerfi, setAlterarSenha,setAlerta } = React.useContext(Mycontext)
   const [novaSenha, setNovaSenha] = useState('')
   const [confirmarNovaSenha, setConfirmarNovaSenha] = useState('')
   const [senha, setSenha] = useState('')
@@ -19,7 +19,7 @@ function Form_alterarSenha() {
 
   async function salvarSenha() {
     if (!novaSenha || !confirmarNovaSenha || !novaSenha) {
-      alert("Prencha essa merda")
+      setAlerta({mensagem:"Todos os campos são obrigatórios",icon:'erro'})
       return
     }
 
@@ -32,12 +32,12 @@ function Form_alterarSenha() {
     const alterar = await alterarSenhaUser(user.token, senha, novaSenha)
 
     if (alterar.ok) {
-      alert(alterar.mensagem)
+      setAlerta({mensagem:alterar.mensagem,icon:'ok'})
+      
       setAlterarSenha(false)
       return
     }
-
-    alert(alterar.mensagem)
+    setAlerta({mensagem:alterar.mensagem,icon:'erro'})
   }
 
 

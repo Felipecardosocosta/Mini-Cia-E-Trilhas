@@ -9,7 +9,7 @@ function Form_cadastro() {
     const [senhaCadastro, setSenhaCadastro] = React.useState('');
     const [cpf, setCpf] = React.useState('')
     const [sexo, setSexo] = React.useState('');
-    const { isActive, setIsActive } = useContext(Mycontext);
+    const { isActive, setIsActive,setAlerta } = useContext(Mycontext);
 
     async function cadastrar(e) {
         e.preventDefault()
@@ -23,7 +23,7 @@ function Form_cadastro() {
         }
         const resposta = await cadastro(dados)
         if (resposta.status === 200) {
-            alert("Cadastro realizado com sucesso!")
+            setAlerta({mensagem:resposta.mensagem,icon:'ok'})
             setIsActive(false)
             setnome('')
             setEmailCadastro('')
@@ -33,8 +33,7 @@ function Form_cadastro() {
             return
         }
         if (!resposta.ok) {
-
-            alert(resposta.mensagem)
+            setAlerta({mensagem:resposta.mensagem,icon:'erro'})
             
         }
 

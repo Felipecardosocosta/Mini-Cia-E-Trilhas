@@ -5,27 +5,44 @@
     top: 0;
     display: flex;
     justify-content: end;
-    backdrop-filter: blur(2px);
-    background-color: #ffffff17;
+    backdrop-filter: blur(1px);
+    background-color: #ffffff11;
     padding: 1rem;
-
+    z-index: 10000;
+    font-size: clamp(.9rem ,1vw,1.2rem);
+    overflow: hidden;
+    transition: 1s ease-in-out;
 }
 
 .alerta-conteudo{
     display: flex;
-    color: rgb(32, 30, 30);
+    color: rgb(214, 213, 213);
     border: 1px black solid;
     height: 20%;
-    min-width: 25%;
-    padding: .5rem;
+    max-width: 38%;
+    padding: .2rem;
     align-items: center;
     margin: 5rem 2.3rem;
     border-radius: 20px;
-    justify-content: center;
-    gap: 2rem;
+    gap: 1rem;
+    background-image: linear-gradient(150deg, #700808e0, #1e0202ee);
+    
+    transform: translateX(120%);
+    animation: vaiProLado 0.4s forwards ease-out;
     
 
 
+}
+
+@keyframes vaiProLado {
+  from {
+    transform: translateX(150%);
+    opacity: .1;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .cont-icon{
@@ -33,8 +50,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
 
 }
+.alerta-ok{
+    color: rgb(81, 255, 0);
+}
+.alerta-error{
+    color: rgb(255, 1, 1);
+    font-size: 3.5rem;
+}
+
+
 
 .mensagem-alerta{
 letter-spacing: 0.2rem;

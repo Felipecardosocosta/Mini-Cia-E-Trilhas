@@ -6,7 +6,7 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 
 function Form_login() {
 
-    const { user, setUser, modalLogin, setModalLogin } = React.useContext(Mycontext)
+    const { user, setUser, modalLogin, setModalLogin,setAlerta } = React.useContext(Mycontext)
 
     async function logar(e) {
         e.preventDefault()
@@ -20,18 +20,7 @@ function Form_login() {
         console.log(resposta);
 
         if (resposta.status === 200) {
-            Swal.fire({
-                position: "top-end",
-                title: "Login realizado com sucesso!",
-                showConfirmButton: false,
-                timer: 200000,
-                iconColor:'rgba(0, 0, 0, 1)',
-                customClass: {
-                    popup: 'alerta',
-
-                }
-
-            });
+            setAlerta({mensagem:'Login realizado com sucesso!',icon:"ok"})
             setUser(resposta.data.result)
             setModalLogin(false)
             setEmail('')
@@ -39,7 +28,8 @@ function Form_login() {
             localStorage.setItem('user', JSON.stringify(resposta.data.result))
             return
         }
-        alert("Erro ao fazer login, verifique seus dados.")
+        setAlerta({mensagem:"Senha ou email invalido",icon:"erro"})
+       
 
 
     }
