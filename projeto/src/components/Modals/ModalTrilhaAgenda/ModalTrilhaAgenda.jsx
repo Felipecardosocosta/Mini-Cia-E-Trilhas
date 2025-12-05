@@ -11,7 +11,7 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
 
     const [dados, setDados] = useState({})
     const user = JSON.parse(localStorage.getItem("user"))
-    const [carregando, setCarregando] = useState(false)
+    const [carregando, setCarregando] = useState(true)
 
     async function buscarInfs() {
         if (!user) {
@@ -20,16 +20,16 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
             setUser(false)
             return
         }
-        setCarregando(true)
+        // setCarregando(true)
         const infos = await buscarEventoCompleto(user.token, idTrilha)
 
         if (infos.ok) {
 
             setDados(infos.result)
-            setCarregando(false)
+            // setCarregando(false)
             return
         }
-        setCarregando(false)
+        // setCarregando(false)
         setAlerta({ mensagem: infos.mensagem, icon: 'erro' })
         return
 
@@ -61,15 +61,20 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
 
             <div className="cont-modalTrilhaAgenda" ref={minhaRed}>
 
-                {carregando ? 
-                <ClimbingBoxLoader
-                    cssOverride={{}}
-                    speedMultiplier={1.5}
-                /> : 
+                {carregando ?
+
+                    <div className='carregando'>
+                        <ClimbingBoxLoader
+                            color='#fff'
+                            cssOverride={{}}
+                            speedMultiplier={1.5}
+                        />
+                    </div>
+                    :
 
 
-                <h1>olaaa</h1>
-                
+                    <h1>olaaa</h1>
+
                 }
 
 
