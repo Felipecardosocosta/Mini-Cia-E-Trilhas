@@ -4,28 +4,44 @@ import './Grafico.css';
 import { useContext, useEffect, useState } from 'react';
 import { Mycontext } from '../../context/ContextGlobalUser';
 import buscarInfosDashBord from '../../server/buscarInformacao/buscarInfosDashBord';
+import buscarCardsTrilhaOff from '../../server/buscarInformacao/buscarCardsTrilhaOff';
+import { useNavigate } from 'react-router-dom'
 
 const Grafico = () => {
 
+  const navegacao = useNavigate()
   const {user} = useContext(Mycontext)
 
   const [dadosDas,setDadosDas]= useState({})
 
-  console.log(user.token);
-  
   async function buscarDados(localStorege) {
     
      const dados= await buscarInfosDashBord(localStorege.token)
 
-     console.log(dados);
-     
-    if (dados.ok) {
+     const trilhas =await buscarCardsTrilhaOff()
 
-      setDadosDas(dados.result)
+     
+    if (dados.ok && trilhas.ok) {
+
+      setDadosDas({...dados.result, totalTrilhas:trilhas.result.length })
+
+      
+      
+
+      
       return
       
     }
 
+  }
+
+
+  console.log(dadosDas);
+  
+  
+  function percentual() {
+    return (dadosDas.Total_de_Trilhas_Feitas * 100) /dadosDas.totalTrilhas 
+  
   }
 
   useEffect(()=>{ 
@@ -33,6 +49,7 @@ const Grafico = () => {
   
       if (localStorege) {
         buscarDados(localStorege)
+
         
       }
     
@@ -130,23 +147,23 @@ const Grafico = () => {
           <h3>Estatísticas</h3>
           <div className="stat-item">
             <span>Total De Distancia Percorrida:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_Percorrida_em_Km}</strong>
+            <strong>{dadosDas && dadosDas.Distancia_Total_Percorrida_em_Km} Km</strong>
           </div>
           <div className="stat-item">
             <span>Distancia Percorrida Região Central:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Central_em_Km}</strong>
+            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Central_em_Km} Km</strong>
           </div>
           <div className="stat-item">
             <span>Distancia Percorrida Região Leste:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Leste_em_Km}</strong>
+            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Leste_em_Km} Km</strong>
           </div>
            <div className="stat-item">
             <span>Distancia Percorrida Região Norte:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Norte_em_Km}</strong>
+            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Norte_em_Km} Km</strong>
           </div>
            <div className="stat-item">
             <span>Distancia Percorrida Região Sul:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Sul_em_Km}</strong>
+            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Sul_em_Km} Km</strong>
           </div>
         </div>
 
@@ -168,14 +185,14 @@ const Grafico = () => {
               />
               <path
                 className="circle"
-                strokeDasharray="100, 100"
+                strokeDasharray={`${percentual()},100`}
                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
               />
-              <text x="18" y="20.35" className="percentage">100%</text>
+              <text x="18" y="20.35" className="percentage">{percentual()}%</text>
             </svg>
             <span>Trilhas Concluídas</span>
           </div>
-          <button className="new-trail-btn">Encontrar nova trilha!</button>
+          <button className="new-trail-btn"onClick={()=>navegacao("/trilhas")} >Encontrar novas trilhas!</button>
         </div>
       </div>
     </div>
