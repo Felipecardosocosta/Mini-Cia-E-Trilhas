@@ -14,6 +14,7 @@ function Form_alterarSenha() {
   const [confirmarNovaSenha, setConfirmarNovaSenha] = useState('')
   const [senha, setSenha] = useState('')
   const [mostrarSenha, setMostrarSenha] = useState(false)
+  const [mostrarSenha2, setMostrarSenha2] = useState(false)
   const [mostrarSenhaAtual, setMostrarSenhaAtual] = useState(false)
 
 
@@ -71,8 +72,8 @@ function Form_alterarSenha() {
             <input type={mostrarSenha ? "text" : "password"} placeholder='Nova Senha:' value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} />
             {mostrarSenha ? <IoMdEye onClick={() => setMostrarSenha(false)} /> : <IoIosEyeOff onClick={() => setMostrarSenha(true)} />}
       
-            <input type={mostrarSenha ? "text" : "password"} placeholder='Confirme a Nova Senha' value={confirmarNovaSenha} onChange={(e) => setConfirmarNovaSenha(e.target.value)} />
-            {mostrarSenha ? <IoMdEye onClick={() => setMostrarSenha(false)} /> : <IoIosEyeOff onClick={() => setMostrarSenha(true)} />}
+            <input type={mostrarSenha2 ? "text" : "password"} placeholder='Confirme a Nova Senha' value={confirmarNovaSenha} onChange={(e) => setConfirmarNovaSenha(e.target.value)} />
+            {mostrarSenha2 ? <IoMdEye onClick={() => setMostrarSenha2(false)} /> : <IoIosEyeOff onClick={() => setMostrarSenha2(true)} />}
           </div>
           <div className='buttons_alterarSenha'>
 

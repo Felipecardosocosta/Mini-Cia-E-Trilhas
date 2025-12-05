@@ -23,7 +23,7 @@ function Form_cadastro() {
         }
         const resposta = await cadastro(dados)
         if (resposta.status === 200) {
-            setAlerta({mensagem:resposta.mensagem,icon:'ok'})
+            setAlerta({mensagem:resposta.data.mensagem,icon:'ok'})
             setIsActive(false)
             setnome('')
             setEmailCadastro('')

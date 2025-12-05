@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import './Dropdown.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mycontext } from '../../context/ContextGlobalUser';
 
 
@@ -8,7 +8,9 @@ import { Mycontext } from '../../context/ContextGlobalUser';
 function Dropdown({ perfil, transparent,minhaAgenda }) {
 
     const [sair, setSair] = React.useState(false);
-    const { user, setUser, setModalLogin, modalPerfil, meusDados, setMeusDados, setModalPerfil, setAlterarSenha } = React.useContext(Mycontext)
+    const { user, setUser, setModalLogin, modalPerfil, meusDados, setMeusDados, setModalPerfil, setAlterarSenha, setAlerta } = React.useContext(Mycontext)
+
+    const navigate = useNavigate()
 
    
     function abrirMinhaAgenda() {
@@ -25,7 +27,8 @@ function Dropdown({ perfil, transparent,minhaAgenda }) {
         setUser(false)
         localStorage.removeItem('user')
         setModalPerfil(false)
-
+        navigate('/')
+        setAlerta({mensagem:"Deslogado com sucesso", icon:"ok"})
     }
 
 
@@ -61,7 +64,7 @@ function Dropdown({ perfil, transparent,minhaAgenda }) {
                 <button onClick={abrirdados}>Meus dados</button>
                 <button onClick={abrirMinhaAgenda} >Minha Agenda</button>
                 <button onClick={abrirAlterarSenha}>Alterar senha</button>
-                <button onClick={botaoDeslogar}>Sair</button>
+                <button onClick={botaoDeslogar} >Sair</button>
             </div>
 
         </div>

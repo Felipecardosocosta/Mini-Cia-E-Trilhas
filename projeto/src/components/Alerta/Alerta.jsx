@@ -9,6 +9,7 @@ function Alerta({ setAlerta, tempo, icon, mensagem, tipo = true || false }) {
     const icons = {
         'ok': <BsCheck2Circle className='alerta-ok'/>,
         'erro':<BiSolidError  className='alerta-error'/>,
+        
 
     }
 
