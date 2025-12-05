@@ -2,7 +2,8 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import './modalMinhaTrilhaAgenda.css'
 import buscarEventoCompleto from '../../../server/buscarInformacao/buscarEventoCompleto'
 import { Mycontext } from '../../../context/ContextGlobalUser'
-import { ClimbingBoxLoader } from "react-spinners";
+
+import Loading from '../../Loading/Loading';
 
 
 function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
@@ -20,16 +21,30 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
             setUser(false)
             return
         }
-        // setCarregando(true)
+        setCarregando(true)
         const infos = await buscarEventoCompleto(user.token, idTrilha)
 
         if (infos.ok) {
 
             setDados(infos.result)
-            // setCarregando(false)
+            setCarregando(false)
             return
         }
-        // setCarregando(false)
+        if (!infos.ok) {
+                console.error(dados.error);
+                
+                if (infos.mensagem === "Token Invalido ou expirado") {
+
+                    setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
+                    setUser(false)
+                    localStorage.removeItem('user')
+                    return
+        
+
+                }
+                return setAlerta({ mensagem: infos.mensagem, icon: "erro" })
+            }
+        setCarregando(false)
         setAlerta({ mensagem: infos.mensagem, icon: 'erro' })
         return
 
@@ -63,17 +78,16 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
 
                 {carregando ?
 
-                    <div className='carregando'>
-                        <ClimbingBoxLoader
-                            color='#fff'
-                            cssOverride={{}}
-                            speedMultiplier={1.5}
-                        />
-                    </div>
+                    <Loading/>
                     :
+                    <div className="cont-TrilhaAgenda">
 
+                    
+                    
 
-                    <h1>olaaa</h1>
+                    </div>
+
+                    
 
                 }
 

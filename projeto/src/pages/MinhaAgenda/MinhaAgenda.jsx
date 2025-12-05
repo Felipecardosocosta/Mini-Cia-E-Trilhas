@@ -11,7 +11,7 @@ import ModalTrilhaAgenda from '../../components/Modals/ModalTrilhaAgenda/ModalTr
 function MinhaAgenda() {
 
     const [dados, setDados] = useState([])
-    const { setAlerta, setUser, modalLogin} = useContext(Mycontext)
+    const { setAlerta, setUser, modalLogin } = useContext(Mycontext)
     const [abriTrilha, setAbriTrilha] = useState(false)
 
     const navegacao = useNavigate()
@@ -34,6 +34,16 @@ function MinhaAgenda() {
             if (!dados.ok) {
                 console.error(dados.error);
 
+                if (dados.mensagem === "Token Invalido ou expirado") {
+
+                    setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
+                    setUser(false)
+                    localStorage.removeItem('user')
+
+                    return
+        
+
+                }
                 return setAlerta({ mensagem: dados.mensagem, icon: "erro" })
             }
 
@@ -51,22 +61,12 @@ function MinhaAgenda() {
 
     }
 
-    const minharef = useRef(null)
+    
 
     useEffect(() => {
         buscarDados()
 
-        function verificar(event) {
-            if (minharef.current && !minharef.current.contains(event.target)) {
-                setAbriTrilha(false)
-            }
-        }
-
-        document.addEventListener("mousedown", verificar)
-
-        return () => {
-            document.removeEventListener("mousedown", verificar)
-        }
+       
 
     }, [])
 
@@ -75,11 +75,11 @@ function MinhaAgenda() {
     return (
         <div className='body-minhaAgenda' >
             <Header />
-            {modalLogin && <Login/>}
+            {modalLogin && <Login />}
 
             {abriTrilha && <ModalTrilhaAgenda idTrilha={idEditar} setAbriTrilha={setAbriTrilha} />}
 
-            <div className='cont-minhaAgenda' ref={minharef}>
+            <div className='cont-minhaAgenda' >
                 <h4 className='titulo-espaçado'>
                     Minha Agenda
                 </h4>
