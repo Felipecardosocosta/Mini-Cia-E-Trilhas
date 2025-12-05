@@ -1,9 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import "./minhaAgenda.css"
 import { Link } from 'react-router-dom'
 import CardMinhaAgenda from './CardMinhaAgenda'
+import buscarCardsMinhaAgenda from '../../server/buscarInformacao/buscarCardsMinhaAgenda'
+import { Mycontext } from '../../context/ContextGlobalUser'
 
 function MinhaAgenda() {
+
+    const [dados,setDados] = useState([])
+    const {setAlerta,setUser } = useContext(Mycontext)
+
+    async function buscarDados() {
+        const localUser = JSON.parse(localStorage.getItem('user'))
+        if (localUser) {
+            const dados = await buscarCardsMinhaAgenda(localUser.token)
+            
+            if (dados.ok) {
+               
+                if (dados.result.length === 0) {
+                    return setAlerta({icon:"erro"})
+                }
+                
+                setDados(dados.result)
+                return
+            }
+
+            setAlerta({mensagem:"Necessario logar novamenre", icon:"erro"})
+            setUser(false)
+            localStorage.removeItem('user')
+
+
+            return
+
+        }
+        
+
+    }
+    console.log(dados.result);
+    
+
+    useEffect(()=>{
+        buscarDados()
+
+    },[])
 
     
 
@@ -27,14 +66,7 @@ function MinhaAgenda() {
 
                     <div className="body-cards-minhaAgenda">
 
-                        <CardMinhaAgenda status={'Ativo'} data={[{
-                            id_evento:1,
-                            data:'5/11/2021',
-                            nomeTrilha:'Trilha da lagoinha do leste',
-                            horário:'11:00',
-                            bairro:"Pantano do sul"
-                            
-                        }]}/>
+                        {dados.length > 0 && <CardMinhaAgenda status={'Ativo'} data={dados}/>}
 
                         
 

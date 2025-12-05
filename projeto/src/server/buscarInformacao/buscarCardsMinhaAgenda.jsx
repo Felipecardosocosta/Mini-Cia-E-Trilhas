@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from "axios"
 
 const buscarCardsMinhaAgenda = async(token) => {
 
@@ -13,9 +14,11 @@ const buscarCardsMinhaAgenda = async(token) => {
         const result = await axios.get("https://api-mine-cia.vercel.app/buscar/cards/agenda/user",{headers:{Authorization: token}})
 
         
+        
         if (result.status===200) {
             
-            return {ok:true, result:result.data}
+
+            return {ok:true, result:result.data.result}
         }
 
         

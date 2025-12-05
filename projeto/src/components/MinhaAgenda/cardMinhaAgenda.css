@@ -1,9 +1,8 @@
 .card-minhaAgenda{
     display: flex;
-    
-    font-size: 15px;
-    width: 30rem;
-    min-height: 15rem;
+    font-size: clamp(1.2rem,2vh,2rem);
+    width: 25rem;
+    height: 13rem;
     border-radius: 10px;
     overflow: hidden;
     background-size: cover;
@@ -14,7 +13,7 @@
 
 .data-card-minhaAgenda{
     background-color: var(--colorButton);
-    width: 14%;
+    width: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,7 +24,7 @@
     display: flex;
     flex-direction: column;
     width: 86%;
-    height: 40vh;
+    height: 100%;
 }
 
 .status-card-minhaAgenda{
@@ -54,13 +53,15 @@
 
 .informcao-card-minhaAgenda{
     
-    height: 75%;
+    height: 70%;
     width: 60%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     color: #fff;
     text-shadow: .1rem .1rem .2rem black, 0 0 1em rgb(4, 4, 7);
     padding: 3rem 0 0 1rem;
+    font-size: clamp(.7rem, 1.5vh, 2rem)
 
 }
 

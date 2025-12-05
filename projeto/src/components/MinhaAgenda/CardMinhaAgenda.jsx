@@ -4,18 +4,24 @@ import './cardMinhaAgenda.css'
 function CardMinhaAgenda({ data, status }) {
 
 
-
+    
+    
+    
 
 
 
     return (
         data.map((conteudo, indx) => {
 
+            
+            console.log(conteudo.data);
+            
+
             return (<div key={conteudo.id_evento} className='card-minhaAgenda' style={{ backgroundImage: 'url(./Imgs/banco/lagoinhaDoLeste.jpg)' }}>
                 <div className="data-card-minhaAgenda">
-                    <p>{conteudo.data.split('/',2)[0]}</p>
+                    <p>{conteudo.data.split('-',3)[1]}</p>
                     <div className='barra-data-minhaAgenda'></div>
-                    <p>{conteudo.data.split('/',2)[1]}</p>
+                    <p>{conteudo.data.split('-',3)[2].split("T",2)[0]}</p>
                 </div>
 
                 <div className="conteudo-card-minhaAgenda" >
