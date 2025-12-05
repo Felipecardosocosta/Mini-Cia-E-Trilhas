@@ -1,14 +1,20 @@
 import React, { useEffect, useState,useContext, useRef } from 'react'
 import "./minhaAgenda.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import CardMinhaAgenda from './CardMinhaAgenda'
 import buscarCardsMinhaAgenda from '../../server/buscarInformacao/buscarCardsMinhaAgenda'
 import { Mycontext } from '../../context/ContextGlobalUser'
+import Header from '../Header/Header'
 
-function MinhaAgenda({setMinhaAgenda}) {
+function MinhaAgenda() {
 
     const [dados,setDados] = useState([])
     const {setAlerta,setUser } = useContext(Mycontext)
+    const[abriTrilha,setAbriTrilha] = useState(false)
+
+    const navegacao = useNavigate()
+
+    const [idEditar,setIdEditar] = useState('')
 
     async function buscarDados() {
         const localUser = JSON.parse(localStorage.getItem('user'))
@@ -17,16 +23,20 @@ function MinhaAgenda({setMinhaAgenda}) {
             
             if (dados.ok) {
                
-                if (dados.result.length === 0) {
-                    return setAlerta({icon:"erro"})
-                }
-                
+                 
                 setDados(dados.result)
+                console.log(dados);
+                
                 return
             }
+            if (!dados.ok) {
+                    return setAlerta({mensagem:dados.mensagem,icon:"erro"})
+                }
 
-            setAlerta({mensagem:"Necessario logar novamenre", icon:"erro"})
+                
+            setAlerta({mensagem:"Tempo de login expirado", icon:"erro"})
             setUser(false)
+            navegacao("/")
             localStorage.removeItem('user')
 
 
@@ -44,7 +54,7 @@ function MinhaAgenda({setMinhaAgenda}) {
 
         function verificar(event) {
             if (minharef.current&& !minharef.current.contains(event.target)) {
-                setMinhaAgenda(false)
+                setAbriTrilha(false)
             }
         }
 
@@ -60,6 +70,8 @@ function MinhaAgenda({setMinhaAgenda}) {
 
     return (
         <div className='body-minhaAgenda' >
+            <Header/>
+            {abriTrilha&& `${abriTrilha}, ${idEditar}`}
 
             <div className='cont-minhaAgenda' ref={minharef}>
                 <h4 className='titulo-espaçado'>
@@ -78,7 +90,7 @@ function MinhaAgenda({setMinhaAgenda}) {
 
                     <div className="body-cards-minhaAgenda">
 
-                        {dados.length > 0 && <CardMinhaAgenda  status={'Ativo'} data={dados}/>}
+                        {dados.length > 0 && <CardMinhaAgenda abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados}/>}
 
                         
 

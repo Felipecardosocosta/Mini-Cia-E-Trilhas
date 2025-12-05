@@ -14,7 +14,7 @@ function Dropdown({ perfil, transparent,minhaAgenda }) {
 
    
     function abrirMinhaAgenda() {
-        minhaAgenda.setMinhaAgenda(true)
+        navigate('/perfil/agenda')
         setModalPerfil(false)
     }
 

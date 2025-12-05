@@ -1,9 +1,12 @@
 import React from 'react'
 import './cardMinhaAgenda.css'
 
-function CardMinhaAgenda({ data, status, button = false }) {
+function CardMinhaAgenda({id,abrir, data, status, button = false }) {
 
-
+    function iniciarEdicao(idEvento) {
+        id(idEvento)
+        abrir(true)
+    }
 
 
 
@@ -17,7 +20,7 @@ function CardMinhaAgenda({ data, status, button = false }) {
             console.log(conteudo.data);
 
 
-            return (<div key={conteudo.id_evento} className='card-minhaAgenda' style={{ backgroundImage: 'url(./Imgs/banco/lagoinhaDoLeste.jpg)' }}>
+            return (<div key={conteudo.id_evento} onClick={()=>iniciarEdicao(conteudo.id_evento)} className='card-minhaAgenda' style={{ backgroundImage: 'url("../../../public/Imgs/banco/lagoinhaDoLeste.jpg")' }}>
                 <div className="data-card-minhaAgenda">
                     <p>{conteudo.data.split('-', 3)[2].split("T", 2)[0]}</p>
                     <div className='barra-data-minhaAgenda'></div>

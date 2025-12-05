@@ -7,7 +7,7 @@ import Perfil from '../Perfil/Perfil';
 import Form_alterarSenha from '../Forms/AlterarSenha/Form_alterarSenha';
 import Alerta from '../Alerta/Alerta';
 import { BsCheck2Circle } from "react-icons/bs";
-import MinhaAgenda from '../MinhaAgenda/MinhaAgenda';
+
 
 function NavBar({transparent=false}) {
 
@@ -27,7 +27,6 @@ function NavBar({transparent=false}) {
 
   const {user,setUser, setModalLogin, setModalPerfil,modalPerfil,meusDados, alterarSenha,setAlerta,alerta} = useContext(Mycontext)
 
-  const [minhaAgenda,setMinhaAgenda] = useState(false)
  
 
   return (
@@ -36,12 +35,12 @@ function NavBar({transparent=false}) {
         {user && <Link className='link' to={'/dashboard'} >DashBord</Link>}
         <Link className='link' to={'/eventos'} >Agenda</Link>
         <Link className='link' to={'/trilhas'} >Trilhas</Link>  
-        {!user ? <Link className='link' onClick={()=> setModalLogin(true)}>Login</Link>: <Dropdown minhaAgenda={{minhaAgenda,setMinhaAgenda}} transparent={transparent} perfil={modalPerfil}/> }
+        {!user ? <Link className='link' onClick={()=> setModalLogin(true)}>Login</Link>: <Dropdown  transparent={transparent} perfil={modalPerfil}/> }
         {meusDados && <Perfil/>}
         {alterarSenha && <Form_alterarSenha/>}
       {alerta && <Alerta mensagem={alerta.mensagem} icon={alerta.icon} setAlerta={setAlerta} />}
 
-      {minhaAgenda&&<MinhaAgenda setMinhaAgenda={setMinhaAgenda}/>}
+      
 
 
     </nav>

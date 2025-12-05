@@ -1,15 +1,25 @@
+:root{
+    --corFundoData: rgb(123, 30, 30);
+    --corFontData: #fff;
+    --corStatus: #7B1E1E;
+    --corFontStatus: #fff;
+    --corFontConteudo:#fff;
+    
+}
 .card-minhaAgenda{
     display: flex;
     font-size: clamp(1.2rem,2vh,2rem);
     width: 25rem;
-    height: 13rem;
+    height: 12rem;
     border-radius: 10px;
     overflow: hidden;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0 0 .1rem black;
-    letter-spacing: .13rem;
+    
+    /* letter-spacing: .13rem; */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .card-minhaAgenda:hover{
@@ -18,16 +28,18 @@
 }
 
 .data-card-minhaAgenda{
-    background-color: var(--colorButton);
-    width: 10%;
+    background-color: var(--corFundoData) ;
+    width: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--corFontData);
     font-size: clamp(1rem, 3.5vh, 2rem);
     gap: .5rem;
-    
+   /* font-family: 'Trade Winds';
+     */
+    font-family: Arial;
 }
 
 .conteudo-card-minhaAgenda{
@@ -43,6 +55,7 @@
     height: 15%;
     display: flex;
     align-items: end;
+    
 
 }
 
@@ -51,13 +64,13 @@
     border-radius: 5rem;
     width: 80%;
     height: 50%;
-    background-color: var(--colorButton);
+    background-color: var(--corStatus);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 13px;
     letter-spacing: .1rem;
-    color: aliceblue;
+    color: var(--corFontStatus);
     font-family: Arial;
 }
 
@@ -69,7 +82,7 @@
     flex-direction: column;
     justify-content: center;
     background-color: #0c0c0c05;
-    color: #fff;
+    color: var(--corFontConteudo);
     text-shadow: .0rem .0rem .2rem black, 0 0 1em rgb(4, 4, 7);
     padding: 0 0 0 1rem;
     font-size: clamp(.7rem, 2vh, 2rem);
