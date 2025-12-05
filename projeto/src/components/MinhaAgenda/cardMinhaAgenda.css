@@ -9,6 +9,12 @@
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0 0 .1rem black;
+    letter-spacing: .13rem;
+}
+
+.card-minhaAgenda:hover{
+    scale: 1.1;
+    
 }
 
 .data-card-minhaAgenda{
@@ -18,6 +24,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: #fff;
+    font-size: clamp(1rem, 3.5vh, 2rem);
+    gap: .5rem;
+    
 }
 
 .conteudo-card-minhaAgenda{
@@ -54,23 +64,18 @@
 .informcao-card-minhaAgenda{
     
     height: 70%;
-    width: 60%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: #0c0c0c05;
     color: #fff;
-    text-shadow: .1rem .1rem .2rem black, 0 0 1em rgb(4, 4, 7);
-    padding: 3rem 0 0 1rem;
-    font-size: clamp(.7rem, 1.5vh, 2rem)
+    text-shadow: .0rem .0rem .2rem black, 0 0 1em rgb(4, 4, 7);
+    padding: 0 0 0 1rem;
+    font-size: clamp(.7rem, 2vh, 2rem);
 
 }
 
-.data-card-minhaAgenda{
-    color: #fff;
-    font-size: 2rem;
-    display: flex;
-    gap: .5rem;
-}
 
 .barra-data-minhaAgenda{
     width: 70%;
@@ -94,7 +99,7 @@
     width: 45%;
     border: none;
     border-radius: .7rem;
-    background-color: rgb(170, 14, 14);
+    background-color: rgb(165, 53, 53);
     color: #fff;
     box-shadow: 0 0 .3rem rgba(0, 0, 0, 0.644);
 }
@@ -104,7 +109,7 @@
     width: 45%;
     border: none;
     border-radius: .7rem;
-    background-color: #447A9C;
+    background-color: #587383;
     color: #fff;
      box-shadow: 0 0 .3rem rgba(0, 0, 0, 0.644);
 }

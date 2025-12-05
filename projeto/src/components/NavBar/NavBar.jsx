@@ -41,7 +41,7 @@ function NavBar({transparent=false}) {
         {alterarSenha && <Form_alterarSenha/>}
       {alerta && <Alerta mensagem={alerta.mensagem} icon={alerta.icon} setAlerta={setAlerta} />}
 
-      {minhaAgenda&&<MinhaAgenda/>}
+      {minhaAgenda&&<MinhaAgenda setMinhaAgenda={setMinhaAgenda}/>}
 
 
     </nav>

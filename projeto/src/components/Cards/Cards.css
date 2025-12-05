@@ -79,6 +79,10 @@
 }
 .CardsTrilha-ImgD{
     background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 25px;
     height: 100%;
     width: 20%;
 }
@@ -119,6 +123,10 @@
 }
 .CardsTrilha-ImgE{
     background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 25px;
     height: 100%;
     width: 20%;
 }

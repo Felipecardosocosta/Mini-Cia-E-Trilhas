@@ -1,11 +1,11 @@
-import React, { useEffect, useState,useContext } from 'react'
+import React, { useEffect, useState,useContext, useRef } from 'react'
 import "./minhaAgenda.css"
 import { Link } from 'react-router-dom'
 import CardMinhaAgenda from './CardMinhaAgenda'
 import buscarCardsMinhaAgenda from '../../server/buscarInformacao/buscarCardsMinhaAgenda'
 import { Mycontext } from '../../context/ContextGlobalUser'
 
-function MinhaAgenda() {
+function MinhaAgenda({setMinhaAgenda}) {
 
     const [dados,setDados] = useState([])
     const {setAlerta,setUser } = useContext(Mycontext)
@@ -36,11 +36,23 @@ function MinhaAgenda() {
         
 
     }
-    console.log(dados.result);
     
+    const minharef = useRef(null)
 
     useEffect(()=>{
         buscarDados()
+
+        function verificar(event) {
+            if (minharef.current&& !minharef.current.contains(event.target)) {
+                setMinhaAgenda(false)
+            }
+        }
+
+        document.addEventListener("mousedown",verificar)
+
+        return ()=>{
+            document.removeEventListener("mousedown",verificar)
+        }
 
     },[])
 
@@ -49,7 +61,7 @@ function MinhaAgenda() {
     return (
         <div className='body-minhaAgenda' >
 
-            <div className='cont-minhaAgenda'>
+            <div className='cont-minhaAgenda' ref={minharef}>
                 <h4 className='titulo-espaçado'>
                     Minha Agenda
                 </h4>
@@ -66,7 +78,7 @@ function MinhaAgenda() {
 
                     <div className="body-cards-minhaAgenda">
 
-                        {dados.length > 0 && <CardMinhaAgenda status={'Ativo'} data={dados}/>}
+                        {dados.length > 0 && <CardMinhaAgenda  status={'Ativo'} data={dados}/>}
 
                         
 

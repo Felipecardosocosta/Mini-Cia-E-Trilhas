@@ -15,8 +15,8 @@ function CardsTrilhaOn(props) {
             {console.log(props.tri)}
 
             <div className={ContCardsTrilhas}>
-                <div className={CardsTrilhaImg}>
-                    <p>Espaço reservado para a foto</p>
+                <div className={CardsTrilhaImg} style={{backgroundImage:"url(./Imgs/banco/lagoinhaDoLeste.jpg)"}}>
+                    <p></p>
                 </div>
 
                 <div className={CardsTrilhasInf}>
