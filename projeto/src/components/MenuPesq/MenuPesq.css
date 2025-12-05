@@ -14,7 +14,7 @@
 
 
 
-.Cont-esq{
+.Cont-barraFiltro{
     height: 100%;
     width: 50%;
 
@@ -22,17 +22,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5%;
 }
-.Esq-sup{
-    height: 50%;
+.BarraFiltro-barraPesq{
+    height: 45%;
     width: 100%;
 
     display: flex;
     flex-direction: row;
     
 }
-.Sup-esq{
+.BarraPesq-barra{
     height: 100%;
     width: 80%;
 
@@ -40,7 +39,7 @@
     justify-content: center;
     align-items: center;
 }
-.Sup-dir{
+.BarraPesq-pesqBttn{
     height: 100%;
     width: 20%;
 
@@ -48,7 +47,7 @@
     justify-content: center;
     align-items: center;
 }
-.Sup-dir-BttnPesq{
+.PesqBttn{
     height: 85%;
     width: 90%;
 
@@ -59,77 +58,84 @@
     background-color: white;
 }
 
-.Esq-inf{
-    height: 50%;
+.BarraFiltro-filtroBttns{
+    height: 55%;
     width: 100%;
 
     display: flex;
     flex-direction: row;
-
+    justify-content: center;
+    padding-top: 0.2rem;
 }
-.Inf-esq{
+.FiltroBttns-iconBttn{
     height: 100%;
     width: 10%;
 }
-.Inf-esq-BttnFiltro{
+.IconBttn-filtro{
+    background-color: transparent;
     height: 100%;
     width: 100%;
-
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    
-    border: none;
-    background-color: transparent;
-}
-.Inf-meio{
-    height: 100%;
-    width: 50%;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 0.25% 0%;  
-}
-.Inf-meio-FltrDT{
-    height: 100%;
-    width: 35%;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5%;
-
+    cursor: pointer;
     
+    border: none;
+}
+.FiltroBttns-bttnsDT{
+    height: 100%;
+    width: 40%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+.BttnsDT{
+    height: 100%;
+    width: 40%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
 
     border: solid 1px;
     border-color: black;
-    border-radius: 7px;
+    border-radius: 10px;
     cursor: pointer;
 
 }
-.Inf-dir{
+.FiltroBttns-bttnsMN{
+    height: 100%;
+    width: 60%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.BttnsMN{
     height: 100%;
     width: 40%;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: start;
-}
-.Inf-dir-FltrMN{
-    height: 100%;
-    width: 50%;
-
-    display: flex;
-    justify-content:space-around;
+    justify-content:center;
     align-items: center;    
 
     border: solid 1px;
     border-color: black;
-    border-radius: 3px;
+    border-radius: 10px;
     cursor: pointer;
 }
+.BttnsDT.ativo, 
+.BttnsMN.ativo {
+    background-color: rgba(112, 8, 8, 0.2);
+    border-color: rgba(112, 8, 8, 1);
+    transform: scale(1.05);
+    font-weight: bold;
+}
+
 
 
 
