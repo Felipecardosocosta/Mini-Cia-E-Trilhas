@@ -4,25 +4,25 @@ import BttnsReg from '../BttnsReg/BttnRegs'
 import { useContext, useState } from 'react'
 import { Mycontext } from '../../context/ContextGlobalUser'
 import BarraPesq from '../BarraPesq/BarraPesq'
-import { GiPathDistance } from "react-icons/gi"
+import { FaCalendarDays } from "react-icons/fa6";
+import { BsPersonRaisedHand } from "react-icons/bs";
 import { FaArrowDownShortWide, FaArrowDownWideShort } from "react-icons/fa6"
 import { TbFilter } from "react-icons/tb"
-import { BsSmartwatch } from "react-icons/bs"
 
-function MenuPesq() {
+function MenuPesqAg() {
 
-    const {setRegiao, filtroTipo, setFiltroTipo, filtroOrdem, setFiltroOrdem} = useContext(Mycontext)
-
-    const [mostrarFiltros, setMostrarFiltros] = useState(false)
+    const { setRegiao, filtroTipo, setFiltroTipo, filtroOrdem, setFiltroOrdem } = useContext(Mycontext);
+    const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
     function Filtros() {
-        setMostrarFiltros(prev => { const novoValor = !prev
+        setMostrarFiltros(prev => {
+            const novoValor = !prev;
             if (!novoValor) {
-                setFiltroTipo(null)
-                setFiltroOrdem(null)
+                setFiltroTipo(null);
+                setFiltroOrdem(null);
             }
-            return novoValor
-        })
+            return novoValor;
+        });
     }
 
     return (
@@ -42,19 +42,25 @@ function MenuPesq() {
 
                 <div className='BarraFiltro-filtroBttns'>
                     <div className='FiltroBttns-iconBttn'>
-                        <button onClick={Filtros} className='IconBttn-filtro'> <TbFilter size={45} color='rgba(112, 8, 8, 1)' /> </button>
+                        <button onClick={Filtros} className='IconBttn-filtro'>
+                            <TbFilter size={45} color='rgba(112, 8, 8, 1)' />
+                        </button>
                     </div>
 
                     <div className='FiltroBttns-bttnsDT'>
                         {mostrarFiltros && (
                             <>
                                 <button
-                                    onClick={() => setFiltroTipo("dist")}
-                                    className={`BttnsDT ${filtroTipo === "dist" ? "ativo" : ""}`}> <GiPathDistance size={25} /> <h4>Dist.</h4> </button>
+                                    onClick={() => setFiltroTipo("data")}
+                                    className={`BttnsDT ${filtroTipo === "data" ? "ativo" : ""}`}>
+                                    <FaCalendarDays size={25} /> <h4>Data</h4>
+                                </button>
 
                                 <button
-                                    onClick={() => setFiltroTipo("tempo")}
-                                    className={`BttnsDT ${filtroTipo === "tempo" ? "ativo" : ""}`}> <BsSmartwatch size={25} /> <h4>Tempo</h4> </button>
+                                    onClick={() => setFiltroTipo("vagas")}
+                                    className={`BttnsDT ${filtroTipo === "vagas" ? "ativo" : ""}`}>
+                                    <BsPersonRaisedHand size={25} /> <h4>Nº Vagas</h4>
+                                </button>
                             </>
                         )}
                     </div>
@@ -64,11 +70,15 @@ function MenuPesq() {
                             <>
                                 <button
                                     onClick={() => setFiltroOrdem("desc")}
-                                    className={`BttnsMN ${filtroOrdem === "desc" ? "ativo" : ""}`}> <h4>Maior p/ menor</h4> <FaArrowDownWideShort size={15} /> </button>
+                                    className={`BttnsMN ${filtroOrdem === "desc" ? "ativo" : ""}`}>
+                                    <h4>Maior p/ menor</h4> <FaArrowDownWideShort size={15} />
+                                </button>
 
                                 <button
                                     onClick={() => setFiltroOrdem("asc")}
-                                    className={`BttnsMN ${filtroOrdem === "asc" ? "ativo" : ""}`}> <FaArrowDownShortWide size={15} /> <h4>Menor p/ maior</h4> </button>
+                                    className={`BttnsMN ${filtroOrdem === "asc" ? "ativo" : ""}`}>
+                                    <FaArrowDownShortWide size={15} /> <h4>Menor p/ maior</h4>
+                                </button>
                             </>
                         )}
                     </div>
@@ -94,4 +104,4 @@ function MenuPesq() {
     )
 }
 
-export default MenuPesq
+export default MenuPesqAg

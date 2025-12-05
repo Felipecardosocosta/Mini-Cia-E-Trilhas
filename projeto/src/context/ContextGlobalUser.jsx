@@ -27,11 +27,7 @@ export const ContextGlobalUser = ({ children }) => {
 
   return (
 
-    <Mycontext.Provider value={{
-      regTrilhas, setRegiao, barraPesq, setBarraPesq, user, setUser, modalLogin, setModalLogin, isActive, setIsActive,
-      modalPerfil, meusDados, setMeusDados, setModalPerfil, infouser, setInfouser, alterarSenha, setAlterarSenha, alerta, setAlerta, filtroTipo, setFiltroTipo,
-      filtroOrdem, setFiltroOrdem,
-    }}>
+    <Mycontext.Provider value={{ regTrilhas, setRegiao, barraPesq, setBarraPesq, user, setUser, modalLogin, setModalLogin, isActive, setIsActive, modalPerfil, meusDados, setMeusDados, setModalPerfil, infouser, setInfouser, alterarSenha, setAlterarSenha, alerta, setAlerta, filtroTipo, setFiltroTipo, filtroOrdem, setFiltroOrdem,}}>
       {children}
     </Mycontext.Provider>
 

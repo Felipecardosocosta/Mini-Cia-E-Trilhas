@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import Login from '../../components/Login/Login'
 import { Mycontext } from '../../context/ContextGlobalUser'
@@ -7,84 +7,111 @@ import CardsAgendaOff from '../../components/Cards/CardsAgendaOff'
 import buscarCardsAgendaOff from '../../server/buscarInformacao/buscarCardsAgendaOff'
 import participarEvento from '../../server/inserirDados/participarEvento'
 import './Agenda.css'
-import MenuPesq from '../../components/MenuPesq/MenuPesq'
 import buscarCardsAgendaOn from '../../server/buscarInformacao/buscarCardsAgendaOn'
+import MenuPesqAg from '../../components/MenuPesq/MenuPesqAg'
+
 function Eventos() {
 
-  const [agenda, setAgenda] = useState([])
+  const [agenda, setAgenda] = useState([]);
+  const [atualizar, setAtualiza] = useState(false);
 
-  const [atualizar, setAtualiza] = useState(false)
+  const { modalLogin, setModalLogin, user, setAlerta, regTrilhas, filtroTipo, filtroOrdem } = useContext(Mycontext);
 
-  const { modalLogin, setModalLogin, user, setAlerta } = React.useContext(Mycontext)
-
-  const { regTrilhas, setRegiao } = useContext(Mycontext);
-
+  // ---------------------------------------------
+  // FILTRO POR REGIÃO
+  // ---------------------------------------------
   const eventosFiltrados = agenda.filter((evento) => {
     if (regTrilhas === 'Regiões') return true;
     return evento.regiao === regTrilhas;
   });
 
+  // ---------------------------------------------
+  // BUSCAR API
+  // ---------------------------------------------
+  async function pesquisaAPI() {
+    const localStorege = JSON.parse(localStorage.getItem('user'));
+    let dados;
 
-
-  async function pesquisaAPI(params) {
-
-    const localStorege = JSON.parse(localStorage.getItem('user'))
-    let dados
     if (localStorege) {
-      dados = await buscarCardsAgendaOn(localStorege.token)
+      dados = await buscarCardsAgendaOn(localStorege.token);
     } else {
-      dados = await buscarCardsAgendaOff()
+      dados = await buscarCardsAgendaOff();
     }
-
-    await buscarCardsAgendaOff()
 
     if (dados.ok) {
-      setAgenda(dados.resultado)
-      return
+      setAgenda(dados.resultado);
+      return;
     }
-
-    console.log(dados)
   }
 
-  useEffect(() => { pesquisaAPI() }, [atualizar])
+  useEffect(() => { pesquisaAPI() }, [atualizar]);
 
-  // ------------------------------
-  // FUNÇÃO DE PARTICIPAR DO EVENTO
-  // ------------------------------
+  // ---------------------------------------------
+  // PARTICIPAR DO EVENTO
+  // ---------------------------------------------
   async function participar(evento) {
 
     if (!user || !user.token) {
-      setAlerta({ mensagem: "Você precisa fazer login para participar" })
-      setModalLogin(true)
-      return
+      setAlerta({ mensagem: "Você precisa fazer login para participar" });
+      setModalLogin(true);
+      return;
     }
 
-    const resposta = await participarEvento(user.token, evento.id_evento)
+    const resposta = await participarEvento(user.token, evento.id_evento);
 
     if (resposta.ok) {
-      setAlerta({ mensagem: resposta.mensagem, icon: "ok" })
-
-      setAtualiza(atualizar ? false : true)
+      setAlerta({ mensagem: resposta.mensagem, icon: "ok" });
+      setAtualiza(prev => !prev);
     } else {
-      setAlerta({ mensagem: resposta.mensagem, icon: "erro" })
+      setAlerta({ mensagem: resposta.mensagem, icon: "erro" });
     }
   }
 
+  // ---------------------------------------------
+  // FILTRO DE DATA E Nº DE VAGAS (IGUAL TRILHAS)
+  // ---------------------------------------------
+
+  let eventosOrdenados = [...eventosFiltrados];
+
+  function parseData(dataStr) {
+    return new Date(dataStr).getTime();
+  }
+
+  if (filtroTipo && filtroOrdem) {
+
+    eventosOrdenados = eventosOrdenados.sort((a, b) => {
+      let valA, valB;
+
+      if (filtroTipo === "data") {
+        valA = parseData(a.data);
+        valB = parseData(b.data);
+      }
+
+      if (filtroTipo === "vagas") {
+        valA = Number(a.vagasDisp);
+        valB = Number(b.vagasDisp);
+      }
+
+      return filtroOrdem === "asc" ? valA - valB : valB - valA;
+    });
+
+  }
+
+  // ---------------------------------------------
+  // RENDER
+  // ---------------------------------------------
   return (
-    <div className='Agenda-cont'>
-      <div>
-        <Header />
-        {modalLogin && <Login />}
-      </div>
+    <div>
+      <div> <Header /> {modalLogin && <Login />} </div>
 
-      <div className='Cont-MenuPesq'>
-        <MenuPesq />
-      </div>
+      <div className='Agenda-cont'>
+        
+        <div className='Cont-MenuPesq'> <MenuPesqAg /> </div>
 
-      <div className='Cards-Eventos'>
+      <div className='Cards-Agenda'>
 
-        {eventosFiltrados.length > 0 &&
-          eventosFiltrados.map((evento, index) => (
+        {eventosOrdenados.length > 0 &&
+          eventosOrdenados.map((evento, index) => (
             user ? (
               <CardsAgendaOn
                 key={index}
@@ -107,9 +134,12 @@ function Eventos() {
           ))
         }
 
-
       </div>
     </div>
+
+    </div>
+
+    
   )
 }
 

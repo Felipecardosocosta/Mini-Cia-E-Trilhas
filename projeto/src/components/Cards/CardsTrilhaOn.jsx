@@ -21,7 +21,7 @@ function CardsTrilhaOn(props) {
 
                 <div className={CardsTrilhasInf}>
                     <p>{props.id}</p>
-                    <h1>{props.tri}</h1>
+                    <h2>{props.tri}</h2>
                     <br></br>
                     <p>Ponto de Partida: {props.ini}</p>
                     <p>Ponto de Chegada: {props.fim}</p>

@@ -157,10 +157,7 @@ if (filtroTipo && filtroOrdem) {
 
   return (
     <div>
-      <div>
-        <Header />
-        {modalLogin && <Login />}
-      </div>
+      <div> <Header /> {modalLogin && <Login />} </div>
 
       <div className='Trilha-cont'>
 

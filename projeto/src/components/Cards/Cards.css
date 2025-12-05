@@ -1,4 +1,102 @@
-.CardsAgenda {}
+.Card-minhaAgenda{
+    display: flex;
+    font-size: clamp(1.2rem,2vh,2rem);
+    width: var(--tamanhoDoCard);
+    height: calc(var(--tamanhoDoCard) / 2 );
+    border-radius: 10px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 .1rem black;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.Card-minhaAgenda:hover{
+    scale: 1.1;
+}
+
+.Data-card-minhaAgenda{
+    background-color: var(--corFundoData);
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--corFontData);
+    font-size: clamp(1rem, 3.5vh, 2rem);
+    gap: .5rem;
+    font-family: Arial;
+}
+
+.Barra-data-minhaAgenda{
+    width: 70%;
+    border: 1px solid;
+    border-radius: 50%;
+    transform: rotateZ(-30deg);
+}
+
+.Conteudo-card-minhaAgenda{
+    display: flex;
+    flex-direction: column;
+    width: 86%;
+    height: 100%;
+}
+
+.Status-card-minhaAgenda{
+    align-self: end;
+    width: 25%;
+    height: 15%;
+    display: flex;
+    align-items: end;
+}
+
+.Conteudo-status-card-minhaAgenda{
+    border-radius: 5rem;
+    width: 100%;
+    height: 75%;
+    background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--corFontStatus);
+    font-family: Arial;
+}
+
+.Informcao-card-minhaAgenda{
+    height: 70%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #0c0c0c05;
+    color: var(--corFontConteudo);
+    text-shadow: .0rem .0rem .2rem black, 0 0 1em rgb(4, 4, 7);
+    padding-left: 1rem;
+    font-size: clamp(.7rem, 2vh, 2rem);
+}
+
+.Buttons-cards-minhaAgenda{
+    align-self: flex-end;
+    width: 45%;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Botao-editar-cards-MAG{
+    height: 70%;
+    width: 80%;
+    border: none;
+    border-radius: .7rem;
+    background-color:rgb(123, 30, 30);
+    color: #fff;
+    box-shadow: 0 0 .3rem rgba(0, 0, 0, 0.644);
+    cursor: pointer;
+}
 
 /* ------------------------ */
 
@@ -13,7 +111,7 @@
 .Bttn{
     background-color: rgba(112, 8, 8, 1);
     height: 100%;
-    width: 85%;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -76,6 +174,7 @@
 
     display: flex;
     flex-direction: row;
+    gap: 1rem;
 }
 .CardsTrilha-ImgD{
     background-color: transparent;
@@ -114,12 +213,13 @@
 /* ----- INVERTIDO ----- */
 
 
-.Cont-CardsTrilhasD {
+.Cont-CardsTrilhasD{
     height: 100%;
     width: 100%;
 
     display: flex;
     flex-direction: row-reverse;
+    gap: 1rem;
 }
 .CardsTrilha-ImgE{
     background-color: transparent;
