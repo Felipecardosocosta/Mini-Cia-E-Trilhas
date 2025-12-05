@@ -25,7 +25,7 @@ function CardsTrilhaOn(props) {
                     <br></br>
                     <p>Ponto de Partida: {props.ini}</p>
                     <p>Ponto de Chegada: {props.fim}</p>
-                    <p>Dist.: {props.dis} // Tempo: {props.tmp}</p>
+                    <p>Dist.: {props.dis}Km // Tempo: {props.tmp}</p>
                     <p>Nível: {props.dif} // Relevo: {props.rlv}</p>
 
                 </div>

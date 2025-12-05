@@ -14,7 +14,7 @@ import cadastrarEvento from '../../server/inserirDados/cadastrarEvento'
 
 
 function Trilhas() {
-  const { user, modalLogin, setModalLogin, regTrilhas, setRegiao, setAlerta } = useContext(Mycontext)
+  const { user, modalLogin, setModalLogin, regTrilhas, setRegiao, setAlerta, filtroTipo, filtroOrdem } = useContext(Mycontext)
 
   const [TrilhasBD, setTrilhasBD] = useState([])
 
@@ -93,10 +93,63 @@ function Trilhas() {
 
   }
 
-  const trilhasFiltradas = TrilhasBD.filter((trilha) => {
-    if (regTrilhas === 'Regiões') return true; // "Todas"
+  let trilhasFiltradas = TrilhasBD.filter((trilha) => {
+    if (regTrilhas === 'Regiões') return true;
     return trilha.regiao === regTrilhas;
   });
+
+  function parseTempo(valor) {
+  if (!valor) return 0;
+
+  // Caso seja número puro
+  if (!isNaN(valor)) return Number(valor);
+
+  valor = valor.toString().toLowerCase();
+
+  let horas = 0;
+  let minutos = 0;
+
+  // Formato "1h 30min"
+  if (valor.includes("h")) {
+    const partes = valor.split("h");
+    horas = Number(partes[0].trim());
+
+    if (partes[1]) {
+      const m = partes[1].replace("min", "").trim();
+      if (!isNaN(m)) minutos = Number(m);
+    }
+    return horas * 60 + minutos;
+  }
+
+  // Formato "45min"
+  if (valor.includes("min")) {
+    minutos = Number(valor.replace("min", "").trim());
+    return minutos;
+  }
+
+  // Formato "01:20"
+  if (valor.includes(":")) {
+    const [h, m] = valor.split(":");
+    return Number(h) * 60 + Number(m);
+  }
+
+  // Última alternativa: tentar converter
+  return Number(valor) || 0;
+}
+
+
+if (filtroTipo && filtroOrdem) {
+  trilhasFiltradas = [...trilhasFiltradas].sort((a, b) => {
+    const campo = filtroTipo === "dist" ? "distância" : "tempo"
+
+    const valA = campo === "tempo" ? parseTempo(a[campo]) : Number(a[campo])
+    const valB = campo === "tempo" ? parseTempo(b[campo]) : Number(b[campo])
+
+    return filtroOrdem === "asc"
+      ? valA - valB
+      : valB - valA
+  });
+}
 
 
 

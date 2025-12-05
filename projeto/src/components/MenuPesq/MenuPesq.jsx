@@ -12,7 +12,7 @@ import { BsSmartwatch } from "react-icons/bs"
 
 
 function MenuPesq() {
-    const {regTrilhas, setRegiao} = useContext(Mycontext);
+    const {regTrilhas, setRegiao, setFiltroTipo, setFiltroOrdem} = useContext(Mycontext);
     const [fltrDT, setfltrDT] = useState('')
     const [fltrMN, setfltrMN] = useState('')
 
@@ -20,8 +20,8 @@ function MenuPesq() {
         if('True'){
             setfltrDT(
                 <>
-                    <button onClick={FiltrarMN} className='Inf-meio-FltrDT' > <GiPathDistance size={25}/>Distância</button>
-                    <button onClick={FiltrarMN} className='Inf-meio-FltrDT'> <BsSmartwatch size={25}/>Tempo</button>
+                    <button onClick={() => {FiltrarMN(); setFiltroTipo("dist");}} className='Inf-meio-FltrDT'> <GiPathDistance size={25}/>Distância </button>
+                    <button onClick={() => {FiltrarMN(); setFiltroTipo("tempo");}} className='Inf-meio-FltrDT'> <BsSmartwatch size={25}/>Tempo </button>
                 </>            
             )}}
 
@@ -29,8 +29,8 @@ function MenuPesq() {
         if('True'){
             setfltrMN(
                 <>
-                    <button className='Inf-dir-FltrMN'> <FaArrowDownWideShort size={15}/>Maior p/ menor</button>
-                    <button className='Inf-dir-FltrMN'> Menor p/ maior <FaArrowDownShortWide size={15}/></button>
+                    <button onClick={() => setFiltroOrdem("desc")} className='Inf-dir-FltrMN'> <FaArrowDownWideShort size={15}/>Maior p/ menor </button>
+                    <button onClick={() => setFiltroOrdem("asc")} className='Inf-dir-FltrMN'> Menor p/ maior <FaArrowDownShortWide size={15}/> </button>
                 </>
             )}}
 

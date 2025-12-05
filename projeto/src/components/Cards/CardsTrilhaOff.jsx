@@ -23,7 +23,7 @@ function CardsTrilhaOff(props) {
                 <div className={CardsTrilhasInf}>
                     <h1>{props.nome}</h1>
                     <br></br>
-                    <p>Dist.: {props.dis} // Tempo: {props.tmp}</p>
+                    <p>Dist.: {props.dis}Km // Tempo: {props.tmp}</p>
                     <p>Dificuldade: {props.dif}</p>
                 </div>
 
