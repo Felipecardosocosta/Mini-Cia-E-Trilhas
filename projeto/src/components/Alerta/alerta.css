@@ -6,12 +6,12 @@
     display: flex;
     justify-content: end;
     backdrop-filter: blur(1px);
-    background-color: #ffffff11;
+    background-color: #ffffff05;
     padding: 1rem;
     z-index: 10000;
     font-size: clamp(.9rem ,1vw,1.2rem);
     overflow: hidden;
-    transition: 1s ease-in-out;
+    
 }
 
 .alerta-conteudo{
@@ -28,7 +28,7 @@
     background-image: linear-gradient(150deg, #700808e0, #1e0202ee);
     
     transform: translateX(120%);
-    animation: vaiProLado 0.4s forwards ease-out;
+    animation: vaiProLado 0.2s forwards ease-out;
     
 
 

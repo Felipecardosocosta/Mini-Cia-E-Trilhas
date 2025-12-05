@@ -1,72 +1,86 @@
-import  { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import './modalMinhaTrilhaAgenda.css'
 import buscarEventoCompleto from '../../../server/buscarInformacao/buscarEventoCompleto'
 import { Mycontext } from '../../../context/ContextGlobalUser'
+import { ClimbingBoxLoader } from "react-spinners";
 
-function ModalTrilhaAgenda({idTrilha,setAbriTrilha}) {
 
-    const{setUser, setAlerta}= useContext(Mycontext)
+function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
 
-    const [dados , setDados] = useState({})
+    const { setUser, setAlerta } = useContext(Mycontext)
+
+    const [dados, setDados] = useState({})
     const user = JSON.parse(localStorage.getItem("user"))
+    const [carregando, setCarregando] = useState(false)
 
     async function buscarInfs() {
         if (!user) {
 
-            setAlerta({mensagem:"Tempo de login expirado", icon:"erro"})
+            setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
             setUser(false)
             return
         }
-        
-        const infos = await buscarEventoCompleto(user.token)
+        setCarregando(true)
+        const infos = await buscarEventoCompleto(user.token, idTrilha)
 
-        if(infos.ok){
+        if (infos.ok) {
 
             setDados(infos.result)
+            setCarregando(false)
             return
         }
-
-        setAlerta({mensagem:infos.mensagem , icon:'erro'})
+        setCarregando(false)
+        setAlerta({ mensagem: infos.mensagem, icon: 'erro' })
         return
 
-        
+
     }
 
     const minhaRed = useRef(null)
 
-    useEffect(()=>{
+    useEffect(() => {
         buscarInfs()
 
         function verificar(event) {
 
-            if (minhaRed.current&&!minhaRed.current.contains(event.target)) {
+            if (minhaRed.current && !minhaRed.current.contains(event.target)) {
                 setAbriTrilha(false)
             }
-            
+
         }
 
-        document.addEventListener("mousedown",verificar)
+        document.addEventListener("mousedown", verificar)
 
-        return()=>{
-            document.removeEventListener("mousedown",verificar)
+        return () => {
+            document.removeEventListener("mousedown", verificar)
         }
 
-    },[])
-  return (
-    <div className='body-modalTrilhaAgenda'>
-        
-        <div className="cont-modalTrilhaAgenda" ref={minhaRed}>
-        
-        
+    }, [])
+    return (
+        <div className='body-modalTrilhaAgenda'>
+
+            <div className="cont-modalTrilhaAgenda" ref={minhaRed}>
+
+                {carregando ? 
+                <ClimbingBoxLoader
+                    cssOverride={{}}
+                    speedMultiplier={1.5}
+                /> : 
+
+
+                <h1>olaaa</h1>
+                
+                }
+
+
+
+
+            </div>
 
 
 
         </div>
-
-
-
-    </div>
-  )
+    )
 }
 
 export default ModalTrilhaAgenda

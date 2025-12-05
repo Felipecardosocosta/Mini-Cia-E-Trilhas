@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 const buscarEventoCompleto = async(token,idEvento) => {
 
@@ -25,7 +26,8 @@ const buscarEventoCompleto = async(token,idEvento) => {
 
             return { ok: false, mensagem: error.response.data.mensagem }
         }
-
+        console.log(error);
+        
         return { ok: false, error: error, mensagem: "Sem resposta do servidor" }
 
     }

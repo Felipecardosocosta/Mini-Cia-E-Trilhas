@@ -5,11 +5,13 @@ import CardMinhaAgenda from '../../components/Cards/CardMinhaAgenda/CardMinhaAge
 import buscarCardsMinhaAgenda from '../../server/buscarInformacao/buscarCardsMinhaAgenda'
 import { Mycontext } from '../../context/ContextGlobalUser'
 import Header from '../../components/Header/Header'
+import Login from '../../components/Login/Login'
+import ModalTrilhaAgenda from '../../components/Modals/ModalTrilhaAgenda/ModalTrilhaAgenda'
 
 function MinhaAgenda() {
 
     const [dados, setDados] = useState([])
-    const { setAlerta, setUser } = useContext(Mycontext)
+    const { setAlerta, setUser, modalLogin} = useContext(Mycontext)
     const [abriTrilha, setAbriTrilha] = useState(false)
 
     const navegacao = useNavigate()
@@ -73,7 +75,9 @@ function MinhaAgenda() {
     return (
         <div className='body-minhaAgenda' >
             <Header />
-            {abriTrilha && `${abriTrilha}, ${idEditar}`}
+            {modalLogin && <Login/>}
+
+            {abriTrilha && <ModalTrilhaAgenda idTrilha={idEditar} setAbriTrilha={setAbriTrilha} />}
 
             <div className='cont-minhaAgenda' ref={minharef}>
                 <h4 className='titulo-espaçado'>

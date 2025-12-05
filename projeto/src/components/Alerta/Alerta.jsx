@@ -19,7 +19,7 @@ function Alerta({ setAlerta, tempo, icon, mensagem, tipo = true || false }) {
         return
     }
 
-    let tempoAbetura = 6000
+    let tempoAbetura = 4500
 
     if (tempo) {
         tempoAbetura = tempo
