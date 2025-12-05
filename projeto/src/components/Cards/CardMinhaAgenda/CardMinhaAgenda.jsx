@@ -17,7 +17,7 @@ function CardMinhaAgenda({id,abrir, data, status, button = false }) {
         data.map((conteudo, indx) => {
 
 
-            console.log(conteudo.data);
+            
 
 
             return (<div key={conteudo.id_evento} onClick={()=>iniciarEdicao(conteudo.id_evento)} className='card-minhaAgenda' style={{ backgroundImage: 'url("../../../public/Imgs/banco/lagoinhaDoLeste.jpg")' }}>

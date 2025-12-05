@@ -4,13 +4,15 @@
     --corStatus: #7B1E1E;
     --corFontStatus: #fff;
     --corFontConteudo:#fff;
+    --tamanhoDoCard: 22rem;
+    
     
 }
 .card-minhaAgenda{
     display: flex;
     font-size: clamp(1.2rem,2vh,2rem);
-    width: 25rem;
-    height: 12rem;
+    width: var(--tamanhoDoCard);
+    height: calc(var(--tamanhoDoCard) / 2 );
     border-radius: 10px;
     overflow: hidden;
     background-size: cover;

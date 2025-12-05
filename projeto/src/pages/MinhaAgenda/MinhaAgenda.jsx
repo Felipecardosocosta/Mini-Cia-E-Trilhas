@@ -1,40 +1,42 @@
-import React, { useEffect, useState,useContext, useRef } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
 import "./minhaAgenda.css"
 import { Link, useNavigate } from 'react-router-dom'
-import CardMinhaAgenda from './CardMinhaAgenda'
+import CardMinhaAgenda from '../../components/Cards/CardMinhaAgenda/CardMinhaAgenda'
 import buscarCardsMinhaAgenda from '../../server/buscarInformacao/buscarCardsMinhaAgenda'
 import { Mycontext } from '../../context/ContextGlobalUser'
-import Header from '../Header/Header'
+import Header from '../../components/Header/Header'
 
 function MinhaAgenda() {
 
-    const [dados,setDados] = useState([])
-    const {setAlerta,setUser } = useContext(Mycontext)
-    const[abriTrilha,setAbriTrilha] = useState(false)
+    const [dados, setDados] = useState([])
+    const { setAlerta, setUser } = useContext(Mycontext)
+    const [abriTrilha, setAbriTrilha] = useState(false)
 
     const navegacao = useNavigate()
 
-    const [idEditar,setIdEditar] = useState('')
+    const [idEditar, setIdEditar] = useState('')
 
     async function buscarDados() {
         const localUser = JSON.parse(localStorage.getItem('user'))
         if (localUser) {
             const dados = await buscarCardsMinhaAgenda(localUser.token)
-            
+
             if (dados.ok) {
-               
-                 
+
+
                 setDados(dados.result)
-                console.log(dados);
-                
+
+
                 return
             }
             if (!dados.ok) {
-                    return setAlerta({mensagem:dados.mensagem,icon:"erro"})
-                }
+                console.error(dados.error);
 
-                
-            setAlerta({mensagem:"Tempo de login expirado", icon:"erro"})
+                return setAlerta({ mensagem: dados.mensagem, icon: "erro" })
+            }
+
+
+            setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
             setUser(false)
             navegacao("/")
             localStorage.removeItem('user')
@@ -43,35 +45,35 @@ function MinhaAgenda() {
             return
 
         }
-        
+
 
     }
-    
+
     const minharef = useRef(null)
 
-    useEffect(()=>{
+    useEffect(() => {
         buscarDados()
 
         function verificar(event) {
-            if (minharef.current&& !minharef.current.contains(event.target)) {
+            if (minharef.current && !minharef.current.contains(event.target)) {
                 setAbriTrilha(false)
             }
         }
 
-        document.addEventListener("mousedown",verificar)
+        document.addEventListener("mousedown", verificar)
 
-        return ()=>{
-            document.removeEventListener("mousedown",verificar)
+        return () => {
+            document.removeEventListener("mousedown", verificar)
         }
 
-    },[])
+    }, [])
 
-    
+
 
     return (
         <div className='body-minhaAgenda' >
-            <Header/>
-            {abriTrilha&& `${abriTrilha}, ${idEditar}`}
+            <Header />
+            {abriTrilha && `${abriTrilha}, ${idEditar}`}
 
             <div className='cont-minhaAgenda' ref={minharef}>
                 <h4 className='titulo-espaçado'>
@@ -90,9 +92,9 @@ function MinhaAgenda() {
 
                     <div className="body-cards-minhaAgenda">
 
-                        {dados.length > 0 && <CardMinhaAgenda abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados}/>}
+                        {dados.length > 0 && <CardMinhaAgenda abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados} />}
 
-                        
+
 
                     </div>
 
