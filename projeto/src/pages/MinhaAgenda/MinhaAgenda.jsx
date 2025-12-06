@@ -98,13 +98,13 @@ function MinhaAgenda() {
                 <div className="conteudo-minhaAgenda">
 
                     <div className="nav-minhaAgenda">
-                        <Link>Próximos</Link>
-                        <Link>Passados</Link>
+                        <Link>Organizando</Link>
+                        <Link>Participando</Link>
 
                     </div>
 
                     <div className="body-cards-minhaAgenda">
-
+                        
                         {dados.length > 0 && <CardMinhaAgenda  abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados} />}
 
 
