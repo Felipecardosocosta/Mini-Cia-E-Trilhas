@@ -20,7 +20,7 @@ function CardMinhaAgenda({id,abrir, data, status, button = false }) {
             
 
 
-            return (<div key={conteudo.id_evento} onClick={()=>iniciarEdicao(conteudo.id_evento)} className='card-minhaAgenda' style={{ backgroundImage: 'url("../../../public/Imgs/banco/lagoinhaDoLeste.jpg")' }}>
+            return (<div key={conteudo.id_evento} onClick={()=>iniciarEdicao(conteudo.id_evento)} className='card-minhaAgenda' style={{ backgroundImage: 'url("/public/Imgs/banco/lagoinhaDoLeste.jpg")' }}>
                 <div className="data-card-minhaAgenda">
                     <p>{conteudo.data.split('-', 3)[2].split("T", 2)[0]}</p>
                     <div className='barra-data-minhaAgenda'></div>
