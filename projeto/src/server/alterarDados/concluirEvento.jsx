@@ -6,7 +6,7 @@ const concluirEvento = async (token,idEvento) => {
     
     if (!token) {
 
-        return {mensagem: "Erro necessário token"}
+        return {ok:false, mensagem: "Erro necessário token"}
         
     }
 
@@ -16,7 +16,7 @@ const concluirEvento = async (token,idEvento) => {
 
         if (resulado.status === 200) {
             
-            return resulado.data.mensagem
+            return {ok:true, mensagem:resulado.data.mensagem}
         }
 
     } catch (error) {

@@ -8,7 +8,7 @@ const alterarSenhaUser = async (token, senha, novaSenha) => {
     
     if (!token) {
 
-        return { mensagem: "Erro necessário token" }
+        return {ok:false, mensagem: "Erro necessário token" }
 
     }
 

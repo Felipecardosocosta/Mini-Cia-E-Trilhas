@@ -14,6 +14,11 @@ function MinhaAgenda() {
     const { setAlerta, setUser, modalLogin, setModalLogin } = useContext(Mycontext)
     const [abriTrilha, setAbriTrilha] = useState(false)
 
+    const [regaregarPagina, setRecarregarPagina]= useState(false)
+
+    console.log(regaregarPagina);
+    
+
     const navegacao = useNavigate()
 
     const [idEditar, setIdEditar] = useState('')
@@ -32,7 +37,6 @@ function MinhaAgenda() {
                 return
             }
             if (!dados.ok) {
-                console.error(dados.error);
 
                 if (dados.mensagem === "Token Invalido ou expirado") {
 
@@ -73,7 +77,7 @@ function MinhaAgenda() {
 
 
 
-    }, [])
+    }, [regaregarPagina])
 
 
 
@@ -82,7 +86,7 @@ function MinhaAgenda() {
             <Header />
             {modalLogin && <Login />}
 
-            {abriTrilha && <ModalTrilhaAgenda idTrilha={idEditar} setAbriTrilha={setAbriTrilha} />}
+            {abriTrilha && <ModalTrilhaAgenda recaregar={setRecarregarPagina} estadoPagina={regaregarPagina} idTrilha={idEditar} setAbriTrilha={setAbriTrilha} />}
 
             <div className='cont-minhaAgenda' >
                 <h4 className='titulo-espaçado'>
@@ -101,7 +105,7 @@ function MinhaAgenda() {
 
                     <div className="body-cards-minhaAgenda">
 
-                        {dados.length > 0 && <CardMinhaAgenda abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados} />}
+                        {dados.length > 0 && <CardMinhaAgenda  abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados} />}
 
 
 

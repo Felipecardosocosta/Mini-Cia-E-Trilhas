@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-const alterarDadosEvento = async(token,dadosEvento,idEvento) => {
 
-     if (!token) {
+const deixaParticiparEvento = async(token,idEvento) => {
+
+  if (!token) {
 
         return {ok:false, mensagem: "Erro necessário token" }
 
@@ -10,7 +11,7 @@ const alterarDadosEvento = async(token,dadosEvento,idEvento) => {
 
     try {
 
-        const resultado = await axios.put(`https://api-mine-cia.vercel.app/evento/atualizar/id/${idEvento}`, dadosEvento,
+        const resultado = await axios.put(`https://api-mine-cia.vercel.app/cancelar/participacao/evento/id/${idEvento}`,{},
             {
                 headers: {
                     authorization: token,
@@ -24,8 +25,9 @@ const alterarDadosEvento = async(token,dadosEvento,idEvento) => {
             }
 
     } catch (error) {
-
-        if (error.response) {
+        console.error(error);
+        
+        if (error.response.data.mensagem) {
             
             return {ok:false, mensagem: error.response.data.mensagem}
         }
@@ -36,4 +38,5 @@ const alterarDadosEvento = async(token,dadosEvento,idEvento) => {
   
 }
 
-export default alterarDadosEvento
+
+export default deixaParticiparEvento

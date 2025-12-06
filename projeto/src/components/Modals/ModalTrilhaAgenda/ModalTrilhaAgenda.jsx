@@ -4,9 +4,10 @@ import buscarEventoCompleto from '../../../server/buscarInformacao/buscarEventoC
 import { Mycontext } from '../../../context/ContextGlobalUser'
 
 import Loading from '../../Loading/Loading';
+import deixaParticiparEvento from '../../../server/alterarDados/deixaParticiparEvento';
 
 
-function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
+function ModalTrilhaAgenda({ estadoPagina, recaregar,idTrilha, setAbriTrilha }) {
 
     const { setUser, setAlerta,setModalLogin } = useContext(Mycontext)
 
@@ -52,6 +53,53 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
 
     }
 
+    async function cancelarIncricao(idEvento) {
+
+        const localStorege = JSON.parse(localStorage.getItem('user'))
+        if (!localStorege) {
+
+            setAlerta({ mensagem: 'Erro Recarregue a pagina', icon: erro })
+
+            return
+
+        }
+
+        console.log(localStorege.token);
+        
+
+
+        const cancelando = await deixaParticiparEvento(localStorege.token, idEvento)
+
+
+        if (cancelando.ok) {
+
+            setAlerta({ mensagem: cancelando.mensagem, icon: 'ok' })
+            recaregar(!estadoPagina)
+            setAbriTrilha(false)
+            return
+        }
+
+        if (cancelando.mensagem === "Token Invalido ou expirado") {
+
+            setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
+            setModalLogin(true)
+            setUser(false)
+            localStorage.removeItem('user')
+
+            return
+
+
+        }
+        console.log(cancelando.error);
+        
+        setAlerta({ mensagem: cancelando.mensagem, icon: "erro" })
+
+    }
+
+
+
+
+
     const minhaRed = useRef(null)
 
     useEffect(() => {
@@ -83,7 +131,7 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
                     :
                     <div className="cont-TrilhaAgenda">
                     
-
+                    <button onClick={()=>cancelarIncricao(dados.id_evento)} >Cancelar Inscrição</button>
 
 
                     </div>
