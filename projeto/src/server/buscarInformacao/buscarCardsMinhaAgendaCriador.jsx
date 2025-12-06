@@ -1,0 +1,39 @@
+import React from 'react'
+import axios from 'axios'
+
+const buscarCardsMinhaAgendaCriador =  async (token) => {
+    
+if (!token) {
+        
+        return {ok:false, mensagem: "Token nao fornecido"}
+    }
+
+    try {
+
+        const result = await axios.get("https://api-mine-cia.vercel.app/buscar/cards/agenda/user/criador",{headers:{Authorization: token}})
+
+        
+        
+        if (result.status===200) {
+            
+
+            return {ok:true, result:result.data.result}
+        }
+
+        
+    } catch (error) {
+
+        if (error.response) {
+            
+            return {ok:false,mensagem:error.response.data.mensagem , error:error}
+        }
+
+        return {ok:false, error:error,mensagem:"Sem resposta do servidor"}
+        
+    }   
+
+
+}
+
+export default buscarCardsMinhaAgendaCriador
+

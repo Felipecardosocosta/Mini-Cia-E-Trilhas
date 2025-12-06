@@ -38,12 +38,13 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
             setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
             setUser(false)
             setModalLogin(true)
+            setAbriTrilha(false)
             localStorage.removeItem('user')
             return
 
 
         }
-        
+        setAbriTrilha(false)
         setCarregando(false)
         setAlerta({ mensagem: infos.mensagem, icon: 'erro' })
         return
@@ -81,7 +82,7 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
                     <Loading />
                     :
                     <div className="cont-TrilhaAgenda">
-
+                    
 
 
 
