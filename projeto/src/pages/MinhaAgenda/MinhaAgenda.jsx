@@ -11,7 +11,7 @@ import ModalTrilhaAgenda from '../../components/Modals/ModalTrilhaAgenda/ModalTr
 function MinhaAgenda() {
 
     const [dados, setDados] = useState([])
-    const { setAlerta, setUser, modalLogin } = useContext(Mycontext)
+    const { setAlerta, setUser, modalLogin, setModalLogin } = useContext(Mycontext)
     const [abriTrilha, setAbriTrilha] = useState(false)
 
     const navegacao = useNavigate()
@@ -37,11 +37,12 @@ function MinhaAgenda() {
                 if (dados.mensagem === "Token Invalido ou expirado") {
 
                     setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
+                    setModalLogin(true)
                     setUser(false)
                     localStorage.removeItem('user')
 
                     return
-        
+
 
                 }
                 return setAlerta({ mensagem: dados.mensagem, icon: "erro" })
@@ -58,15 +59,19 @@ function MinhaAgenda() {
 
         }
 
+        setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
+        setModalLogin(true)
+        setUser(false)
+
 
     }
 
-    
+
 
     useEffect(() => {
         buscarDados()
 
-       
+
 
     }, [])
 

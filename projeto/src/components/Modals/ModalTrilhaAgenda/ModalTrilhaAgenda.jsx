@@ -8,7 +8,7 @@ import Loading from '../../Loading/Loading';
 
 function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
 
-    const { setUser, setAlerta } = useContext(Mycontext)
+    const { setUser, setAlerta,setModalLogin } = useContext(Mycontext)
 
     const [dados, setDados] = useState({})
     const user = JSON.parse(localStorage.getItem("user"))
@@ -30,20 +30,20 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
             setCarregando(false)
             return
         }
-        if (!infos.ok) {
-                console.error(dados.error);
-                
-                if (infos.mensagem === "Token Invalido ou expirado") {
 
-                    setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
-                    setUser(false)
-                    localStorage.removeItem('user')
-                    return
+        console.error(dados.error);
+
+        if (infos.mensagem === "Token Invalido ou expirado") {
+
+            setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
+            setUser(false)
+            setModalLogin(true)
+            localStorage.removeItem('user')
+            return
+
+
+        }
         
-
-                }
-                return setAlerta({ mensagem: infos.mensagem, icon: "erro" })
-            }
         setCarregando(false)
         setAlerta({ mensagem: infos.mensagem, icon: 'erro' })
         return
@@ -78,16 +78,16 @@ function ModalTrilhaAgenda({ idTrilha, setAbriTrilha }) {
 
                 {carregando ?
 
-                    <Loading/>
+                    <Loading />
                     :
                     <div className="cont-TrilhaAgenda">
 
-                    
-                    
+
+
 
                     </div>
 
-                    
+
 
                 }
 
