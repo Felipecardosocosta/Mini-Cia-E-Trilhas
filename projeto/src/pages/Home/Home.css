@@ -23,16 +23,16 @@
 
     h1 {
         padding: .1rem;
-        font-size: clamp(1.5rem, 4vw, 4rem);
+        font-size: clamp(1.5rem, 4vw, 6rem);
         color: white;
-
+        font-family: "Poppins", sans-serif;
 
     }
 
     p {
         font-family: poppins, sans-serif;
         font-weight: 600;
-        font-size: clamp(.6rem, 3vw, 1.5rem);
+        font-size: clamp(.6rem, 3vw, 2rem);
         color: #fff;
         padding: 2%;
         letter-spacing: .08rem;
@@ -52,7 +52,7 @@
         padding: 0.2rem;
         height: 15vh;
         width: 35vw;
-        font-size: clamp(1.5rem, 3vw, 3rem);
+        font-size: clamp(1.5rem, 3vw, 5rem);
         background-color: #7B1E1E;
         color: white;
         border: none;
