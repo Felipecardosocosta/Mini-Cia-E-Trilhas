@@ -116,7 +116,7 @@ function CorpoCriador({ setFiltro, setIdEditar, setAbriTrilha, idEditar, setCarr
                         day={item.data.slice(8, 10) + '/' + item.data.slice(5, 7)}
                         time={item.horário.slice(0, 5)}
                         vacancies={item.vagasDisp}
-                        image={'../Imgs/banco/lagoinhaDoLeste.jpg'}
+                        image={`../Imgs/banco/${item.imagem}`}
                         onDetails={() => { abriTrilha(item.id_evento) }} />
                 ))}
 
