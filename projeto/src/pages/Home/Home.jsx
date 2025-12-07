@@ -18,7 +18,7 @@ function Home() {
 
   return (
     <div className='cont-home'>
-      <Header transparent/>
+      <Header transparent home={true} />
       {modalLogin && <Login/>}
 
       <div className='cont-info-home'>

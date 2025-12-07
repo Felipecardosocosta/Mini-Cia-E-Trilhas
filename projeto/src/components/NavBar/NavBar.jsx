@@ -9,7 +9,7 @@ import Alerta from '../Alerta/Alerta';
 import { BsCheck2Circle } from "react-icons/bs";
 
 
-function NavBar({ transparent = false }) {
+function NavBar({ transparent = false , dashboard = false , agenda = false , trilhas = false , home = false}) {
 
 
   // useEffect(() => {
@@ -32,12 +32,12 @@ function NavBar({ transparent = false }) {
   return (
     <nav className='cont-navBar' style={navStyle}>
 
-      <Link className={`link`}  to={'/'}>Home</Link>
+      <Link className={`link${home ? ' linkAtivo' : ''}`}  to={'/'}>Home</Link>
 
-      {user && <NavLink className='link'  to={'/dashboard'} >DashBord</NavLink>}
+      {user && <NavLink className={`link${dashboard ? ' linkAtivo' : ''}`}  to={'/dashboard'} >DashBord</NavLink>}
 
-      <NavLink className='link' to={'/eventos'} >Agenda</NavLink>
-      <NavLink className='link' to={'/trilhas'} >Trilhas</NavLink>
+      <NavLink className={`link${agenda ? ' linkAtivo' : ''}`} to={'/eventos'} >Agenda</NavLink>
+      <NavLink className={`link${trilhas ? ' linkAtivo' : ''}`} to={'/trilhas'} >Trilhas</NavLink>
 
 
       {!user ?

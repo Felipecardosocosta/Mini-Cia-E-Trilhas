@@ -188,7 +188,7 @@ function Trilhas() {
 
   return (
     <div>
-      <Header />
+      <Header trilhas={true} />
       {modalLogin && <Login />}
 
       <div className='Trilha-cont'>
