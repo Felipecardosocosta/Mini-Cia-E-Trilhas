@@ -1,6 +1,6 @@
 import "./Cards.css";
 
-function CardsAgendaOn({ nomeTrilha, data, horario, vagas, participar }) {
+function CardsAgendaOn({ nomeTrilha, data, horario, vagas, participar}) {
 
 
   let dia = "--";
@@ -13,7 +13,7 @@ function CardsAgendaOn({ nomeTrilha, data, horario, vagas, participar }) {
   }
 
   return (
-    <div className="Card-evento" style={{ backgroundImage: 'url("../../../public/Imgs/banco/lagoinhaDoLeste.jpg")' }}>
+    <div className="Card-evento" style={{ backgroundImage: `url(${image})` }}>
 
       <div className='Status-card-minhaAgenda'>
           <div className='Conteudo-status-card-minhaAgenda'>

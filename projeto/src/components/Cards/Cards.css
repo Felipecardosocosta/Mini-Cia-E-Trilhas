@@ -177,10 +177,8 @@
     gap: 1rem;
 }
 .CardsTrilha-ImgD{
-    background-color: transparent;
-    background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     border-radius: 25px;
     height: 100%;
     width: 20%;
@@ -222,10 +220,8 @@
     gap: 1rem;
 }
 .CardsTrilha-ImgE{
-    background-color: transparent;
-    background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     border-radius: 25px;
     height: 100%;
     width: 20%;

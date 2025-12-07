@@ -314,8 +314,3 @@
   -webkit-appearance: none;
   margin: 0;
 }
-
-/* Remove as setas no Firefox */
-.controle-participantes input[type=number] {
-  -moz-appearance: textfield;
-}
