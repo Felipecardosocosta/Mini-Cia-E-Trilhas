@@ -5,7 +5,7 @@ const buscarCardsMinhaAgendaCriador =  async (token) => {
     
 if (!token) {
         
-        return {ok:false, mensagem: "Token nao fornecido"}
+        return {ok:false, mensagem: "Token nao fornecidoo"}
     }
 
     try {

@@ -51,7 +51,7 @@ function CardMinhaAgenda({nomeButton, id, abrir, data, status, button = false })
 
                         <h1>{conteudo.nomeTrilha}</h1>
 
-                        <h3>Saída as {conteudo.horário} h </h3>
+                        <h3>Saída as {conteudo.horário.slice(0,5)} h </h3>
 
                         <h3>{conteudo.vagasDisp} vagas disponíveis</h3>
 

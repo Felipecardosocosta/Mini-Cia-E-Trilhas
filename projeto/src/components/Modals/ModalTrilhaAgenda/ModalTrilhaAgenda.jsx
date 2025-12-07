@@ -13,6 +13,8 @@ function ModalTrilhaAgenda({ estadoPagina, recaregar,idTrilha, setAbriTrilha }) 
 
     const [dados, setDados] = useState({})
     const user = JSON.parse(localStorage.getItem("user"))
+
+    
     const [carregando, setCarregando] = useState(true)
 
     async function buscarInfs() {

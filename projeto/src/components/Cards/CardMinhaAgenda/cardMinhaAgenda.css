@@ -24,10 +24,6 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.card-minhaAgenda:hover{
-    scale: 1.1;
-    
-}
 
 .data-card-minhaAgenda{
     background-color: var(--corFundoData) ;

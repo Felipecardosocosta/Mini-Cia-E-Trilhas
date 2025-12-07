@@ -8,18 +8,33 @@ import Header from '../../components/Header/Header'
 import Login from '../../components/Login/Login'
 import ModalTrilhaAgenda from '../../components/Modals/ModalTrilhaAgenda/ModalTrilhaAgenda'
 import { TfiMenu } from "react-icons/tfi";
+import buscarCardsMinhaAgendaCriador from '../../server/buscarInformacao/buscarCardsMinhaAgendaCriador'
+import NavBarMinhaAgenda from '../../components/NavBarMinhaAgenda/NavBarMinhaAgenda'
 
 function MinhaAgenda() {
 
     const [dados, setDados] = useState([])
+
+    const [dadosCriador, setDadosCriador] = useState([])
+
+
+
     const { setAlerta, setUser, modalLogin, setModalLogin } = useContext(Mycontext)
     const [abriTrilha, setAbriTrilha] = useState(false)
 
+
+
+
+
     const [regaregarPagina, setRecarregarPagina] = useState(false)
+
+    const [participandoAtivo, setParticipandoAtivo] = useState(true)
+
+    const [organizandoAtivo, setOrganizandoAtivo] = useState(false)
 
     const [open, setOpen] = useState(false)
 
-    console.log(regaregarPagina);
+
 
 
     const navegacao = useNavigate()
@@ -29,19 +44,25 @@ function MinhaAgenda() {
     async function buscarDados() {
         const localUser = JSON.parse(localStorage.getItem('user'))
         if (localUser) {
-            const dados = await buscarCardsMinhaAgenda(localUser.token)
 
-            if (dados.ok) {
-
-
-                setDados(dados.result)
+            const dadosParticipando = await buscarCardsMinhaAgenda(localUser.token)
 
 
+            if (dadosParticipando.ok) {
+
+
+                setDados(dadosParticipando.result)
+
+                
                 return
             }
-            if (!dados.ok) {
+            
 
-                if (dados.mensagem === "Token Invalido ou expirado") {
+
+
+            if (!dadosParticipando.ok) {
+
+                if (dadosParticipando.mensagem === "Token Invalido ou expirado") {
 
                     setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
                     setModalLogin(true)
@@ -52,7 +73,15 @@ function MinhaAgenda() {
 
 
                 }
-                return setAlerta({ mensagem: dados.mensagem, icon: "erro" })
+
+                if (dadosParticipando.mensagem ==='Sem eventos agendados no momento') {
+
+
+                    
+                }
+
+
+                return setAlerta({ mensagem: dadosParticipando.mensagem, icon: "erro" })
             }
 
 
@@ -73,67 +102,87 @@ function MinhaAgenda() {
 
     }
 
+    function abrirParticipando() {
+        setParticipandoAtivo(true)
+        setOrganizandoAtivo(false)
+    }
+ 
+
+    function abrirOrganizando() {
+        setParticipandoAtivo(false)
+        setOrganizandoAtivo(true)
+    }
+
 
 
     useEffect(() => {
         buscarDados()
 
+        function verificar(e) {
+
+            if (minhaRefMenu.current && !minhaRefMenu.current.contains(e.target)) {
+                setOpen(false)
+            }
+
+        }
+
+        document.addEventListener("mousedown", verificar)
+
+        return () => {
+
+            document.removeEventListener("mousedown", verificar)
+        }
 
 
     }, [regaregarPagina])
 
 
+    const minhaRefMenu = useRef(null)
+
 
     return (
-        <div className='body-minhaAgenda' >
-            <Header />
-            {modalLogin && <Login />}
-
-            {abriTrilha && <ModalTrilhaAgenda recaregar={setRecarregarPagina} estadoPagina={regaregarPagina} idTrilha={idEditar} setAbriTrilha={setAbriTrilha} />}
-
-            <div className='cont-minhaAgenda' >
-                <h1 className='titulo-espaçado'>
-                    Minha Agenda
-                </h1>
+        <div className="body-img">
 
 
 
-                <div className="conteudo-minhaAgenda">
 
-                    <div className="nav-minhaAgenda">
-                        <div className="cont-menu">
-                            <TfiMenu className='menu-ag' onClick={() => setOpen(!open)} />
+            <div className='body-minhaAgenda' >
+                <Header transparent />
+                {modalLogin && <Login />}
 
-                            {open &&
-                                <div className="cont-option">
-                                    <h3 className='centralizar'>Menu</h3>
-                                    <div className="linhaDivisoria"> </div>
-                                    <span>
-                                        <Link>Participando</Link>
-                                    </span>
-                                    <span>
-                                    <Link>Organizando</Link>
-                                    </span>
+                {abriTrilha && <ModalTrilhaAgenda recaregar={setRecarregarPagina} estadoPagina={regaregarPagina} idTrilha={idEditar} setAbriTrilha={setAbriTrilha} />}
+
+                <div className='cont-minhaAgenda' >
+                    <h1 className='titulo-espaçado'>
+                        Minha Agenda
+                    </h1>
+
+                    <div className="conteudo-minhaAgenda">
+
+                        <NavBarMinhaAgenda 
+                        set_organizandoAtivo={setOrganizandoAtivo}
+                        set_participandoAtivo={setParticipandoAtivo}
+                        setOpen={setOpen}
+                        organizandoAtivo={organizandoAtivo}
+                        participandoAtivo={participandoAtivo}
+                        open={open}
+                        />
+                        
+                        <h1 className='opcaoAberta' >{participandoAtivo ? 'Participando' : 'Organizando'}</h1>
+                        <div className="body-cards-minhaAgenda">
+
+                            
+                            {dados.length > 0 && <CardMinhaAgenda abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados} />}
 
 
-                                </div>
-                            }
+
                         </div>
 
-                    </div>
-
-                    <div className="body-cards-minhaAgenda">
-
-                        {dados.length > 0 && <CardMinhaAgenda abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados} />}
-
-
 
                     </div>
-
-
                 </div>
-            </div>
 
+            </div>
         </div>
     )
 }
