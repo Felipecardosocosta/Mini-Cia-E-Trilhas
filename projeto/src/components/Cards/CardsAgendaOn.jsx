@@ -13,42 +13,31 @@ function CardsAgendaOn({ nomeTrilha, data, horario, vagas, participar }) {
   }
 
   return (
-    <div
-      className="Card-minhaAgenda"
-      style={{
-        backgroundImage: 'url("../../../public/Imgs/banco/lagoinhaDoLeste.jpg")'
-      }}
-    >
-      <div className="Data-card-minhaAgenda">
-        <p>{dia}</p>
-        <div className='Barra-data-minhaAgenda'></div>
-        <p>{mes}</p>
-      </div>
+    <div className="Card-evento" style={{ backgroundImage: 'url("../../../public/Imgs/banco/lagoinhaDoLeste.jpg")' }}>
 
-      <div className="Conteudo-card-minhaAgenda">
-
-        <div className='Status-card-minhaAgenda'>
+      <div className='Status-card-minhaAgenda'>
           <div className='Conteudo-status-card-minhaAgenda'>
-            Disponível
+            <h3>Disponível</h3>
           </div>
         </div>
 
-        <div className='Informcao-card-minhaAgenda'>
-          <h1>{nomeTrilha}</h1>
-          <h3>Saída às {horario} h</h3>
-          <h3>{vagas} vagas disponíveis</h3>
+      <div className="Card-content">
+        <h3 className="card-title">{nomeTrilha}</h3>
+        <div className="card-meta">
+          <div className="date-badge">{dia}/{mes}</div>
         </div>
 
-        <div className='Buttons-cards-minhaAgenda'>
-          <button
-            className='Botao-editar-cards-MAG'
-            onClick={participar}
-          >
-            <h2>Participar</h2>
-          </button>
-        </div>
+        <div className="meta-text">
 
+          <div className="time">Saída às {horario} h</div>
+
+          <div className="vacancies">{vagas} vagas disponíveis</div>
+        </div>
       </div>
+
+      <button className='Bttn-Participar' onClick={participar}> <h1>Participar</h1> </button>
+          
+
     </div>
   );
 }

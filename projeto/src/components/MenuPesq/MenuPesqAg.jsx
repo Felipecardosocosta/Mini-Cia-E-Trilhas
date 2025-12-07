@@ -34,10 +34,6 @@ function MenuPesqAg() {
                     <div className='BarraPesq-barra'>
                         <BarraPesq />
                     </div>
-
-                    <div className='BarraPesq-pesqBttn'>
-                        <button className='PesqBttn'>Pesquisar</button>
-                    </div>
                 </div>
 
                 <div className='BarraFiltro-filtroBttns'>

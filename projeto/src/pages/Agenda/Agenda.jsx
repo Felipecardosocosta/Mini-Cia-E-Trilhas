@@ -13,7 +13,7 @@ import './Agenda.css'
 
 function Eventos() {
 
-  const { modalLogin, setModalLogin, user, setUser, setAlerta, regTrilhas, filtroTipo, filtroOrdem, setInfouser, setMeusDados } = useContext(Mycontext)
+  const { modalLogin, setModalLogin, user, setUser, setAlerta, regTrilhas, filtroTipo, filtroOrdem, setInfouser, setMeusDados, barraPesq } = useContext(Mycontext)
 
   const [agenda, setAgenda] = useState([])
   const [atualizar, setAtualiza] = useState(false)
@@ -44,9 +44,10 @@ function Eventos() {
 
   async function pesquisaAPI() {
     let dados;
+    const localuser = JSON.parse(localStorage.getItem("user"))
 
-    if (user && user.token) {
-      dados = await buscarCardsAgendaOn(user.token)
+    if (localuser && localuser.token) {
+      dados = await buscarCardsAgendaOn(localuser.token)
     } else {
       dados = await buscarCardsAgendaOff()
     }
@@ -54,7 +55,10 @@ function Eventos() {
     if (dados.ok) {
       setAgenda(dados.resultado)
     }
+
   }
+
+  
 
   useEffect(() => {
 
@@ -68,12 +72,20 @@ function Eventos() {
   }, [atualizar])
 
 
-  const eventosFiltrados = agenda.filter((evento) => {
-    if (regTrilhas === 'Regiões') return true
-    return evento.regiao === regTrilhas
-  })
+let eventosFiltrados = agenda.filter((evento) => {
+  if (regTrilhas === 'Regiões') return true
+  return evento.regiao === regTrilhas
+})
 
-  let eventosOrdenados = [...eventosFiltrados]
+// 🔎 FILTRO DA BARRA DE PESQUISA
+if (barraPesq && barraPesq.trim() !== "") {
+  eventosFiltrados = eventosFiltrados.filter((evento) =>
+    evento.nomeTrilha.toLowerCase().includes(barraPesq.toLowerCase())
+  )
+}
+
+let eventosOrdenados = [...eventosFiltrados]
+
 
   function parseData(dataStr) {
     return new Date(dataStr).getTime()
@@ -131,35 +143,38 @@ function Eventos() {
 
         <div className='Cards-Agenda'>
 
-          {eventosOrdenados.length > 0 &&
-            eventosOrdenados.map((evento, index) => (
+          {eventosOrdenados.length === 0 ? (
 
-              user ? (
+  <div className="msg-sem-eventos">
+    Nenhuma trilha encontrada no momento.
+  </div>
 
-                <CardsAgendaOn
-                  key={index}
-                  nomeTrilha={evento.nomeTrilha}
-                  data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
-                  horario={evento.horário}
-                  vagas={evento.vagasDisp}
-                  participar={() => participar(evento)}
-                />
+) : (
 
-              ) : (
+  eventosOrdenados.map((evento, index) => (
+    user ? (
+      <CardsAgendaOn
+        key={index}
+        nomeTrilha={evento.nomeTrilha}
+        data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
+        horario={evento.horário}
+        vagas={evento.vagasDisp}
+        participar={() => participar(evento)}
+      />
+    ) : (
+      <CardsAgendaOff
+        key={index}
+        nomeTrilha={evento.nomeTrilha}
+        data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
+        horario={evento.horário}
+        vagas={evento.vagasDisp}
+        abrirLogin={() => setModalLogin(true)}
+      />
+    )
+  ))
 
-                <CardsAgendaOff
-                  key={index}
-                  nomeTrilha={evento.nomeTrilha}
-                  data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
-                  horario={evento.horário}
-                  vagas={evento.vagasDisp}
-                  abrirLogin={() => setModalLogin(true)}
-                />
+)}
 
-              )
-
-            ))
-          }
 
         </div>
 

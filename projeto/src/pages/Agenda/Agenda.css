@@ -28,3 +28,12 @@
     padding: 0.32rem 0.32rem 0.5rem;
     gap: 15px;
 }
+
+.msg-sem-eventos {
+  width: 100%;
+  text-align: center;
+  padding: 40px 10px;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: white;
+  font-weight: 500;
+}
