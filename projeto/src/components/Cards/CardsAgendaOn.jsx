@@ -1,6 +1,6 @@
 import "./Cards.css";
 
-function CardsAgendaOn({ nomeTrilha, data, horario, vagas, participar}) {
+function CardsAgendaOn({ nomeTrilha, data, horario, vagas, participar,image}) {
 
 
   let dia = "--";

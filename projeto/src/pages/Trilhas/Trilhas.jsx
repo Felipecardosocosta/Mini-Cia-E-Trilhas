@@ -203,7 +203,7 @@ function Trilhas() {
 
             user ? (
               <CardsTrilhaOn
-                image={trilha.imagen}
+                image={`../Imgs/banco/${trilha.imagem}`}
                 ind={index}
                 tri={trilha.nomeTrilha}
                 ini={trilha.pontoInicial}

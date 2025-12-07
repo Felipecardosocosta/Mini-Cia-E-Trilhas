@@ -15,7 +15,7 @@ function CardsTrilhaOn(props) {
             {console.log(props.tri)}
 
             <div className={ContCardsTrilhas}>
-                <div className={CardsTrilhaImg} style={{backgroundImage: `url(../Imgs/banco${props.image})` }}> </div>
+                <div className={CardsTrilhaImg} style={{backgroundImage: `url(${props.image})` }}> </div>
 
                 <div className={CardsTrilhasInf}>
                     <p>{props.id}</p>
