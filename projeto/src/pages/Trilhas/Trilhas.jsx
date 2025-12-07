@@ -13,7 +13,7 @@ import cadastrarEvento from '../../server/inserirDados/cadastrarEvento'
 
 function Trilhas() {
 
-  const {user, modalLogin, setModalLogin, regTrilhas,setAlerta, filtroTipo, filtroOrdem, setInfouser,setMeusDados, setUser} = useContext(Mycontext)
+  const { user, modalLogin, setModalLogin, regTrilhas, setAlerta, filtroTipo, filtroOrdem, setInfouser, setMeusDados, setUser, barraPesq } = useContext(Mycontext)
 
   const [TrilhasBD, setTrilhasBD] = useState([])
   const [trilhaSelecionada, setTrilhaSelecionada] = useState(null)
@@ -26,7 +26,7 @@ function Trilhas() {
 
   const [carregando, setCarregando] = useState(false)
 
- 
+
   const [permiteFecharFora, setPermiteFecharFora] = useState(false)
 
   async function pucharDados() {
@@ -135,6 +135,12 @@ function Trilhas() {
     if (regTrilhas === 'Regiões') return true
     return trilha.regiao === regTrilhas
   })
+
+  if (barraPesq && barraPesq.trim() !== "") {
+    trilhasFiltradas = trilhasFiltradas.filter((trilha) =>
+      trilha.nomeTrilha.toLowerCase().includes(barraPesq.toLowerCase())
+    )
+  }
 
   function parseTempo(valor) {
     if (!valor) return 0

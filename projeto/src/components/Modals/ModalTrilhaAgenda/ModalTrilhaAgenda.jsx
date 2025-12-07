@@ -7,11 +7,12 @@ import Loading from '../../Loading/Loading';
 import deixaParticiparEvento from '../../../server/alterarDados/deixaParticiparEvento';
 import deletarEvento from '../../../server/deletarDados/deletarEvento';
 import concluirEvento from '../../../server/alterarDados/concluirEvento';
+import alterarDadosEvento from '../../../server/alterarDados/alterarDadosEvento';
 
 
 function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarregarPg, carregarPg }) {
 
-    const { setUser, setAlerta, setModalLogin } = useContext(Mycontext)
+    const { setUser, setAlerta, setModalLogin, dadosEvento } = useContext(Mycontext)
 
     const [dados, setDados] = useState({})
     const user = JSON.parse(localStorage.getItem("user"))
@@ -19,7 +20,7 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
     const [criador, setCriador] = useState({})
 
     const [participante, setParticipante] = useState(false)
-
+    const [buscarNovasinformacoes, setbuscarNovasinformacoes] = useState(false)
 
     const [carregando, setCarregando] = useState(true)
 
@@ -141,7 +142,7 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
             document.removeEventListener("mousedown", verificar)
         }
 
-    }, [])
+    }, [buscarNovasinformacoes])
 
     const localStorege = JSON.parse(localStorage.getItem('user'))
 
@@ -179,14 +180,28 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
     }
 
+    const [iniciarEdicao, setIniciarEdicao] = useState(false)
 
 
-    async function ediatarEvento() {
+    async function editarEvento() {
+        setIniciarEdicao(!iniciarEdicao)
+
+    }
+
+    console.log(dados.id_evento);
+    async function salvarEdicao() {
 
 
-
-
-
+        const dadosAtualizados = {
+            dia: dados.dia.split('T')[0],
+            horario: dados.horario.slice(0, 8),
+            vagas: dados.vagas,
+            ponto_de_encontro: dados.pontoEncontro
+        }
+        
+        const resposta = await alterarDadosEvento(user.token, dadosAtualizados,dados.id_evento)
+        console.log(resposta);
+        
     }
 
     async function finalizarEvento() {
@@ -239,7 +254,7 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
                     <div className="cont-TrilhaAgenda">
 
                         <div className="contImgTitulo">
-                            <div className='img-trilhaAgenda' style={{ backgroundImage: `url(../Imgs/banco/lagoinhaDoLeste.jpg)` }} >
+                            <div className='img-trilhaAgenda' style={{ backgroundImage: `url(../Imgs/banco/${dados.imagem})` }} >
                             </div>
 
                             <h2>{dados.nomeTrilha}</h2>
@@ -250,14 +265,39 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
                             <div className="linha-modal" />
 
+                            {!iniciarEdicao ? <div>
+                                <h3>Data de Início: {dados.dia.split('T')[0].split('-').reverse().join('/')}</h3>
+                                <h3>Hora de Início: {dados.horario.slice(0, 5)} h</h3>
+                                <h3>Local: {dados.ponto_partida}</h3>
+                                <h3>Ponto de Encontro: {dados.pontoEncontro}</h3>
+                                <h3>Criador: {criador}</h3>
+                                <h3>Vagas disponíveis: {dados.vagasDisp}</h3>
+                                {participante.length > 0 && <h3>Participantes:  {participante.map(p => <strong key={participante.id_usuario}>
+                                    {`${p.nome},`}</strong>)}</h3>}
+                            </div> :
 
-                            <h3>Data de Início: {dados.dia.split('T')[0].split('-').reverse().join('/')}</h3>
-                            <h3>Hora de Início: {dados.horario.slice(0, 5)} h</h3>
-                            <h3>Local: {dados.ponto_partida}</h3>
-                            <h3>Criador: {criador}</h3>
-                            <h3>Vagas disponíveis: {dados.vagasDisp}</h3>
-                            {participante.length > 0 && <h3>Participantes:  {participante.map(p => <strong key={participante.id_usuario}>
-                                {`${p.nome},`}</strong>)}</h3>}
+                                <div>
+                                    <label>
+                                        Data de Início:
+                                        <input type="date" value={dados.dia.split('T')[0]} onChange={(e) => setDados({ ...dados, dia: e.target.value })} />
+                                    </label>
+
+                                    <label >
+                                        Hora de Início:
+                                        <input type="time" value={dados.horario.slice(0, 5)} onChange={(e) => setDados({ ...dados, horario: e.target.value })} />
+                                    </label>
+
+                                    <label>
+                                        Quantidade de Participantes:
+                                        <input type="number" value={dados.vagas} onChange={(e) => setDados({ ...dados, vagas: e.target.value })} />
+                                    </label>
+
+                                    <label>
+                                        Ponto de Encontro:
+                                        <input type="text" value={dados.pontoEncontro} onChange={(e) => setDados({ ...dados, pontoEncontro: e.target.value })} />
+                                    </label>
+
+                                </div>}
 
                         </div>
 
@@ -268,10 +308,17 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
                             </div>
                             :
                             <div className='butons_Criador'>
+                                {!iniciarEdicao ? <div className='butons_Criador'>
 
-                                <button className='bnt-delete' onClick={deletaEvento} >Deletar</button>
-                                <button className='bnt-editar' onClick={ediatarEvento} >Editar</button>
-                                <button className='bnt-finalizar' onClick={finalizarEvento} >Finalizar</button>
+                                    <button className='bnt-delete' onClick={deletaEvento} >Deletar</button>
+                                    <button className='bnt-editar' onClick={editarEvento} >Editar</button>
+                                    <button className='bnt-finalizar' onClick={finalizarEvento} >Finalizar</button>
+                                </div> :
+
+                                    <div className='butons_Criador'>
+                                        <button className='bnt-editar' onClick={editarEvento} >Cancelar</button>
+                                        <button className='bnt-finalizar' onClick={salvarEdicao} >Salvar</button>
+                                    </div>}
 
                             </div>
                         }

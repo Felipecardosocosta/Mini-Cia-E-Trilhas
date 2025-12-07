@@ -6,8 +6,6 @@
 
 }
 
-
-/* Menu escondido */
 .dropdown-menu {
     position: absolute;
     top: 69px;
@@ -17,7 +15,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 180px;
+    width: 10vw;
     opacity: 0;
     transform: translateY(-10px);
     pointer-events: none;
@@ -38,7 +36,8 @@
     border: none;
     text-align: left;
     font-size: 18px;
-    font-family: "MedievalSharp", serif;
+    font-family: "Trade Winds", system-ui;
+    letter-spacing: .08rem;
     cursor: pointer;
 }
 
@@ -54,7 +53,7 @@
     background: rgba(255, 255, 255, 0.15);
 }
 
-/* Classe que ativa o menu */
+
 .dropdown-menu.show {
     opacity: 1;
     transform: translateY(0);

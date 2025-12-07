@@ -24,12 +24,21 @@ function Form_perfil_editavel({ editar, setEditar }) {
 
     }, [])
 
-    const formatarTelefone = (valor) => {
-        return valor
-            .replace(/\D/g, "")
-            .replace(/^(\d{2})(\d)/, "($1) $2")
-            .replace(/(\d{5})(\d{1,4})$/, "$1-$2")
-    };
+const formatarTelefoneComLimite = (valor) => {
+    let tel = valor.replace(/\D/g, "");
+
+    // limita a 11 dígitos
+    if (tel.length > 11) {
+        tel = tel.slice(0, 11);
+    }
+
+    // aplica a formatação automática
+    tel = tel
+        .replace(/^(\d{2})(\d)/, "($1) $2")
+        .replace(/(\d{5})(\d{1,4})$/, "$1-$2");
+
+    return tel;
+};
 
     const validarTelefone = (valor) => {
         const telefoneLimpo = valor.replace(/\D/g, "")
@@ -101,7 +110,7 @@ function Form_perfil_editavel({ editar, setEditar }) {
                     <p>Nome: {infouser.nome}</p>
                     <p>CPF: {infouser.cpf}</p>
                     <label style={{ gap: '2rem' }}> E-mail: <input type="text" value={email} onChange={(e) => { setEmail(e.target.value) }} placeholder='' /></label>
-                    <label>Telefone: <input type="tel" value={telefone} onChange={(e) => { setTelefone(formatarTelefone(e.target.value)) }} placeholder='Ex: (48)99999-9999' /></label>
+                    <label>Telefone: <input type="tel" value={telefone} onChange={(e) => { setTelefone(formatarTelefoneComLimite(e.target.value)) }} placeholder='Ex: (48)99999-9999' /></label>
                     <button className='botao_editar' onClick={salvardados}>Salvar Dados</button>
                     <button className='botao_voltar' onClick={() => setEditar(false)}>Voltar</button>
 
