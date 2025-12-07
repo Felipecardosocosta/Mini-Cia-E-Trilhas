@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { use, useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import Login from '../../components/Login/Login'
 import { Mycontext } from '../../context/ContextGlobalUser'
@@ -18,6 +18,7 @@ function Eventos() {
   const [agenda, setAgenda] = useState([])
   const [atualizar, setAtualiza] = useState(false)
   const [carregando, setCarregando] = useState(false)
+  const [mostrarMsg, setMostrarMsg] = useState(false)
 
   async function pucharDados() {
     if (!user || !user.token) return
@@ -58,13 +59,15 @@ function Eventos() {
 
   }
 
-  
+
 
   useEffect(() => {
 
     async function carregar() {
       await pucharDados()
       await pesquisaAPI()
+      setMostrarMsg(false)
+      setTimeout(() => setMostrarMsg(true), 1000)
     }
 
     carregar();
@@ -72,19 +75,27 @@ function Eventos() {
   }, [atualizar])
 
 
-let eventosFiltrados = agenda.filter((evento) => {
+  let eventosFiltrados = agenda.filter((evento) => {
+  const eventosUser = user?.eventosParticipados || []
+
+  // não mostrar evento que o usuário já está participando
+  if (eventosUser.includes(evento.id_evento)) {
+    return false
+  }
+
   if (regTrilhas === 'Regiões') return true
   return evento.regiao === regTrilhas
 })
 
-// 🔎 FILTRO DA BARRA DE PESQUISA
-if (barraPesq && barraPesq.trim() !== "") {
-  eventosFiltrados = eventosFiltrados.filter((evento) =>
-    evento.nomeTrilha.toLowerCase().includes(barraPesq.toLowerCase())
-  )
-}
 
-let eventosOrdenados = [...eventosFiltrados]
+  // 🔎 FILTRO DA BARRA DE PESQUISA
+  if (barraPesq && barraPesq.trim() !== "") {
+    eventosFiltrados = eventosFiltrados.filter((evento) =>
+      evento.nomeTrilha.toLowerCase().includes(barraPesq.toLowerCase())
+    )
+  }
+
+  let eventosOrdenados = [...eventosFiltrados]
 
 
   function parseData(dataStr) {
@@ -132,7 +143,7 @@ let eventosOrdenados = [...eventosFiltrados]
   return (
     <div>
 
-      <Header  agenda={true} />
+      <Header agenda={true} />
       {modalLogin && <Login />}
 
       <div className='Agenda-cont'>
@@ -143,39 +154,38 @@ let eventosOrdenados = [...eventosFiltrados]
 
         <div className='Cards-Agenda'>
 
-          {eventosOrdenados.length === 0 ? (
+          {eventosOrdenados.length === 0 && mostrarMsg ? (
+            <div className="msg-sem-eventos">
+              <h1>Nenhuma trilha encontrada no momento!</h1>
+            </div>
+          ) : (
 
-  <div className="msg-sem-eventos">
-    Nenhuma trilha encontrada no momento.
-  </div>
 
-) : (
+            eventosOrdenados.map((evento, index) => (
+              user ? (
+                <CardsAgendaOn
+                  image={`../Imgs/banco/${evento.imagem}`}
+                  key={index}
+                  nomeTrilha={evento.nomeTrilha}
+                  data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
+                  horario={evento.horário}
+                  vagas={evento.vagasDisp}
+                  participar={() => participar(evento)}
+                />
+              ) : (
+                <CardsAgendaOff
+                  image={`../Imgs/banco/${evento.imagem}`}
+                  key={index}
+                  nomeTrilha={evento.nomeTrilha}
+                  data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
+                  horario={evento.horário}
+                  vagas={evento.vagasDisp}
+                  abrirLogin={() => setModalLogin(true)}
+                />
+              )
+            ))
 
-  eventosOrdenados.map((evento, index) => (
-    user ? (
-      <CardsAgendaOn
-      image={`../Imgs/banco/${evento.imagem}`}
-        key={index}
-        nomeTrilha={evento.nomeTrilha}
-        data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
-        horario={evento.horário}
-        vagas={evento.vagasDisp}
-        participar={() => participar(evento)}
-      />
-    ) : (
-      <CardsAgendaOff
-      image={`../Imgs/banco/${evento.imagem}`}
-        key={index}
-        nomeTrilha={evento.nomeTrilha}
-        data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
-        horario={evento.horário}
-        vagas={evento.vagasDisp}
-        abrirLogin={() => setModalLogin(true)}
-      />
-    )
-  ))
-
-)}
+          )}
 
 
         </div>

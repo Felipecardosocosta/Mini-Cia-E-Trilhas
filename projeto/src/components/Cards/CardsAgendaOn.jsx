@@ -29,7 +29,7 @@ function CardsAgendaOn({ nomeTrilha, data, horario, vagas, participar, image }) 
         </div>
       </div>
 
-      <button className='Bttn-Participar' onClick={participar}> <h1>Participar</h1> </button>
+      <button className='Bttn-Participar' onClick={participar}> <h2>Participar</h2> </button>
 
 
     </div>

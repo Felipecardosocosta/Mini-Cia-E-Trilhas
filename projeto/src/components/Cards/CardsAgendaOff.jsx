@@ -29,7 +29,7 @@ function CardsAgendaOff({ nomeTrilha, data, horario, vagas, abrirLogin, image })
         </div>
       </div>
 
-      <button className='Bttn-Participar' onClick={abrirLogin}> <h2>Venha Participar</h2> </button>
+      <button className='Bttn-Participar' onClick={abrirLogin}> <h3>Venha Participar!</h3> </button>
 
       </div>
 

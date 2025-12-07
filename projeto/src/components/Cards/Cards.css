@@ -89,6 +89,69 @@
     align-items: center;
 }
 
+/* ================================
+   TELAS ALTAS — min-height 750px
+================================ */
+@media (min-height:750px) {
+
+    .Card-evento {
+        width: calc(var(--tamanhoDoCard) + 3rem);
+        min-height: calc((var(--tamanhoDoCard) + 3rem) * 1.2);
+        padding-top: 1rem;
+        border-radius: 19px;
+    }
+
+    .Data-card-minhaAgenda {
+        width: calc((var(--tamnhoData) + 1rem) + 20px);
+        height: calc((var(--tamnhoData) + 1rem) - 12px);
+        font-size: clamp(.9rem, 3vh, 2.2rem);
+    }
+
+    .Informcao-card-minhaAgenda h1 {
+        font-size: clamp(.9rem, 3vh, 2.2rem);
+        margin: 0 0 1.2rem 0;
+    }
+
+    .Bttn-Participar {
+        height: 2.7rem;
+        width: 85%;
+        font-size: clamp(.9rem, 2.7vh, 1.7rem);
+    }
+}
+
+
+/* ================================
+   TELAS AINDA MAIORES — min-height 850px
+================================ */
+@media (min-height:850px) {
+
+    .Card-evento {
+        width: calc(var(--tamanhoDoCard) + 7rem);
+        min-height: calc((var(--tamanhoDoCard) + 7rem) * 1.2);
+        padding-top: 1.2rem;
+        border-radius: 22px;
+    }
+
+    .Data-card-minhaAgenda {
+        width: calc((var(--tamnhoData) + 1.5rem) + 20px);
+        height: calc((var(--tamnhoData) + 1.5rem) - 12px);
+        font-size: clamp(1rem, 3.5vh, 2.5rem);
+    }
+
+    .Informcao-card-minhaAgenda h1 {
+        font-size: clamp(1rem, 3.5vh, 2.5rem);
+        margin: 0 0 1.5rem 0;
+    }
+
+    .Bttn-Participar {
+        height: 3rem;
+        width: 90%;
+        font-size: clamp(1rem, 3vh, 1.8rem);
+    }
+}
+
+
+
 
 /* ------------------------ */
 
@@ -240,4 +303,93 @@
 
     display: flex;
     justify-content: flex-start;
+}
+
+/* =====================================================
+      TELAS ALTAS — min-height 750px
+===================================================== */
+@media (min-height:750px) {
+
+    .Cont-cardsTrilhas {
+        height: 230px;
+    }
+
+    .Bttn {
+        border-radius: 28px;
+    }
+
+    .Bttn-icon,
+    .Icon {
+        border-top-left-radius: 28px;
+        border-top-right-radius: 28px;
+    }
+
+    .Bttn-txt {
+        font-size: 0.9rem;
+        border-bottom-left-radius: 28px;
+        border-bottom-right-radius: 28px;
+    }
+
+    /* Cards invertidos ou não (E/D) */
+    .CardsTrilha-ImgD,
+    .CardsTrilha-ImgE {
+        width: 22%;
+    }
+
+    .CardsTrilhas-InfD,
+    .CardsTrilhas-InfE {
+        width: 58%;
+        padding: 0.7rem 0.9rem;
+        font-size: 1rem;
+    }
+
+    .CardsTrilhas-BttnD,
+    .CardsTrilhas-BttnE {
+        width: 20%;
+    }
+}
+
+
+
+/* =====================================================
+      TELAS MUITO ALTAS — min-height 850px
+===================================================== */
+@media (min-height:850px) {
+
+    .Cont-cardsTrilhas {
+        height: 260px;
+    }
+
+    .Bttn {
+        border-radius: 32px;
+    }
+
+    .Bttn-icon,
+    .Icon {
+        border-top-left-radius: 32px;
+        border-top-right-radius: 32px;
+    }
+
+    .Bttn-txt {
+        font-size: 1rem;
+        border-bottom-left-radius: 32px;
+        border-bottom-right-radius: 32px;
+    }
+
+    .CardsTrilha-ImgD,
+    .CardsTrilha-ImgE {
+        width: 23%;
+    }
+
+    .CardsTrilhas-InfD,
+    .CardsTrilhas-InfE {
+        width: 57%;
+        padding: 0.9rem 1rem;
+        font-size: 1.1rem;
+    }
+
+    .CardsTrilhas-BttnD,
+    .CardsTrilhas-BttnE {
+        width: 20%;
+    }
 }
