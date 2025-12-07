@@ -124,6 +124,7 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
 
     const minhaRed = useRef(null)
+    console.log(dados);
 
     useEffect(() => {
         buscarInfs()
@@ -188,7 +189,6 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
     }
 
-    console.log(dados.id_evento);
     async function salvarEdicao() {
 
 
@@ -198,10 +198,16 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
             vagas: dados.vagas,
             ponto_de_encontro: dados.pontoEncontro
         }
-        
-        const resposta = await alterarDadosEvento(user.token, dadosAtualizados,dados.id_evento)
+
+        const resposta = await alterarDadosEvento(user.token, dadosAtualizados, dados.id_evento)
         console.log(resposta);
-        
+
+        if (resposta.ok) {
+            setIniciarEdicao(false)
+            setAlerta({mensagem:resposta.mensagem,icon:"ok"})
+            setbuscarNovasinformacoes(!buscarNovasinformacoes)
+        }
+
     }
 
     async function finalizarEvento() {
@@ -234,14 +240,6 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
     }
 
-
-
-
-
-
-
-
-
     return (
         <div className='body-modalTrilhaAgenda'>
 
@@ -254,10 +252,12 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
                     <div className="cont-TrilhaAgenda">
 
                         <div className="contImgTitulo">
+                            <h2>{dados.nomeTrilha}</h2>
+                            
                             <div className='img-trilhaAgenda' style={{ backgroundImage: `url(../Imgs/banco/${dados.imagem})` }} >
+                            
                             </div>
 
-                            <h2>{dados.nomeTrilha}</h2>
 
                         </div>
 
@@ -273,10 +273,10 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
                                 <h3>Criador: {criador}</h3>
                                 <h3>Vagas disponíveis: {dados.vagasDisp}</h3>
                                 {participante.length > 0 && <h3>Participantes:  {participante.map(p => <strong key={participante.id_usuario}>
-                                    {`${p.nome},`}</strong>)}</h3>}
+                                    {`${p.nome}`}</strong>)}</h3>}
                             </div> :
 
-                                <div>
+                                <div className='inputs_edicao'>
                                     <label>
                                         Data de Início:
                                         <input type="date" value={dados.dia.split('T')[0]} onChange={(e) => setDados({ ...dados, dia: e.target.value })} />

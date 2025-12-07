@@ -25,7 +25,8 @@
         padding: .1rem;
         font-size: clamp(1.5rem, 4vw, 6rem);
         color: white;
-        font-family: "Poppins", sans-serif;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        text-shadow: 0 0 0.9rem black;
 
     }
 
@@ -36,6 +37,7 @@
         color: #fff;
         padding: 2%;
         letter-spacing: .08rem;
+        text-shadow: 0 0 0.9rem black;
 
     }
 

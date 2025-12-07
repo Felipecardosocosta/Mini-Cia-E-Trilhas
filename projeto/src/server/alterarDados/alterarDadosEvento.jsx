@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 const alterarDadosEvento = async(token,dadosEvento,idEvento) => {
-    console.log(idEvento);
+
     
      if (!token) {
 

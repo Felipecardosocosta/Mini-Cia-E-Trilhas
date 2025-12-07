@@ -14,8 +14,7 @@ function Form_perfil_editavel({ editar, setEditar }) {
     const { infouser, setInfouser, setMeusDados, user, setAlerta } = React.useContext(Mycontext)
 
     useEffect(() => {
-        console.log(infouser);
-
+        
         setEmail(infouser.email)
         if (infouser.num_celular) {
 
