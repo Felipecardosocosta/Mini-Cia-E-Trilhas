@@ -216,6 +216,7 @@ function Trilhas() {
               />
             ) : (
               <CardsTrilhaOff
+                image={`../Imgs/banco/${trilha.imagem}`}
                 ind={index}
                 nome={trilha.nomeTrilha}
                 dis={trilha.distância}

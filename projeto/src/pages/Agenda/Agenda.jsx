@@ -164,6 +164,7 @@ let eventosOrdenados = [...eventosFiltrados]
       />
     ) : (
       <CardsAgendaOff
+      image={`../Imgs/banco/${evento.imagem}`}
         key={index}
         nomeTrilha={evento.nomeTrilha}
         data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}

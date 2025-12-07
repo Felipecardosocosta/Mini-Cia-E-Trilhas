@@ -1,6 +1,6 @@
 import "./Cards.css";
 
-function CardsAgendaOff({ nomeTrilha, data, horario, vagas, abrirLogin }) {
+function CardsAgendaOff({ nomeTrilha, data, horario, vagas, abrirLogin, image }) {
 
   // Tratamento do formato DD/MM/YYYY
   let dia = "--";
@@ -13,39 +13,27 @@ function CardsAgendaOff({ nomeTrilha, data, horario, vagas, abrirLogin }) {
   }
 
   return (
-    <div
-      className="Card-minhaAgenda"
-      style={{
-        backgroundImage: 'url("../../../public/Imgs/banco/lagoinhaDoLeste.jpg")'
-      }}
-    >
-      <div className="Data-card-minhaAgenda">
-        <p>{dia}</p>
-        <div className='Barra-data-minhaAgenda'></div>
-        <p>{mes}</p>
-      </div>
-
-      <div className="Conteudo-card-minhaAgenda">
-
-
-        <div className='Informcao-card-minhaAgenda'>
-          <h1>{nomeTrilha}</h1>
-          <h3>Saída às {horario} h</h3>
-          <h3>{vagas} vagas disponíveis</h3>
+    <div className="Card-evento" style={{ backgroundImage: `url(${image})`}}>
+      
+      <div className="Card-content">
+        <h3 className="card-title">{nomeTrilha}</h3>
+        <div className="card-meta">
+          <div className="date-badge">{dia}/{mes}</div>
         </div>
 
-        <div className='Buttons-cards-minhaAgenda'>
-          <button
-            className='Botao-editar-cards-MAG'
-            onClick={abrirLogin}
-          >
-            <h3>Fazer Login</h3>
-          </button>
+        <div className="meta-text">
+
+          <div className="time">Saída às {horario} h</div>
+
+          <div className="vacancies">{vagas} vagas disponíveis</div>
         </div>
+      </div>
+
+      <button className='Bttn-Participar' onClick={abrirLogin}> <h2>Venha Participar</h2> </button>
 
       </div>
-    </div>
-  );
+
+  )
 }
 
 export default CardsAgendaOff;

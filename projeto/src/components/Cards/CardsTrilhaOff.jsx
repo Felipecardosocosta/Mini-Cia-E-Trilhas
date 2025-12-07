@@ -3,7 +3,7 @@ import { Mycontext } from '../../context/ContextGlobalUser'
 import './Cards.css'
 
 function CardsTrilhaOff(props) {
-    const { user, setUser, modalLogin, setModalLogin, setModalPerfil, modalPerfil, image } = useContext(Mycontext)
+    const { user, setUser, modalLogin, setModalLogin, setModalPerfil, modalPerfil, image} = useContext(Mycontext)
 
     const ContCardsTrilhas = props.ind % 2 === 0 ? "Cont-CardsTrilhasE" : "Cont-CardsTrilhasD"
     const CardsTrilhaImg = props.ind % 2 === 0 ? "CardsTrilha-ImgD" : "CardsTrilha-ImgE"
@@ -16,7 +16,7 @@ function CardsTrilhaOff(props) {
             {console.log(props.tri)}
 
             <div className={ContCardsTrilhas}>
-                <div className={CardsTrilhaImg} style={{ backgroundImage: `url(${image})` }}>
+                <div className={CardsTrilhaImg} style={{backgroundImage: `url(${props.image})` }}>
                 </div>
 
                 <div className={CardsTrilhasInf}>

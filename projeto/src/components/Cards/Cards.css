@@ -48,14 +48,6 @@
     opacity: 0.8;
 }
 
-
-.Status-card-minhaAgenda {
-    background: var(--corStatus);
-    padding: .3rem .8rem;
-    width: fit-content;
-    border-radius: 6px;
-}
-
 .Conteudo-status-card-minhaAgenda {
     font-size: clamp(.7rem, 2vh, 1.2rem);
     color: #fff;
