@@ -132,7 +132,7 @@ let eventosOrdenados = [...eventosFiltrados]
   return (
     <div>
 
-      <Header />
+      <Header  agenda={true} />
       {modalLogin && <Login />}
 
       <div className='Agenda-cont'>

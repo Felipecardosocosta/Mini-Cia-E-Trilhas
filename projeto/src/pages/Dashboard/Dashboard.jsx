@@ -11,7 +11,7 @@ function Dashboard() {
   return (
     <div>
       {modalLogin && <Login/>}
-     <Header />
+     <Header dashboard={true}/>
      <Grafico/>
 
     </div>
