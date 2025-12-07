@@ -9,7 +9,7 @@ import { IoIosEyeOff } from "react-icons/io";
 
 
 function Form_alterarSenha() {
-  const { user, setUser, setModalLogin, setModalPerfil, modalPerfil, meusDados, setMeusDados, setModalPerfi, setAlterarSenha,setAlerta } = React.useContext(Mycontext)
+  const { user, setUser, setModalLogin, setModalPerfil, modalPerfil, meusDados, setMeusDados, setModalPerfi, setAlterarSenha, setAlerta } = React.useContext(Mycontext)
   const [novaSenha, setNovaSenha] = useState('')
   const [confirmarNovaSenha, setConfirmarNovaSenha] = useState('')
   const [senha, setSenha] = useState('')
@@ -20,7 +20,7 @@ function Form_alterarSenha() {
 
   async function salvarSenha() {
     if (!novaSenha || !confirmarNovaSenha || !novaSenha) {
-      setAlerta({mensagem:"Todos os campos são obrigatórios",icon:'erro'})
+      setAlerta({ mensagem: "Todos os campos são obrigatórios", icon: 'erro' })
       return
     }
 
@@ -33,12 +33,12 @@ function Form_alterarSenha() {
     const alterar = await alterarSenhaUser(user.token, senha, novaSenha)
 
     if (alterar.ok) {
-      setAlerta({mensagem:alterar.mensagem,icon:'ok'})
-      
+      setAlerta({ mensagem: alterar.mensagem, icon: 'ok' })
+
       setAlterarSenha(false)
       return
     }
-    setAlerta({mensagem:alterar.mensagem,icon:'erro'})
+    setAlerta({ mensagem: alterar.mensagem, icon: 'erro' })
   }
 
 
@@ -69,12 +69,16 @@ function Form_alterarSenha() {
 
           <div className='input_senhaNova'>
 
-            <input type={mostrarSenha ? "text" : "password"} placeholder='Nova Senha:' value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} />
-            {mostrarSenha ? <IoMdEye onClick={() => setMostrarSenha(false)} /> : <IoIosEyeOff onClick={() => setMostrarSenha(true)} />}
-      
-            <input type={mostrarSenha2 ? "text" : "password"} placeholder='Confirme a Nova Senha' value={confirmarNovaSenha} onChange={(e) => setConfirmarNovaSenha(e.target.value)} />
-            {mostrarSenha2 ? <IoMdEye onClick={() => setMostrarSenha2(false)} /> : <IoIosEyeOff onClick={() => setMostrarSenha2(true)} />}
+            <div className='input_box'>
+
+              <input type={mostrarSenha ? "text" : "password"} placeholder='Nova Senha:' value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} />
+              {mostrarSenha ? <IoMdEye onClick={() => setMostrarSenha(false)} /> : <IoIosEyeOff onClick={() => setMostrarSenha(true)} />}
+
+              <input type={mostrarSenha2 ? "text" : "password"} placeholder='Confirme a Nova Senha' value={confirmarNovaSenha} onChange={(e) => setConfirmarNovaSenha(e.target.value)} />
+              {mostrarSenha2 ? <IoMdEye onClick={() => setMostrarSenha2(false)} /> : <IoIosEyeOff onClick={() => setMostrarSenha2(true)} />}
+            </div>
           </div>
+
           <div className='buttons_alterarSenha'>
 
             <button className='button_cancelar' onClick={() => setAlterarSenha(false)}>Calcelar</button>

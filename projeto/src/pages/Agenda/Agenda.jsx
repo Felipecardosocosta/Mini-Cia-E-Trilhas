@@ -6,140 +6,166 @@ import CardsAgendaOn from '../../components/Cards/CardsAgendaOn'
 import CardsAgendaOff from '../../components/Cards/CardsAgendaOff'
 import buscarCardsAgendaOff from '../../server/buscarInformacao/buscarCardsAgendaOff'
 import participarEvento from '../../server/inserirDados/participarEvento'
-import './Agenda.css'
 import buscarCardsAgendaOn from '../../server/buscarInformacao/buscarCardsAgendaOn'
+import buscarDadosUsuario from '../../server/buscarInformacao/buscarDadosUsuario'
 import MenuPesqAg from '../../components/MenuPesq/MenuPesqAg'
+import './Agenda.css'
 
 function Eventos() {
 
-  const [agenda, setAgenda] = useState([]);
-  const [atualizar, setAtualiza] = useState(false);
+  const { modalLogin, setModalLogin, user, setUser, setAlerta, regTrilhas, filtroTipo, filtroOrdem, setInfouser, setMeusDados } = useContext(Mycontext)
 
-  const { modalLogin, setModalLogin, user, setAlerta, regTrilhas, filtroTipo, filtroOrdem } = useContext(Mycontext);
+  const [agenda, setAgenda] = useState([])
+  const [atualizar, setAtualiza] = useState(false)
+  const [carregando, setCarregando] = useState(false)
 
-  // ---------------------------------------------
-  // FILTRO POR REGIÃO
-  // ---------------------------------------------
-  const eventosFiltrados = agenda.filter((evento) => {
-    if (regTrilhas === 'Regiões') return true;
-    return evento.regiao === regTrilhas;
-  });
+  async function pucharDados() {
+    if (!user || !user.token) return
 
-  // ---------------------------------------------
-  // BUSCAR API
-  // ---------------------------------------------
+    setCarregando(true);
+    const dados = await buscarDadosUsuario(user.token)
+    console.log("Dados do usuário:", dados)
+
+    if (dados.ok) {
+      setInfouser(dados.result)
+      setCarregando(false)
+      return;
+    }
+
+    if (dados.mensagem === "Token Invalido ou expirado") {
+      setAlerta({ mensagem: "Necessário fazer o login novamente", icon: 'erro' })
+      setUser(false)
+      setMeusDados(false)
+      localStorage.removeItem("user")
+    }
+
+    setCarregando(false);
+  }
+
   async function pesquisaAPI() {
-    const localStorege = JSON.parse(localStorage.getItem('user'));
     let dados;
 
-    if (localStorege) {
-      dados = await buscarCardsAgendaOn(localStorege.token);
+    if (user && user.token) {
+      dados = await buscarCardsAgendaOn(user.token)
     } else {
-      dados = await buscarCardsAgendaOff();
+      dados = await buscarCardsAgendaOff()
     }
 
     if (dados.ok) {
-      setAgenda(dados.resultado);
-      return;
+      setAgenda(dados.resultado)
     }
   }
 
-  useEffect(() => { pesquisaAPI() }, [atualizar]);
+  useEffect(() => {
 
-  // ---------------------------------------------
-  // PARTICIPAR DO EVENTO
-  // ---------------------------------------------
-  async function participar(evento) {
-
-    if (!user || !user.token) {
-      setAlerta({ mensagem: "Você precisa fazer login para participar" });
-      setModalLogin(true);
-      return;
+    async function carregar() {
+      await pucharDados()
+      await pesquisaAPI()
     }
 
-    const resposta = await participarEvento(user.token, evento.id_evento);
+    carregar();
 
-    if (resposta.ok) {
-      setAlerta({ mensagem: resposta.mensagem, icon: "ok" });
-      setAtualiza(prev => !prev);
-    } else {
-      setAlerta({ mensagem: resposta.mensagem, icon: "erro" });
-    }
-  }
+  }, [atualizar])
 
-  // ---------------------------------------------
-  // FILTRO DE DATA E Nº DE VAGAS (IGUAL TRILHAS)
-  // ---------------------------------------------
 
-  let eventosOrdenados = [...eventosFiltrados];
+  const eventosFiltrados = agenda.filter((evento) => {
+    if (regTrilhas === 'Regiões') return true
+    return evento.regiao === regTrilhas
+  })
+
+  let eventosOrdenados = [...eventosFiltrados]
 
   function parseData(dataStr) {
-    return new Date(dataStr).getTime();
+    return new Date(dataStr).getTime()
   }
 
   if (filtroTipo && filtroOrdem) {
 
-    eventosOrdenados = eventosOrdenados.sort((a, b) => {
-      let valA, valB;
+    eventosOrdenados.sort((a, b) => {
+      let valA, valB
 
       if (filtroTipo === "data") {
-        valA = parseData(a.data);
-        valB = parseData(b.data);
+        valA = parseData(a.data)
+        valB = parseData(b.data)
       }
 
       if (filtroTipo === "vagas") {
-        valA = Number(a.vagasDisp);
-        valB = Number(b.vagasDisp);
+        valA = Number(a.vagasDisp)
+        valB = Number(b.vagasDisp)
       }
 
       return filtroOrdem === "asc" ? valA - valB : valB - valA;
-    });
+    })
 
   }
 
-  // ---------------------------------------------
-  // RENDER
-  // ---------------------------------------------
+  async function participar(evento) {
+
+    if (!user || !user.token) {
+      setAlerta({ mensagem: "Você precisa fazer login para participar" })
+      setModalLogin(true)
+      return;
+    }
+
+    const resposta = await participarEvento(user.token, evento.id_evento)
+
+    if (resposta.ok) {
+      setAlerta({ mensagem: resposta.mensagem, icon: "ok" })
+      setAtualiza(prev => !prev)
+    } else {
+      setAlerta({ mensagem: resposta.mensagem, icon: "erro" })
+    }
+  }
+
   return (
     <div>
-      <div> <Header /> {modalLogin && <Login />} </div>
+
+      <Header />
+      {modalLogin && <Login />}
 
       <div className='Agenda-cont'>
-        
-        <div className='Cont-MenuPesq'> <MenuPesqAg /> </div>
 
-      <div className='Cards-Agenda'>
+        <div className='Cont-MenuPesq'>
+          <MenuPesqAg />
+        </div>
 
-        {eventosOrdenados.length > 0 &&
-          eventosOrdenados.map((evento, index) => (
-            user ? (
-              <CardsAgendaOn
-                key={index}
-                nomeTrilha={evento.nomeTrilha}
-                data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
-                horario={evento.horário}
-                vagas={evento.vagasDisp}
-                participar={() => participar(evento)}
-              />
-            ) : (
-              <CardsAgendaOff
-                key={index}
-                nomeTrilha={evento.nomeTrilha}
-                data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
-                horario={evento.horário}
-                vagas={evento.vagasDisp}
-                abrirLogin={() => setModalLogin(true)}
-              />
-            )
-          ))
-        }
+        <div className='Cards-Agenda'>
+
+          {eventosOrdenados.length > 0 &&
+            eventosOrdenados.map((evento, index) => (
+
+              user ? (
+
+                <CardsAgendaOn
+                  key={index}
+                  nomeTrilha={evento.nomeTrilha}
+                  data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
+                  horario={evento.horário}
+                  vagas={evento.vagasDisp}
+                  participar={() => participar(evento)}
+                />
+
+              ) : (
+
+                <CardsAgendaOff
+                  key={index}
+                  nomeTrilha={evento.nomeTrilha}
+                  data={new Date(evento.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
+                  horario={evento.horário}
+                  vagas={evento.vagasDisp}
+                  abrirLogin={() => setModalLogin(true)}
+                />
+
+              )
+
+            ))
+          }
+
+        </div>
 
       </div>
-    </div>
 
     </div>
-
-    
   )
 }
 
