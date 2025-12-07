@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 const alterarDadosEvento = async(token,dadosEvento,idEvento) => {
-
+    console.log(idEvento);
+    
      if (!token) {
 
         return {ok:false, mensagem: "Erro necessário token" }
@@ -24,7 +25,8 @@ const alterarDadosEvento = async(token,dadosEvento,idEvento) => {
             }
 
     } catch (error) {
-
+        console.log(error);
+        
         if (error.response) {
             
             return {ok:false, mensagem: error.response.data.mensagem}
