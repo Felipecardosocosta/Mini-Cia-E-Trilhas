@@ -7,13 +7,14 @@ import Swal from 'sweetalert2'
 import { VscAccount } from 'react-icons/vsc'
 import buscarDadosUsuario from '../../server/buscarInformacao/buscarDadosUsuario'
 import deletarUsuario from '../../server/deletarDados/deletarUsuario';
+import Loading from '../Loading/Loading';
 
 
 
 function Form_perfil_nEditavel({ editar, setEditar }) {
 
     const { setMeusDados, user, setUser, infouser, setInfouser ,setAlerta} = React.useContext(Mycontext)
-    const [carregando, setCarregando] = React.useState(false)
+    const [carregando, setCarregando] = React.useState(true)
 
 
 
@@ -55,7 +56,8 @@ function Form_perfil_nEditavel({ editar, setEditar }) {
     }, [])
 
     if (carregando) {
-        return <p>Carregando...</p>
+        <Loading />
+        return
     }
 
     function iniciarEdicao(e) {
