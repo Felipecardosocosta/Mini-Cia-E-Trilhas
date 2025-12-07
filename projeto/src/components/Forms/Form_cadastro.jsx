@@ -29,6 +29,16 @@ function Form_cadastro() {
         return cpfLimpo.length === 11;
     };
 
+    const Cpf11Digitos = (valor) => {
+    let cpfLimpo = valor.replace(/\D/g, "");
+
+    if (cpfLimpo.length > 11) {
+        cpfLimpo = cpfLimpo.slice(0, 11); 
+    }
+
+    setCpf(formatarCpf(cpfLimpo));
+};
+
 
     const validarNome = (nome) => {
         const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s+[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/;
@@ -102,7 +112,7 @@ function Form_cadastro() {
 
             <input type="text" placeholder='Nome completo' value={nome} onChange={e => setnome(e.target.value)} />
             <input type="text" placeholder='E-mail' value={emailCadastro} onChange={e => setEmailCadastro(e.target.value)} />
-            <input type="text" placeholder='CPF' value={cpf} onChange={e => setCpf(formatarCpf(e.target.value))} />
+            <input type="text" placeholder='CPF' value={cpf} onChange={e => Cpf11Digitos((e.target.value))} />
             <input type="password" placeholder='Senha' value={senhaCadastro} onChange={e => setSenhaCadastro(e.target.value)} />
             <span></span>
 
