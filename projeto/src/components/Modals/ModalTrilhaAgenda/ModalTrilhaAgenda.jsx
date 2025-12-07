@@ -247,22 +247,25 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
                         </div>
 
                         <div className="conteudo-modal">
-                            
-                        <div className="linha-modal"/>
+
+                            <div className="linha-modal" />
 
 
-                        <h3>Data de Início: {dados.dia.split('T')[0].split('-').reverse().join('/')}</h3>
-                        <h3>Hora de Início: {dados.horario.slice(0, 5)} h</h3>
-                        <h3>Local: {dados.ponto_partida}</h3>
-                        <h3>Criador: {criador}</h3>
-                        <h3>Vagas disponíveis: {dados.vagasDisp}</h3>
-                        {participante.length > 0 && <h3>Participantes:  {participante.map(p => <strong key={participante.id_usuario}>
-                            {`${p.nome},`}</strong>)}</h3>}
+                            <h3>Data de Início: {dados.dia.split('T')[0].split('-').reverse().join('/')}</h3>
+                            <h3>Hora de Início: {dados.horario.slice(0, 5)} h</h3>
+                            <h3>Local: {dados.ponto_partida}</h3>
+                            <h3>Criador: {criador}</h3>
+                            <h3>Vagas disponíveis: {dados.vagasDisp}</h3>
+                            {participante.length > 0 && <h3>Participantes:  {participante.map(p => <strong key={participante.id_usuario}>
+                                {`${p.nome},`}</strong>)}</h3>}
 
                         </div>
 
                         {!filtro ?
-                            <button className='btn-canelarInscricao' onClick={() => cancelarIncricao(dados.id_evento)} >Cancelar Inscrição</button>
+                            <div className='butons_Criador'>
+
+                                <button className='btn-canelarInscricao' onClick={() => cancelarIncricao(dados.id_evento)} >Cancelar Inscrição</button>
+                            </div>
                             :
                             <div className='butons_Criador'>
 
