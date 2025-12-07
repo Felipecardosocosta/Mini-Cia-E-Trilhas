@@ -7,6 +7,7 @@ import { Mycontext } from '../../context/ContextGlobalUser'
 import Header from '../../components/Header/Header'
 import Login from '../../components/Login/Login'
 import ModalTrilhaAgenda from '../../components/Modals/ModalTrilhaAgenda/ModalTrilhaAgenda'
+import { TfiMenu } from "react-icons/tfi";
 
 function MinhaAgenda() {
 
@@ -14,10 +15,12 @@ function MinhaAgenda() {
     const { setAlerta, setUser, modalLogin, setModalLogin } = useContext(Mycontext)
     const [abriTrilha, setAbriTrilha] = useState(false)
 
-    const [regaregarPagina, setRecarregarPagina]= useState(false)
+    const [regaregarPagina, setRecarregarPagina] = useState(false)
+
+    const [open, setOpen] = useState(false)
 
     console.log(regaregarPagina);
-    
+
 
     const navegacao = useNavigate()
 
@@ -89,23 +92,39 @@ function MinhaAgenda() {
             {abriTrilha && <ModalTrilhaAgenda recaregar={setRecarregarPagina} estadoPagina={regaregarPagina} idTrilha={idEditar} setAbriTrilha={setAbriTrilha} />}
 
             <div className='cont-minhaAgenda' >
-                <h4 className='titulo-espaçado'>
+                <h1 className='titulo-espaçado'>
                     Minha Agenda
-                </h4>
+                </h1>
 
 
 
                 <div className="conteudo-minhaAgenda">
 
                     <div className="nav-minhaAgenda">
-                        <Link>Organizando</Link>
-                        <Link>Participando</Link>
+                        <div className="cont-menu">
+                            <TfiMenu className='menu-ag' onClick={() => setOpen(!open)} />
+
+                            {open &&
+                                <div className="cont-option">
+                                    <h3 className='centralizar'>Menu</h3>
+                                    <div className="linhaDivisoria"> </div>
+                                    <span>
+                                        <Link>Participando</Link>
+                                    </span>
+                                    <span>
+                                    <Link>Organizando</Link>
+                                    </span>
+
+
+                                </div>
+                            }
+                        </div>
 
                     </div>
 
                     <div className="body-cards-minhaAgenda">
-                        
-                        {dados.length > 0 && <CardMinhaAgenda  abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados} />}
+
+                        {dados.length > 0 && <CardMinhaAgenda abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados} />}
 
 
 
