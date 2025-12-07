@@ -8,23 +8,23 @@ function Perfil() {
   const { setMeusDados } = useContext(Mycontext)
   const minhaReferencia = useRef(null)
 
-  useEffect(() => {
-    function verificar(event) {
+  // useEffect(() => {
+  //   function verificar(event) {
 
-      if (minhaReferencia.current && !minhaReferencia.current.contains(event.target)) {
+  //     if (minhaReferencia.current && !minhaReferencia.current.contains(event.target)) {
 
-        setMeusDados(false)
+  //       setMeusDados(false)
 
-      }
-    }
+  //     }
+  //   }
 
-    document.addEventListener("mousedown", verificar)
+  //   document.addEventListener("mousedown", verificar)
 
-    return () => {
-      document.removeEventListener("mousedown", verificar)
-    }
+  //   return () => {
+  //     document.removeEventListener("mousedown", verificar)
+  //   }
 
-  }, [])
+  // }, [])
 
   return (
 

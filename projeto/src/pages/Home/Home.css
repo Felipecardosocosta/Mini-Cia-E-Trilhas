@@ -3,7 +3,7 @@
 .cont-home {
     width: 100vw;
     height: 100vh;
-    background-image: url('../../assets/img_home.png');
+    background-image: url('../../../public/Imgs/imgHomeAtualizada.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
