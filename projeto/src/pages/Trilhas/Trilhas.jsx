@@ -7,17 +7,15 @@ import MenuPesq from '../../components/MenuPesq/MenuPesq'
 import CardsTrilhaOff from '../../components/Cards/CardsTrilhaOff'
 import buscarCardsTrilhaOff from '../../server/buscarInformacao/buscarCardsTrilhaOff'
 import buscarCardsTrilhaOn from '../../server/buscarInformacao/buscarCardsTrilhaOn'
+import buscarDadosUsuario from '../../server/buscarInformacao/buscarDadosUsuario'
 import CardsTrilhaOn from '../../components/Cards/CardsTrilhaOn'
 import cadastrarEvento from '../../server/inserirDados/cadastrarEvento'
 
-
-
-
 function Trilhas() {
-  const { user, modalLogin, setModalLogin, regTrilhas, setRegiao, setAlerta, filtroTipo, filtroOrdem } = useContext(Mycontext)
+
+  const {user, modalLogin, setModalLogin, regTrilhas,setAlerta, filtroTipo, filtroOrdem, setInfouser,setMeusDados, setUser} = useContext(Mycontext)
 
   const [TrilhasBD, setTrilhasBD] = useState([])
-
   const [trilhaSelecionada, setTrilhaSelecionada] = useState(null)
   const [modalMarcarTrilha, setModalMarcarTrilha] = useState(false)
 
@@ -26,47 +24,76 @@ function Trilhas() {
   const [pntEnc, setPntEnc] = useState("")
   const [nPart, setNPart] = useState(1)
 
+  const [carregando, setCarregando] = useState(false)
 
-  useEffect(() => { pesquisaAPI() }, [user])
-  const localStorege = JSON.parse(localStorage.getItem('user'))
+ 
+  const [permiteFecharFora, setPermiteFecharFora] = useState(false)
 
-  async function pesquisaAPI(params) {
+  async function pucharDados() {
+
+    if (!user || !user.token) return
+
+    setCarregando(true)
+    const dados = await buscarDadosUsuario(user.token)
+
+    if (dados.ok) {
+      setInfouser(dados.result)
+      setCarregando(false)
+      return
+    }
+
+    if (dados.mensagem === "Token Invalido ou expirado") {
+      setAlerta({ mensagem: "Seu login expirou, faça login novamente.", icon: "erro" })
+      setUser(false)
+      setMeusDados(false)
+      localStorage.removeItem("user")
+    }
+
+    setCarregando(false)
+  }
+
+  async function pesquisaAPI() {
     let infsTrilhas
-    if (localStorege) {
-      infsTrilhas = await buscarCardsTrilhaOn(localStorege.token)
+
+    if (user && user.token) {
+      infsTrilhas = await buscarCardsTrilhaOn(user.token)
     } else {
       infsTrilhas = await buscarCardsTrilhaOff()
     }
 
-    if (infsTrilhas.ok) {
-      setTrilhasBD(infsTrilhas.result)
-      // console.log("Inf TRILHAS", infsTrilhas);
-      return
-    }
-    // console.log(`Erro ao fazer a busca ${infsTrilhas}`);
+    if (infsTrilhas.ok) setTrilhasBD(infsTrilhas.result)
   }
+
+  useEffect(() => {
+    async function carregar() {
+      await pucharDados()
+      await pesquisaAPI()
+    }
+    carregar()
+  }, [user])
 
   function validarDiaHora(dataStr, horaStr) {
-    const agora = new Date();
-    const dataHora = new Date(`${dataStr}T${horaStr}`);
-
-    return dataHora >= agora;
+    const agora = new Date()
+    const dataHora = new Date(`${dataStr}T${horaStr}`)
+    return dataHora >= agora
   }
+
   function validarHora(e) {
-    const value = e.target.value;
+    const value = e.target.value
 
     if (!dataTrilha) return;
 
     if (validarDiaHora(dataTrilha, value)) {
-      setHoraTrilha(value);
+      setHoraTrilha(value)
     } else {
-      setAlerta({ mensagem: "O horário não pode ser anterior ao horário atual.", icon: "erro" })
+      setAlerta({ mensagem: "A hora não pode ser anterior ao horário atual.", icon: "erro" })
     }
   }
 
   async function salvarTrilhaMarcada() {
+
     if (!dataTrilha || !horaTrilha || !pntEnc) {
-      setAlerta({ mensagem: "Certifique-se de que você preencheu todos os campos", icon: "erro" })
+      setAlerta({ mensagem: "Preencha todos os campos.", icon: "erro" })
       return
     }
 
@@ -78,95 +105,96 @@ function Trilhas() {
       vagas: nPart
     }
 
-
-    // console.log("Dados da Trilha Marcada", marcarTrilha)
-
     const result = await cadastrarEvento(user.token, marcarTrilha)
 
-    // console.log("RETORNO DA API:", result);
     if (result.ok) {
-      setAlerta({ mensagem: "Trilha Marcada com Sucesso!", icon: "ok" })
+
+      setAlerta({ mensagem: "Trilha marcada com sucesso!", icon: "ok" })
+
+      setPermiteFecharFora(true)
+
+      setTimeout(() => {
+
+        setModalMarcarTrilha(false)
+        setPermiteFecharFora(false)
+
+        setDataTrilha("")
+        setHoraTrilha("")
+        setPntEnc("")
+        setNPart(1)
+        setTrilhaSelecionada(null)
+
+      }, 2500)
+
     } else {
       setAlerta({ mensagem: result.mensagem, icon: "erro" })
     }
-
-
   }
 
   let trilhasFiltradas = TrilhasBD.filter((trilha) => {
-    if (regTrilhas === 'Regiões') return true;
-    return trilha.regiao === regTrilhas;
-  });
+    if (regTrilhas === 'Regiões') return true
+    return trilha.regiao === regTrilhas
+  })
 
   function parseTempo(valor) {
-  if (!valor) return 0;
+    if (!valor) return 0
 
-  // Caso seja número puro
-  if (!isNaN(valor)) return Number(valor);
+    if (!isNaN(valor)) return Number(valor)
+    valor = valor.toString().toLowerCase()
 
-  valor = valor.toString().toLowerCase();
+    let horas = 0
+    let minutos = 0
 
-  let horas = 0;
-  let minutos = 0;
+    if (valor.includes("h")) {
+      const partes = valor.split("h")
+      horas = Number(partes[0].trim())
 
-  // Formato "1h 30min"
-  if (valor.includes("h")) {
-    const partes = valor.split("h");
-    horas = Number(partes[0].trim());
-
-    if (partes[1]) {
-      const m = partes[1].replace("min", "").trim();
-      if (!isNaN(m)) minutos = Number(m);
+      if (partes[1]) {
+        const m = partes[1].replace("min", "").trim()
+        if (!isNaN(m)) minutos = Number(m)
+      }
+      return horas * 60 + minutos
     }
-    return horas * 60 + minutos;
+
+    if (valor.includes("min")) {
+      return Number(valor.replace("min", "").trim())
+    }
+
+    if (valor.includes(":")) {
+      const [h, m] = valor.split(":")
+      return Number(h) * 60 + Number(m)
+    }
+
+    return Number(valor) || 0
   }
 
-  // Formato "45min"
-  if (valor.includes("min")) {
-    minutos = Number(valor.replace("min", "").trim());
-    return minutos;
+  if (filtroTipo && filtroOrdem) {
+    trilhasFiltradas = [...trilhasFiltradas].sort((a, b) => {
+
+      const campo = filtroTipo === "dist" ? "distância" : "tempo"
+
+      const valA = campo === "tempo" ? parseTempo(a[campo]) : Number(a[campo]);
+      const valB = campo === "tempo" ? parseTempo(b[campo]) : Number(b[campo]);
+
+      return filtroOrdem === "asc" ? valA - valB : valB - valA
+    });
   }
-
-  // Formato "01:20"
-  if (valor.includes(":")) {
-    const [h, m] = valor.split(":");
-    return Number(h) * 60 + Number(m);
-  }
-
-  // Última alternativa: tentar converter
-  return Number(valor) || 0;
-}
-
-
-if (filtroTipo && filtroOrdem) {
-  trilhasFiltradas = [...trilhasFiltradas].sort((a, b) => {
-    const campo = filtroTipo === "dist" ? "distância" : "tempo"
-
-    const valA = campo === "tempo" ? parseTempo(a[campo]) : Number(a[campo])
-    const valB = campo === "tempo" ? parseTempo(b[campo]) : Number(b[campo])
-
-    return filtroOrdem === "asc"
-      ? valA - valB
-      : valB - valA
-  });
-}
-
-
-
-
 
   return (
     <div>
-      <div> <Header /> {modalLogin && <Login />} </div>
+      <Header />
+      {modalLogin && <Login />}
 
       <div className='Trilha-cont'>
 
-        <div className='Cont-menuPesq'> <MenuPesq /> </div>
+        <div className='Cont-menuPesq'>
+          <MenuPesq />
+        </div>
 
         <div className='Cards-trilhas'>
-          {/* {console.log("AQUI =>", TrilhasBD)} */}
 
           {trilhasFiltradas.length > 0 && trilhasFiltradas.map((trilha, index) => (
+
             user ? (
               <CardsTrilhaOn
                 ind={index}
@@ -177,7 +205,7 @@ if (filtroTipo && filtroOrdem) {
                 tmp={trilha.tempo}
                 rlv={trilha.tipoRelevo}
                 dif={trilha.dificuldade}
-                abrirModal={() => { setTrilhaSelecionada(trilha), setModalMarcarTrilha(true) }}
+                abrirModal={() => { setTrilhaSelecionada(trilha); setModalMarcarTrilha(true); }}
               />
             ) : (
               <CardsTrilhaOff
@@ -188,12 +216,25 @@ if (filtroTipo && filtroOrdem) {
                 dif={trilha.dificuldade}
               />
             )
+
           ))}
 
           {modalMarcarTrilha && trilhaSelecionada && (
-            <div className="ModalTrilha">
+            <div
+              className="ModalTrilha"
 
-              <div className="ModalContent">
+              onClick={(e) => {
+                if (
+                  e.target.classList.contains("ModalTrilha") &&
+                  permiteFecharFora
+                ) {
+                  setModalMarcarTrilha(false)
+                  setPermiteFecharFora(false)
+                }
+              }}
+            >
+
+              <div className="ModalContent" onClick={(e) => e.stopPropagation()}>
 
                 <div className='ModalContent-Sup'>
 
@@ -202,12 +243,9 @@ if (filtroTipo && filtroOrdem) {
 
                     <p>Ponto inicial: {trilhaSelecionada.pontoInicial}</p>
                     <p>Ponto final: {trilhaSelecionada.pontoFinal}</p>
-                    <br></br>
+                    <br />
                     <p>Distância: {trilhaSelecionada.distância}Km / Tempo: {trilhaSelecionada.tempo}</p>
                     <p>Dificuldade: {trilhaSelecionada.dificuldade} // Relevo: {trilhaSelecionada.tipoRelevo}</p>
-                  </div>
-                  <div className='ContentSup-Meio'>
-
                   </div>
 
                   <div className='ContentSup-Dir'>
@@ -215,10 +253,8 @@ if (filtroTipo && filtroOrdem) {
                     <div className='SupDir-cima'>
 
                       <div className='SupDirCima-sup'>
-
                         <div className='SupDirCimaSup1'>
 
-                          {/* Data */}
                           <div className="SupDirCimaSup1-campo1">
                             <label>Dia: </label>
                             <input
@@ -229,21 +265,19 @@ if (filtroTipo && filtroOrdem) {
                             />
                           </div>
 
-                          {/* Horário */}
                           <div className="SupDirCimaSup1-campo2">
                             <label>Horário:</label>
                             <input
                               type="time"
                               value={horaTrilha}
                               onChange={validarHora}
-                              disabled={!dataTrilha} // só libera depois de escolher a data
+                              disabled={!dataTrilha}
                             />
                           </div>
 
                         </div>
 
                         <div className='SupDirCimaSup2'>
-                          {/* Ponto de Encontro */}
                           <label>Ponto de Encontro:</label>
                           <textarea
                             value={pntEnc}
@@ -255,7 +289,6 @@ if (filtroTipo && filtroOrdem) {
                       </div>
 
                       <div className='SupDirCima-inf'>
-                        {/* Participantes */}
                         <h4>Participantes, você e mais:</h4>
 
                         <div className="controle-participantes">
@@ -278,6 +311,7 @@ if (filtroTipo && filtroOrdem) {
                     </div>
 
                   </div>
+
                 </div>
 
                 <div className='ModalContent-Inf'>
@@ -285,11 +319,11 @@ if (filtroTipo && filtroOrdem) {
                 </div>
 
               </div>
+
             </div>
           )}
 
         </div>
-
 
       </div>
     </div>
