@@ -1,0 +1,93 @@
+:root{
+    --corFundoData: rgb(123, 30, 30);
+    --corFontData: #fff;
+    --corStatus: #7B1E1E;
+    --corFontStatus: #fff;
+    --corFontConteudo: #fff;
+    --tamanhoDoCard: 15rem;
+    --tamnhoData: 3rem;
+}
+
+
+
+.card-evento {
+    position: relative;
+    width: var(--tamanhoDoCard);
+    height: calc(var(--tamanhoDoCard) * 1.2);
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+    color: #fff;
+    display: flex;
+    align-items: flex-end;
+    font-family: 'Georgia', serif;
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(2, 20, 20, 0.25) 0%, rgba(0, 0, 0, 0.336) 100%);
+   z-index: 1;
+}
+
+.card-content {
+    position: relative;
+    padding: 28px;
+    z-index: 2;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: clamp(.9rem, 3vh, 2.2rem);
+    margin: 0 0 .9rem 0;
+    line-height: 1.05;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.date-badge {
+    background: rgba(88, 18, 18, 0.95);
+    width: calc(var(--tamnhoData) + 20px);
+    height: calc(var(--tamnhoData) - 12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border-radius: 6px;
+    font-size: clamp(.9rem, 3vh, 2.2rem);
+}
+
+.meta-text{
+    display: flex;
+    flex-direction: column;
+    font-size: clamp(.8rem, 2.5vh, 1.5rem);
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+}
+
+.meta-text .vacancies {
+    font-size: clamp(.8rem, 2.5vh, 1.5rem);
+    opacity: 0.95;
+}
+
+.card-button {
+    background: rgba(107, 22, 22, 0.95);
+    color: #fff;
+    height: 2.3rem;
+    width: 80%;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: clamp(.8rem, 2.5vh, 1.5rem);
+    align-self: center;
+}

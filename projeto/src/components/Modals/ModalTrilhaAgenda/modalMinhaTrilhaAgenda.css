@@ -1,3 +1,8 @@
+:root{
+    --corBotaoCancelarInscricao: rgb(230, 12, 12);
+}
+
+
 .body-modalTrilhaAgenda {
     position: fixed;
     top: 0;
@@ -5,18 +10,49 @@
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
     z-index: 1000;
 }
 
 .cont-modalTrilhaAgenda {
     width: 60%;
-    height: 60%;
-    
+    height: 80vh;
     border-radius: 18px;
     background-image: linear-gradient(150deg, #700808e0, #1e0202ee);
     box-shadow: 0 0 .1rem black;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    color: white;
 
+}
+
+.img-trilhaAgenda{
+    width: 20vh;
+    height: 20vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 12px;
+  
+}
+
+.btn-canelarInscricao{
+    background-color: var(--corBotaoCancelarInscricao);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: .7rem 1.2rem;
+    font-size: clamp(1rem, 2.5vh, 1.5rem);
+    cursor: pointer;
+}
+
+.btn-canelarInscricao:hover{
+    background-color: rgb(180, 10, 10);
+}
+
+.btn-canelarInscricao:active{
+    background-color: rgb(150, 8, 8);
 }
 

@@ -1,0 +1,25 @@
+.corpo-criador {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+    width: 100%;
+    height: auto;
+}
+
+.cont-cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.nenhum-evento{
+    color: white;
+    font-size: clamp(1rem, 3vh, 2rem);
+    letter-spacing: .15rem;
+}

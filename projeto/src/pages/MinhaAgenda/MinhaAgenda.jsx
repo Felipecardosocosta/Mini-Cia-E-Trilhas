@@ -10,6 +10,8 @@ import ModalTrilhaAgenda from '../../components/Modals/ModalTrilhaAgenda/ModalTr
 import { TfiMenu } from "react-icons/tfi";
 import buscarCardsMinhaAgendaCriador from '../../server/buscarInformacao/buscarCardsMinhaAgendaCriador'
 import NavBarMinhaAgenda from '../../components/NavBarMinhaAgenda/NavBarMinhaAgenda'
+import CorpoCriador from '../../components/Corpo/CorpoCriador'
+import CorpoParticipante from '../../components/Corpo/CorpoParticipante'
 
 function MinhaAgenda() {
 
@@ -17,17 +19,15 @@ function MinhaAgenda() {
 
     const [dadosCriador, setDadosCriador] = useState([])
 
-
+    const [carregarPg, setCarregarPg] = useState(true)
 
     const { setAlerta, setUser, modalLogin, setModalLogin } = useContext(Mycontext)
+
     const [abriTrilha, setAbriTrilha] = useState(false)
 
+    const [filtro, setFiltro] = useState(false)
 
-
-
-
-    const [regaregarPagina, setRecarregarPagina] = useState(false)
-
+  
     const [participandoAtivo, setParticipandoAtivo] = useState(true)
 
     const [organizandoAtivo, setOrganizandoAtivo] = useState(false)
@@ -41,116 +41,20 @@ function MinhaAgenda() {
 
     const [idEditar, setIdEditar] = useState('')
 
-    async function buscarDados() {
-        const localUser = JSON.parse(localStorage.getItem('user'))
-        if (localUser) {
 
-            const dadosParticipando = await buscarCardsMinhaAgenda(localUser.token)
-
-
-            if (dadosParticipando.ok) {
-
-
-                setDados(dadosParticipando.result)
-
-                
-                return
-            }
-            
-
-
-
-            if (!dadosParticipando.ok) {
-
-                if (dadosParticipando.mensagem === "Token Invalido ou expirado") {
-
-                    setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
-                    setModalLogin(true)
-                    setUser(false)
-                    localStorage.removeItem('user')
-
-                    return
-
-
-                }
-
-                if (dadosParticipando.mensagem ==='Sem eventos agendados no momento') {
-
-
-                    
-                }
-
-
-                return setAlerta({ mensagem: dadosParticipando.mensagem, icon: "erro" })
-            }
-
-
-            setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
-            setUser(false)
-            navegacao("/")
-            localStorage.removeItem('user')
-
-
-            return
-
-        }
-
-        setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
-        setModalLogin(true)
-        setUser(false)
-
-
-    }
-
-    function abrirParticipando() {
-        setParticipandoAtivo(true)
-        setOrganizandoAtivo(false)
-    }
- 
-
-    function abrirOrganizando() {
-        setParticipandoAtivo(false)
-        setOrganizandoAtivo(true)
-    }
-
-
-
-    useEffect(() => {
-        buscarDados()
-
-        function verificar(e) {
-
-            if (minhaRefMenu.current && !minhaRefMenu.current.contains(e.target)) {
-                setOpen(false)
-            }
-
-        }
-
-        document.addEventListener("mousedown", verificar)
-
-        return () => {
-
-            document.removeEventListener("mousedown", verificar)
-        }
-
-
-    }, [regaregarPagina])
-
-
-    const minhaRefMenu = useRef(null)
 
 
     return (
         <div className="body-img">
 
-
+    <div className="card-overlay" />
 
 
             <div className='body-minhaAgenda' >
                 <Header transparent />
                 {modalLogin && <Login />}
 
-                {abriTrilha && <ModalTrilhaAgenda recaregar={setRecarregarPagina} estadoPagina={regaregarPagina} idTrilha={idEditar} setAbriTrilha={setAbriTrilha} />}
+                {abriTrilha && <ModalTrilhaAgenda  setFiltro={setFiltro} filtro={filtro} setCarregarPg={setCarregarPg} carregarPg={carregarPg} idTrilha={idEditar} setAbriTrilha={setAbriTrilha} />}
 
                 <div className='cont-minhaAgenda' >
                     <h1 className='titulo-espaçado'>
@@ -159,24 +63,47 @@ function MinhaAgenda() {
 
                     <div className="conteudo-minhaAgenda">
 
-                        <NavBarMinhaAgenda 
-                        set_organizandoAtivo={setOrganizandoAtivo}
-                        set_participandoAtivo={setParticipandoAtivo}
-                        setOpen={setOpen}
-                        organizandoAtivo={organizandoAtivo}
-                        participandoAtivo={participandoAtivo}
-                        open={open}
+                        <NavBarMinhaAgenda
+                            set_organizandoAtivo={setOrganizandoAtivo}
+                            set_participandoAtivo={setParticipandoAtivo}
+                            setOpen={setOpen}
+                            organizandoAtivo={organizandoAtivo}
+                            participandoAtivo={participandoAtivo}
+                            open={open}
+                        />
+
+                        {!participandoAtivo?  
+                        
+                        <CorpoCriador
+                        
+                        idEditar={idEditar}
+                        setIdEditar={setIdEditar}
+                        setAbriTrilha={setAbriTrilha}
+                        carregarPg={carregarPg}
+                        setCarregarPg={setCarregarPg}
+                        filtro={filtro}
+                        setFiltro={setFiltro}
+                        
                         />
                         
-                        <h1 className='opcaoAberta' >{participandoAtivo ? 'Participando' : 'Organizando'}</h1>
-                        <div className="body-cards-minhaAgenda">
+                        :
 
-                            
-                            {dados.length > 0 && <CardMinhaAgenda abrir={setAbriTrilha} id={setIdEditar} status={'Ativo'} data={dados} />}
+                        <CorpoParticipante
+                        idEditar={idEditar}
+                        setIdEditar={setIdEditar}
+                        setAbriTrilha={setAbriTrilha}
+                        carregarPg={carregarPg}
+                        setCarregarPg={setCarregarPg}
+                        filtro={filtro}
+                        setFiltro={setFiltro}
+                        
+                        />
 
 
+                        }
 
-                        </div>
+
+                      
 
 
                     </div>
