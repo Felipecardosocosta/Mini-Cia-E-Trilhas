@@ -1,4 +1,4 @@
-:root{
+:root {
     --corFundoData: rgb(123, 30, 30);
     --corFontData: #fff;
     --corStatus: #7B1E1E;
@@ -23,13 +23,14 @@
     display: flex;
     align-items: flex-end;
     font-family: 'Georgia', serif;
+    
 }
 
 .card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(2, 20, 20, 0.25) 0%, rgba(0, 0, 0, 0.336) 100%);
-   z-index: 1;
+    background: linear-gradient(180deg, rgba(2, 20, 20, 0.164) 0%, rgba(0, 0, 0, 0.199) 100%);
+    z-index: 1;
 }
 
 .card-content {
@@ -46,6 +47,7 @@
     font-size: clamp(.9rem, 3vh, 2.2rem);
     margin: 0 0 .9rem 0;
     line-height: 1.05;
+    text-shadow: .0rem .0rem .2rem black, 0 0 1em rgb(4, 4, 7);
 }
 
 .card-meta {
@@ -65,14 +67,16 @@
     font-weight: 700;
     border-radius: 6px;
     font-size: clamp(.9rem, 3vh, 2.2rem);
+    
 }
 
-.meta-text{
+.meta-text {
     display: flex;
     flex-direction: column;
     font-size: clamp(.8rem, 2.5vh, 1.5rem);
     gap: .5rem;
     margin-bottom: 1.5rem;
+    text-shadow: .0rem .0rem .2rem black, 0 0 1em rgb(4, 4, 7);
 }
 
 .meta-text .vacancies {

@@ -47,7 +47,7 @@ function MinhaAgenda() {
     return (
         <div className="body-img">
 
-    <div className="card-overlay" />
+   
 
 
             <div className='body-minhaAgenda' >

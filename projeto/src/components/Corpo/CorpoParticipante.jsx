@@ -94,7 +94,7 @@ function CorpoParticipante({setFiltro,setIdEditar, setAbriTrilha, idEditar,setCa
         return (
 
             <div className='corpo-criador'>
-
+                <h1 className='opcaoAberta' >Participante</h1>
                 <div className='nenhum-evento'>
                     <h3>Nenhum evento agendado no momento</h3>
                 </div>

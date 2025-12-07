@@ -5,7 +5,7 @@ import CardEvento from './CardEvento'
 import buscarCardsMinhaAgendaCriador from '../../server/buscarInformacao/buscarCardsMinhaAgendaCriador'
 import './corpoCriador.css'
 
-function CorpoCriador({setFiltro,setIdEditar, setAbriTrilha, idEditar,setCarregarPg,carregarPg}) {
+function CorpoCriador({ setFiltro, setIdEditar, setAbriTrilha, idEditar, setCarregarPg, carregarPg }) {
 
     const [dados, setDados] = useState([])
 
@@ -76,23 +76,23 @@ function CorpoCriador({setFiltro,setIdEditar, setAbriTrilha, idEditar,setCarrega
         buscarDadosCriador()
 
         console.log(dados);
-        
 
 
-    },[carregarPg])
+
+    }, [carregarPg])
 
     function abriTrilha(id) {
         setIdEditar(id)
         setFiltro(true)
         setAbriTrilha(true)
-        
+
     }
 
     if (semEventos) {
         return (
 
             <div className='corpo-criador'>
-
+                <h1 className='opcaoAberta' >Organizador</h1>
                 <div className='nenhum-evento'>
                     <h3>Nenhum evento agendado no momento</h3>
                 </div>
@@ -104,26 +104,26 @@ function CorpoCriador({setFiltro,setIdEditar, setAbriTrilha, idEditar,setCarrega
 
     return (
         <div className='corpo-criador'>
-                <h1 className='opcaoAberta' >Organizador</h1>
-                
-                <div className="cont-cards">
+            <h1 className='opcaoAberta' >Organizador</h1>
+
+            <div className="cont-cards">
 
 
-               {dados.map((item) => (
-                <CardEvento 
-                key={item.id_evento} 
-                title={item.nomeTrilha} 
-                day={item.data.slice(8,10)+'/'+item.data.slice(5,7)} 
-                time={item.horário.slice(0,5)} 
-                vacancies={item.vagasDisp} 
-                image={'../Imgs/banco/lagoinhaDoLeste.jpg'} 
-                onDetails={() => {abriTrilha(item.id_evento)}}/>
-            ))}
+                {dados.map((item) => (
+                    <CardEvento
+                        key={item.id_evento}
+                        title={item.nomeTrilha}
+                        day={item.data.slice(8, 10) + '/' + item.data.slice(5, 7)}
+                        time={item.horário.slice(0, 5)}
+                        vacancies={item.vagasDisp}
+                        image={'../Imgs/banco/lagoinhaDoLeste.jpg'}
+                        onDetails={() => { abriTrilha(item.id_evento) }} />
+                ))}
 
 
-                </div>
+            </div>
 
-                
+
 
         </div>
     )
@@ -138,41 +138,41 @@ export default CorpoCriador
 
 
 // dia
-// : 
+// :
 // "2025-12-16T00:00:00.000Z"
 // dificuldade
-// : 
+// :
 // 4
 // distancia
-// : 
+// :
 // "4.20"
 // horario
-// : 
+// :
 // "20:02:00"
 // id_evento
-// : 
+// :
 // 94
 // nomeTrilha
-// : 
+// :
 // "Trilha da Lagoinha do Leste"
 // participantes
-// : 
+// :
 // [{…}]
 // pontoEncontro
-// : 
+// :
 // "dscsdc"
 // ponto_chegada
-// : 
+// :
 // "Praia da Lagoinha do Leste"
 // ponto_partida
-// : 
+// :
 // "Pântano do Sul"
 // vagas
-// : 
+// :
 // 3
 // vagasDisp
-// : 
+// :
 // 3
 // [[Prototype]]
-// : 
+// :
 // Obj
