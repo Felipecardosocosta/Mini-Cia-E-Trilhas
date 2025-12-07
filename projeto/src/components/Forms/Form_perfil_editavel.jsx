@@ -6,46 +6,79 @@ import alterarDadosUser from '../../server/alterarDados/alterarDadosUser';
 
 
 
-function Form_perfil_editavel({editar, setEditar}) {
+
+function Form_perfil_editavel({ editar, setEditar }) {
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
 
-    const { infouser, setInfouser, setMeusDados, user,setAlerta } = React.useContext(Mycontext)
+    const { infouser, setInfouser, setMeusDados, user, setAlerta } = React.useContext(Mycontext)
 
-    useEffect(()=>{ 
+    useEffect(() => {
         console.log(infouser);
-        
+
         setEmail(infouser.email)
         if (infouser.num_celular) {
-            
+
             setTelefone(infouser.num_celular)
         }
 
-    },[])
+    }, [])
 
-    async function salvardados(){
+    const formatarTelefone = (valor) => {
+        return valor
+            .replace(/\D/g, "")
+            .replace(/^(\d{2})(\d)/, "($1) $2")
+            .replace(/(\d{5})(\d{1,4})$/, "$1-$2")
+    };
+
+    const validarTelefone = (valor) => {
+        const telefoneLimpo = valor.replace(/\D/g, "")
+        return telefoneLimpo.length === 11
+    }
+
+    const regexEmail = (email) => {
+        return /\S+@\S+\.\S+/.test(email)
+    }
+
+
+
+    async function salvardados() {
+
+        if (!regexEmail(email)) {
+            setAlerta({ mensagem: "E-mail inválido! Exemplo válido: usuario@dominio.com", icon: "erro" });
+            return
+        }
+
+        if (!validarTelefone(telefone)) {
+            setAlerta({ mensagem: "Telefone inválido! Exemplo: (11) 98765-4321", icon: "erro" });
+            return;
+        }
+
+        const telefoneSemMascara = telefone.replace(/\D/g, '');
+
 
         const dadosAtualizados = {
-          email,
-          celular:telefone,
-          senha: '1'
+            email,
+            celular: telefoneSemMascara,
+            senha: '1'
         };
-          if (!dadosAtualizados.email || !dadosAtualizados.celular ) {
-            
-            return setAlerta({mensagem:'Preencha todos os campos',icon:'erro'})
+        if (!dadosAtualizados.email || !dadosAtualizados.celular) {
+
+            return setAlerta({ mensagem: 'Preencha todos os campos', icon: 'erro' })
         }
         const resposta = await alterarDadosUser(user.token, dadosAtualizados);
 
         console.log(resposta);
-        
 
-        if(!resposta.ok){
-            setAlerta({mensagem:resposta.mensagem,icon:'erro'})
+
+        if (!resposta.ok) {
+            setAlerta({ mensagem: resposta.mensagem, icon: 'erro' })
             return
         }
-        setAlerta({mensagem:"Dados alterados com sucesso",icon:'ok'})
+        setAlerta({ mensagem: "Dados alterados com sucesso", icon: 'ok' })
 
         setEditar(false)
+
         return
     }
 
@@ -67,8 +100,8 @@ function Form_perfil_editavel({editar, setEditar}) {
                 <div className='dados_usuario'>
                     <p>Nome: {infouser.nome}</p>
                     <p>CPF: {infouser.cpf}</p>
-                    <label style={{gap:'2rem'}}> E-mail: <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} placeholder=''/></label>
-                    <label>Telefone: <input type="tel" value={telefone} onChange={(e)=> {setTelefone(e.target.value)}} placeholder='Ex: (48)99999-9999' /></label>
+                    <label style={{ gap: '2rem' }}> E-mail: <input type="text" value={email} onChange={(e) => { setEmail(e.target.value) }} placeholder='' /></label>
+                    <label>Telefone: <input type="tel" value={telefone} onChange={(e) => { setTelefone(formatarTelefone(e.target.value)) }} placeholder='Ex: (48)99999-9999' /></label>
                     <button className='botao_editar' onClick={salvardados}>Salvar Dados</button>
                     <button className='botao_voltar' onClick={() => setEditar(false)}>Voltar</button>
 
