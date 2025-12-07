@@ -43,14 +43,15 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
             setParticipante(infos.result.participantes.filter(p => p.classe === "P"))
 
 
-            setCriador(infos.result.participantes.filter(p => {  
+            setCriador(infos.result.participantes.filter(p => {
                 console.log(p);
-                
-                return p.classe === "C"})[0].nome )
+
+                return p.classe === "C"
+            })[0].nome)
 
 
             console.log(participante);
-            
+
 
             return
         }
@@ -182,11 +183,6 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
     async function ediatarEvento() {
 
-        if (!localStorege) {
-
-            setAlerta({ mensagem: 'Erro Recarregue a pagina', icon: "erro" })
-            return
-        }
 
 
 
@@ -241,17 +237,29 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
                     <Loading />
                     :
                     <div className="cont-TrilhaAgenda">
-                        <div className='img-trilhaAgenda' style={{ backgroundImage: `url(../Imgs/banco/lagoinhaDoLeste.jpg)` }} >
+
+                        <div className="contImgTitulo">
+                            <div className='img-trilhaAgenda' style={{ backgroundImage: `url(../Imgs/banco/lagoinhaDoLeste.jpg)` }} >
+                            </div>
+
+                            <h2>{dados.nomeTrilha}</h2>
 
                         </div>
 
-                        <h2>{dados.nomeTrilha}</h2>
+                        <div className="conteudo-modal">
+                            
+                        <div className="linha-modal"/>
+
+
                         <h3>Data de Início: {dados.dia.split('T')[0].split('-').reverse().join('/')}</h3>
                         <h3>Hora de Início: {dados.horario.slice(0, 5)} h</h3>
                         <h3>Local: {dados.ponto_partida}</h3>
                         <h3>Criador: {criador}</h3>
-                        <h3>Participantes: {participante.length > 0 && participante.map(p => <strong key={participante.id_usuario}>
-                            {`${p.nome},`}</strong>)}</h3>
+                        <h3>Vagas disponíveis: {dados.vagasDisp}</h3>
+                        {participante.length > 0 && <h3>Participantes:  {participante.map(p => <strong key={participante.id_usuario}>
+                            {`${p.nome},`}</strong>)}</h3>}
+
+                        </div>
 
                         {!filtro ?
                             <button className='btn-canelarInscricao' onClick={() => cancelarIncricao(dados.id_evento)} >Cancelar Inscrição</button>

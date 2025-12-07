@@ -1,5 +1,7 @@
 :root{
     --corBotaoCancelarInscricao: rgb(230, 12, 12);
+    --corBtnEditar: rgb(10, 102, 10);
+    --corButtonFinalizar: rgba(12, 150, 230, 0.767);
 }
 
 
@@ -15,7 +17,7 @@
 }
 
 .cont-modalTrilhaAgenda {
-    width: 60%;
+    width: 55%;
     height: 80vh;
     border-radius: 18px;
     background-image: linear-gradient(150deg, #700808e0, #1e0202ee);
@@ -27,6 +29,28 @@
     color: white;
 
 }
+
+.cont-TrilhaAgenda{
+    
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+ 
+}
+
+.contImgTitulo{
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    height: 25%;
+    h2{
+        font-size: clamp(1rem, 
+        2.8vw, 5rem);
+    }
+
+}
+
 
 .img-trilhaAgenda{
     width: 20vh;
@@ -56,3 +80,68 @@
     background-color: rgb(150, 8, 8);
 }
 
+.butons_Criador{
+    display: flex;
+    gap: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    height: 15%;
+  
+
+}
+.bnt-delete{
+    background-color: var(--corBotaoCancelarInscricao);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: .7rem 1.2rem;
+    font-size: clamp(1rem, 2.5vh, 1.5rem);
+    cursor: pointer;
+}
+.bnt-delete:hover{
+    background-color: rgb(180, 10, 10);
+}
+
+.bnt-delete:active{
+    background-color: rgb(150, 8, 8);
+}
+.bnt-editar{
+    background-color: var(--corBtnEditar);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: .7rem 1.2rem;
+    font-size: clamp(1rem, 2.5vh, 1.5rem);
+    cursor: pointer;
+}
+.bnt-editar:hover{
+    background-color: rgb(8, 150, 8);
+}
+
+.bnt-finalizar{
+    background-color: var(--corButtonFinalizar);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: .7rem 1.2rem;
+    font-size: clamp(1rem, 2.5vh, 1.5rem);
+    cursor: pointer;
+}
+.bnt-finalizar:hover{
+    background-color: rgb(8, 150, 230);
+}
+
+.conteudo-modal{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 60%;
+    justify-content: flex-end;
+}
+
+.linha-modal{
+    border-bottom: .1rem solid white;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
