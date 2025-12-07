@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {Link} from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import './NavBar.css'
 import { Mycontext } from '../../context/ContextGlobalUser'
 import Dropdown from '../DropdownPerfil/Dropdown';
@@ -9,7 +9,7 @@ import Alerta from '../Alerta/Alerta';
 import { BsCheck2Circle } from "react-icons/bs";
 
 
-function NavBar({transparent=false}) {
+function NavBar({ transparent = false }) {
 
 
   // useEffect(() => {
@@ -19,28 +19,61 @@ function NavBar({transparent=false}) {
   //     setUser(JSON.parse(localStorege));
   //   }
   // }, []);
-  
+
 
   const navStyle = {
     backgroundColor: transparent ? '#7b1e1ec5' : '#7B1E1E',
   };
 
-  const {user,setUser, setModalLogin, setModalPerfil,modalPerfil,meusDados, alterarSenha,setAlerta,alerta} = useContext(Mycontext)
+  const { user, setUser, setModalLogin, setModalPerfil, modalPerfil, meusDados, alterarSenha, setAlerta, alerta } = useContext(Mycontext)
 
- 
+
 
   return (
-    <nav className='cont-navBar' style={navStyle}> 
-        <Link className='link' to={'/'}>Home</Link>
-        {user && <Link className='link' to={'/dashboard'} >DashBord</Link>}
-        <Link className='link' to={'/eventos'} >Agenda</Link>
-        <Link className='link' to={'/trilhas'} >Trilhas</Link>  
-        {!user ? <Link className='link' onClick={()=> setModalLogin(true)}>Login</Link>: <Dropdown  transparent={transparent} perfil={modalPerfil}/> }
-        {meusDados && <Perfil/>}
-        {alterarSenha && <Form_alterarSenha/>}
-      {alerta && <Alerta mensagem={alerta.mensagem} icon={alerta.icon} setAlerta={setAlerta} />}
+    <nav className='cont-navBar' style={navStyle}>
 
-      
+      <Link className={`link`}  to={'/'}>Home</Link>
+
+      {user && <NavLink className='link'  to={'/dashboard'} >DashBord</NavLink>}
+
+      <NavLink className='link' to={'/eventos'} >Agenda</NavLink>
+      <NavLink className='link' to={'/trilhas'} >Trilhas</NavLink>
+
+
+      {!user ?
+
+        <NavLink
+          className={`link ${modalPerfil ? 'linkAtivo' : ''}`}
+
+          onClick={() => setModalLogin(true)}>
+          Login
+
+        </NavLink>
+
+        :
+
+        <Dropdown
+
+          transparent={transparent}
+
+          perfil={modalPerfil}
+
+        />
+
+      }
+
+      {meusDados && <Perfil />}
+      {alterarSenha && <Form_alterarSenha />}
+
+      {alerta &&
+
+        <Alerta
+          mensagem={alerta.mensagem}
+          icon={alerta.icon}
+          setAlerta={setAlerta}
+        />}
+
+
 
 
     </nav>
