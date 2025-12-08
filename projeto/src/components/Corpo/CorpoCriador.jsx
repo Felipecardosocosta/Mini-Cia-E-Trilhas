@@ -104,7 +104,7 @@ function CorpoCriador({ setFiltro, setIdEditar, setAbriTrilha, idEditar, setCarr
 
     return (
         <div className='corpo-criador'>
-            <h1 className='opcaoAberta' >Organizador</h1>
+            <h1 className='opcaoAberta' >Organizando</h1>
 
             <div className="cont-cards">
 

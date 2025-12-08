@@ -107,7 +107,7 @@ function CorpoParticipante({setFiltro,setIdEditar, setAbriTrilha, idEditar,setCa
     return (
         <div className='corpo-criador'>
 
-             <h1 className='opcaoAberta' >Participante</h1>
+             <h1 className='opcaoAberta' >Participando</h1>
 
                 <div className="cont-cards">
 
