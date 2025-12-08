@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import './modalMinhaTrilhaAgenda.css'
 import buscarEventoCompleto from '../../../server/buscarInformacao/buscarEventoCompleto'
 import { Mycontext } from '../../../context/ContextGlobalUser'
-
+import Swal from 'sweetalert2'
 import Loading from '../../Loading/Loading';
 import deixaParticiparEvento from '../../../server/alterarDados/deixaParticiparEvento';
 import deletarEvento from '../../../server/deletarDados/deletarEvento';
@@ -76,44 +76,67 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
     async function cancelarIncricao(idEvento) {
 
-        const localStorege = JSON.parse(localStorage.getItem('user'))
-        if (!localStorege) {
 
-            setAlerta({ mensagem: 'Erro Recarregue a pagina', icon: erro })
+        Swal.fire({
+            title: "Tem certeza que deseja Cancelar sua inscrição?",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Cancelar Inscrição",
+            denyButtonText: `Não Cancelar`,
+            customClass: {
+                container: 'cont_alerta',
+                popup: 'cont_background',
+                confirmButton: 'cont_button_confirm',
+                denyButton: 'cont_button_deny',
+            }
 
-            return
+        }).then(async (result) => {
 
-        }
+            if (result.isConfirmed) {
 
-        console.log(localStorege.token);
+                const localStorege = JSON.parse(localStorage.getItem('user'))
+                if (!localStorege) {
 
+                    setAlerta({ mensagem: 'Erro Recarregue a pagina', icon: erro })
 
+                    return
 
-        const cancelando = await deixaParticiparEvento(localStorege.token, idEvento)
+                }
 
-
-        if (cancelando.ok) {
-
-            setAlerta({ mensagem: cancelando.mensagem, icon: 'ok' })
-            setAbriTrilha(false)
-            setCarregarPg(!carregarPg)
-            return
-        }
-
-        if (cancelando.mensagem === "Token Invalido ou expirado") {
-
-            setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
-            setModalLogin(true)
-            setUser(false)
-            localStorage.removeItem('user')
-
-            return
+                const cancelando = await deixaParticiparEvento(localStorege.token, idEvento)
 
 
-        }
-        console.log(cancelando.error);
+                if (cancelando.ok) {
 
-        setAlerta({ mensagem: cancelando.mensagem, icon: "erro" })
+                    setAlerta({ mensagem: cancelando.mensagem, icon: 'ok' })
+                    setAbriTrilha(false)
+                    setCarregarPg(!carregarPg)
+                    return
+                }
+
+                if (cancelando.mensagem === "Token Invalido ou expirado") {
+
+                    setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
+                    setModalLogin(true)
+                    setUser(false)
+                    localStorage.removeItem('user')
+
+                    return
+
+
+                }
+                console.log(cancelando.error);
+
+                setAlerta({ mensagem: cancelando.mensagem, icon: "erro" })
+
+
+
+            } else if (result.isDenied) {
+
+            }
+        });
+
+
 
     }
 
@@ -146,34 +169,63 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
     async function deletaEvento() {
 
+        Swal.fire({
+            title: "Tem certeza que deseja deletar?",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Deletar",
+            denyButtonText: `Cancelar`,
+            customClass: {
+                container: 'cont_alerta',
+                popup: 'cont_background',
+                confirmButton: 'cont_button_confirm',
+                denyButton: 'cont_button_deny',
+            }
 
-        if (!localStorege) {
+        }).then(async (result) => {
 
-            setAlerta({ mensagem: 'Erro Recarregue a pagina', icon: "erro" })
-            return
-        }
+            if (result.isConfirmed) {
 
-        const deletando = await deletarEvento(localStorege.token, dados.id_evento)
+                const localStorege = JSON.parse(localStorage.getItem('user'))
+                if (!localStorege) {
 
-        if (deletando.ok) {
+                    setAlerta({ mensagem: 'Erro Recarregue a pagina', icon: "erro" })
+                    return
+                }
 
-            setAlerta({ mensagem: deletando.mensagem, icon: 'ok' })
-            setAbriTrilha(false)
-            setCarregarPg(!carregarPg)
-            return
-        }
+                const deletando = await deletarEvento(localStorege.token, dados.id_evento)
+
+                if (deletando.ok) {
+
+                    setAlerta({ mensagem: deletando.mensagem, icon: 'ok' })
+                    setAbriTrilha(false)
+                    setCarregarPg(!carregarPg)
+                    return
+                }
 
 
-        if (deletando.mensagem === "Token Invalido ou expirado") {
+                if (deletando.mensagem === "Token Invalido ou expirado") {
 
-            setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
-            setModalLogin(true)
-            setUser(false)
-            localStorage.removeItem('user')
+                    setAlerta({ mensagem: "Tempo de login expirado", icon: "erro" })
+                    setModalLogin(true)
+                    setUser(false)
+                    localStorage.removeItem('user')
 
-        }
+                }
 
-        setAlerta({ mensagem: deletando.mensagem, icon: "erro" })
+                setAlerta({ mensagem: deletando.mensagem, icon: "erro" })
+
+
+
+            } else if (result.isDenied) {
+
+            }
+        });
+
+
+
+
+
 
     }
 
@@ -256,7 +308,7 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
                         </div>
 
-                        <div className={"conteudo-modal" + !iniciarEdicao ? " maxSpaco" : " menosSpaco"}>
+                        <div className={`conteudo-modal  ${!iniciarEdicao ? '' : 'maxSpaco'}`}>
 
                             <div className="linha-modal" />
 
@@ -272,7 +324,7 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
                                         <h3>
                                             Participantes:
                                             <strong>
-                                            {participante}
+                                                {participante}
                                             </strong>
                                         </h3>}
                                 </> :
