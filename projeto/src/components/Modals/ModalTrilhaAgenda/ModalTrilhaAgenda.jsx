@@ -82,8 +82,9 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
             showDenyButton: true,
             showCancelButton: false,
             confirmButtonText: "Cancelar Inscrição",
-            denyButtonText: `Não Cancelar`,
+            denyButtonText: `Não`,
             customClass: {
+                title: 'cont_title_alerta',
                 container: 'cont_alerta',
                 popup: 'cont_background',
                 confirmButton: 'cont_button_confirm',
@@ -176,6 +177,7 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
             confirmButtonText: "Deletar",
             denyButtonText: `Cancelar`,
             customClass: {
+                title: 'cont_title_alerta',
                 container: 'cont_alerta',
                 popup: 'cont_background',
                 confirmButton: 'cont_button_confirm',

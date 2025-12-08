@@ -181,10 +181,14 @@
 
    .cont_button_confirm {
        background-color: rgb(179, 29, 29);
+      
+     
    }
 
    .cont_button_deny {
        background-color: #447A9C;
+        
+    
    }
 
    .cont_button_confirm:hover {
@@ -193,4 +197,9 @@
 
    .cont_button_deny:hover {
        background-color: blue;
+   }
+
+
+   .cont_title_alerta{
+    font-family: Georgia, 'Times New Roman', Times, serif;
    }
