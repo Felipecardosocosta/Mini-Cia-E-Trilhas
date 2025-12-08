@@ -247,16 +247,16 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
                     :
                     <div className="cont-TrilhaAgenda">
 
-                        <div className="contImgTitulo">
+                        <div className={!iniciarEdicao ? "contImgTitulo" : "menosSpaco"}>
                             <h2>{dados.nomeTrilha}</h2>
 
-                            <div className='img-trilhaAgenda' style={{ backgroundImage: `url(../Imgs/banco/${dados.imagem})` }} >
+                            <div className={!iniciarEdicao ? 'img-trilhaAgenda' : 'editarAtivo'} style={{ backgroundImage: `url(../Imgs/banco/${dados.imagem})` }} >
                             </div>
 
 
                         </div>
 
-                        <div className="conteudo-modal">
+                        <div className={"conteudo-modal" + !iniciarEdicao ? " maxSpaco" : " menosSpaco"}>
 
                             <div className="linha-modal" />
 
@@ -306,7 +306,7 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
                                     <button className='btn-canelarInscricao' onClick={() => cancelarIncricao(dados.id_evento)} >Cancelar Inscrição</button>
                                 </div>
                                 :
-                                <div className='butons_Criador'>
+                                <div className={`butons_Criador ${iniciarEdicao ? 'separedor' : ''}`}>
                                     {!iniciarEdicao ? <>
 
                                         <button className='bnt-delete' onClick={deletaEvento} >Deletar</button>
