@@ -25,6 +25,13 @@ function MenuPesqAg() {
         });
     }
 
+    function selecionarRegiao(regiao) {
+        setRegiao(regiao);
+        setMostrarFiltros(false);
+        setFiltroTipo(null);
+        setFiltroOrdem(null);
+    }
+
     return (
         <div className='MenuPesq-cont'>
 
@@ -85,14 +92,14 @@ function MenuPesqAg() {
 
             <div className='Cont-dir'>
                 <div className='Dir-CdReg'>
-                    <BttnsReg funcao={() => setRegiao('Central')} nomeReg={"Central"} img={'Imgs/Central.png'} />
-                    <BttnsReg funcao={() => setRegiao('Norte')} nomeReg={"Norte"} img={'Imgs/Norte.png'} />
-                    <BttnsReg funcao={() => setRegiao('Leste')} nomeReg={"Leste"} img={'Imgs/Leste.png'} />
-                    <BttnsReg funcao={() => setRegiao('Sul')} nomeReg={"Sul"} img={'Imgs/Sul.png'} />
+                    <BttnsReg funcao={() => selecionarRegiao('Central')} nomeReg={"Central"} img={'Imgs/Central.png'} />
+                    <BttnsReg funcao={() => selecionarRegiao('Norte')} nomeReg={"Norte"} img={'Imgs/Norte.png'} />
+                    <BttnsReg funcao={() => selecionarRegiao('Leste')} nomeReg={"Leste"} img={'Imgs/Leste.png'} />
+                    <BttnsReg funcao={() => selecionarRegiao('Sul')} nomeReg={"Sul"} img={'Imgs/Sul.png'} />
                 </div>
 
                 <div className='Dir-TdsReg'>
-                    <BttnFln fun={() => setRegiao('Regiões')} fln={"Todas"} map={'Imgs/Geral.png'} />
+                    <BttnFln fun={() => selecionarRegiao('Regiões')} fln={"Todas"} map={'Imgs/Geral.png'} />
                 </div>
             </div>
 

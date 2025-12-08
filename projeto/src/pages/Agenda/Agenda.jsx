@@ -156,7 +156,7 @@ function Eventos() {
 
           {eventosOrdenados.length === 0 && mostrarMsg ? (
             <div className="msg-sem-eventos">
-              <h1>Nenhuma trilha encontrada no momento!</h1>
+              <h1>Nenhuma trilha marcada!</h1>
             </div>
           ) : (
 
