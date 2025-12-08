@@ -28,7 +28,7 @@ function Home() {
             as
             <br />trilhas de Florianopólis</h1>
           <p>
-            Mapas, dicas, eventos e a comunidade
+            Dicas, eventos e a comunidade
             <br />
             que te move.
           </p>
