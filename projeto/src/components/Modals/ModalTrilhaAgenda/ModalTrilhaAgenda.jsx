@@ -41,14 +41,10 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
             setDados(infos.result)
             setCarregando(false)
-            setParticipante(infos.result.participantes.filter(p => p.classe === "P"))
+            setParticipante(infos.result.participantes.filter(p => p.classe === "P").map(p => p.nome).join())
 
 
-            setCriador(infos.result.participantes.filter(p => {
-                console.log(p);
-
-                return p.classe === "C"
-            })[0].nome)
+            setCriador(infos.result.participantes.filter(p => p.classe === "C")[0].nome)
 
 
             console.log(participante);
@@ -204,7 +200,7 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
         if (resposta.ok) {
             setIniciarEdicao(false)
-            setAlerta({mensagem:resposta.mensagem,icon:"ok"})
+            setAlerta({ mensagem: resposta.mensagem, icon: "ok" })
             setbuscarNovasinformacoes(!buscarNovasinformacoes)
         }
 
@@ -253,9 +249,8 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
                         <div className="contImgTitulo">
                             <h2>{dados.nomeTrilha}</h2>
-                            
+
                             <div className='img-trilhaAgenda' style={{ backgroundImage: `url(../Imgs/banco/${dados.imagem})` }} >
-                            
                             </div>
 
 
@@ -265,16 +260,22 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
                             <div className="linha-modal" />
 
-                            {!iniciarEdicao ? <div>
-                                <h3>Data de Início: {dados.dia.split('T')[0].split('-').reverse().join('/')}</h3>
-                                <h3>Hora de Início: {dados.horario.slice(0, 5)} h</h3>
-                                <h3>Local: {dados.ponto_partida}</h3>
-                                <h3>Ponto de Encontro: {dados.pontoEncontro}</h3>
-                                <h3>Criador: {criador}</h3>
-                                <h3>Vagas disponíveis: {dados.vagasDisp}</h3>
-                                {participante.length > 0 && <h3>Participantes:  {participante.map(p => <strong key={participante.id_usuario}>
-                                    {`${p.nome}`}</strong>)}</h3>}
-                            </div> :
+                            {!iniciarEdicao ?
+                                <>
+                                    <h3>Data de Início: {dados.dia.split('T')[0].split('-').reverse().join('/')}</h3>
+                                    <h3>Hora de Início: {dados.horario.slice(0, 5)} h</h3>
+                                    <h3>Local: {dados.ponto_partida}</h3>
+                                    <h3>Ponto de Encontro: {dados.pontoEncontro}</h3>
+                                    <h3>Criador: {criador}</h3>
+                                    <h3>Vagas disponíveis: {dados.vagasDisp}</h3>
+                                    {participante.length > 0 &&
+                                        <h3>
+                                            Participantes:
+                                            <strong>
+                                            {participante}
+                                            </strong>
+                                        </h3>}
+                                </> :
 
                                 <div className='inputs_edicao'>
                                     <label>
@@ -299,29 +300,29 @@ function ModalTrilhaAgenda({ filtro, setFiltro, idTrilha, setAbriTrilha, setCarr
 
                                 </div>}
 
+                            {!filtro ?
+                                <div className='butons_Criador'>
+
+                                    <button className='btn-canelarInscricao' onClick={() => cancelarIncricao(dados.id_evento)} >Cancelar Inscrição</button>
+                                </div>
+                                :
+                                <div className='butons_Criador'>
+                                    {!iniciarEdicao ? <>
+
+                                        <button className='bnt-delete' onClick={deletaEvento} >Deletar</button>
+                                        <button className='bnt-editar' onClick={editarEvento} >Editar</button>
+                                        <button className='bnt-finalizar' onClick={finalizarEvento} >Finalizar</button>
+                                    </> :
+
+                                        <>
+                                            <button className='bnt-editar' onClick={editarEvento} >Cancelar</button>
+                                            <button className='bnt-finalizar' onClick={salvarEdicao} >Salvar</button>
+                                        </>}
+
+                                </div>
+                            }
                         </div>
 
-                        {!filtro ?
-                            <div className='butons_Criador'>
-
-                                <button className='btn-canelarInscricao' onClick={() => cancelarIncricao(dados.id_evento)} >Cancelar Inscrição</button>
-                            </div>
-                            :
-                            <div className='butons_Criador'>
-                                {!iniciarEdicao ? <div className='butons_Criador'>
-
-                                    <button className='bnt-delete' onClick={deletaEvento} >Deletar</button>
-                                    <button className='bnt-editar' onClick={editarEvento} >Editar</button>
-                                    <button className='bnt-finalizar' onClick={finalizarEvento} >Finalizar</button>
-                                </div> :
-
-                                    <div className='butons_Criador'>
-                                        <button className='bnt-editar' onClick={editarEvento} >Cancelar</button>
-                                        <button className='bnt-finalizar' onClick={salvarEdicao} >Salvar</button>
-                                    </div>}
-
-                            </div>
-                        }
 
                     </div>
 

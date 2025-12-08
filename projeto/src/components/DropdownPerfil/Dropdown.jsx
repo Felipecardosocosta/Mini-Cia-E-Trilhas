@@ -57,10 +57,10 @@ function Dropdown({ perfil, transparent,minhaAgenda }) {
 
 
     return (
-        <div className='dropdown'>
+        <div className='dropdown'  ref={minhaReferencia} >
             <Link className={`link ${modalPerfil ? 'linkAtivo' : ''}`} onClick={() => modalPerfil ? setModalPerfil(false) : setModalPerfil(true)}>Perfil</Link>
 
-            <div ref={minhaReferencia} className={`dropdown-menu ${perfil ? 'show' : ''} ${transparent ? "transparente" : ""}`}>
+            <div className={`dropdown-menu ${perfil ? 'show' : ''} ${transparent ? "transparente" : ""}`}>
                 <button onClick={abrirdados}>Meus dados</button>
                 <button onClick={abrirMinhaAgenda} >Minha Agenda</button>
                 <button onClick={abrirAlterarSenha}>Alterar senha</button>
