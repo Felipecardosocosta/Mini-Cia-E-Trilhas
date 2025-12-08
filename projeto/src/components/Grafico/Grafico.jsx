@@ -40,6 +40,11 @@ const Grafico = () => {
   
   
   function percentual() {
+
+    if(dadosDas.Total_de_Trilhas_Feitas === undefined){
+      return 0
+    }
+
     return (dadosDas.Total_de_Trilhas_Feitas * 100) /dadosDas.totalTrilhas 
   
   }
@@ -88,11 +93,11 @@ const Grafico = () => {
 
   return (
     <div className="dashboard-container">
-      <h2 className="greeting">Olá, {user.nome}</h2>
+      <h2 className="greeting fontDiferenciada">Olá, {user.nome}</h2>
 
       <div className="charts-row">
         <div className="chart-card line-chart">
-          <h3>Trilhas concluídas por mês</h3>
+          <h3 className='fontDiferenciada'>Trilhas concluídas por mês ;</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={dataLine}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -109,7 +114,7 @@ const Grafico = () => {
 
       
         <div className="chart-card pie-chart">
-          <h3>Quantidade de Trilhas</h3>
+          <h3 className='fontDiferenciada' >Quantidade de Trilhas ;</h3>
       
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
@@ -144,32 +149,32 @@ const Grafico = () => {
       <div className="stats-row">
        
         <div className="stats-card">
-          <h3>Estatísticas</h3>
+          <h3 className='fontDiferenciada' >Estatísticas ;</h3>
           <div className="stat-item">
             <span>Total De Distancia Percorrida:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_Percorrida_em_Km} Km</strong>
+            <strong>{dadosDas ? dadosDas.Distancia_Total_Percorrida_em_Km ? dadosDas.Distancia_Total_Percorrida_em_Km : 0 : 0} Km</strong>
           </div>
           <div className="stat-item">
             <span>Distancia Percorrida Região Central:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Central_em_Km} Km</strong>
+            <strong>{dadosDas ? dadosDas.Distancia_Total_na_Regiao_Central_em_Km ? dadosDas.Distancia_Total_na_Regiao_Central_em_Km : 0 : 0} Km</strong>
           </div>
           <div className="stat-item">
             <span>Distancia Percorrida Região Leste:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Leste_em_Km} Km</strong>
+            <strong>{dadosDas ? dadosDas.Distancia_Total_na_Regiao_Leste_em_Km ? dadosDas.Distancia_Total_na_Regiao_Leste_em_Km : 0 : 0} Km</strong>
           </div>
            <div className="stat-item">
             <span>Distancia Percorrida Região Norte:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Norte_em_Km} Km</strong>
+            <strong>{dadosDas ? dadosDas.Distancia_Total_na_Regiao_Norte_em_Km ? dadosDas.Distancia_Total_na_Regiao_Norte_em_Km : 0 : 0} Km</strong>
           </div>
            <div className="stat-item">
             <span>Distancia Percorrida Região Sul:</span>
-            <strong>{dadosDas && dadosDas.Distancia_Total_na_Regiao_Sul_em_Km} Km</strong>
+            <strong>{dadosDas ? dadosDas.Distancia_Total_na_Regiao_Sul_em_Km ? dadosDas.Distancia_Total_na_Regiao_Sul_em_Km : 0 : 0} Km</strong>
           </div>
         </div>
 
         
         <div className="activities-card">
-          <h3>Atividades recentes</h3>
+          <h3 className='fontDiferenciada' >Atividades recentes ;</h3>
           <div className="activity-list">
             <div className="activity-item">
               <span>Total de Trilhas Feitas</span>

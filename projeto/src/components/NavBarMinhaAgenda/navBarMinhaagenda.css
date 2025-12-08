@@ -74,3 +74,13 @@ a.navLinkAtivo::after {
     color: var(--corFontNav);
     margin-bottom: .4rem;
 }
+
+
+.fontDiferenciada{
+    font-family: 'Trade Winds', cursive;
+   letter-spacing: .15rem;
+}
+
+.masEspaco{
+    letter-spacing: .15rem;
+}
