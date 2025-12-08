@@ -10,13 +10,20 @@ import { TbFilter } from "react-icons/tb"
 import { BsSmartwatch } from "react-icons/bs"
 
 function MenuPesq() {
-
-    const {setRegiao, filtroTipo, setFiltroTipo, filtroOrdem, setFiltroOrdem} = useContext(Mycontext)
-
+    const { setRegiao, filtroTipo, setFiltroTipo, filtroOrdem, setFiltroOrdem } = useContext(Mycontext)
     const [mostrarFiltros, setMostrarFiltros] = useState(false)
 
+    function fecharFiltros() {
+        setMostrarFiltros(false)
+        setFiltroTipo(null)
+        setFiltroOrdem(null)
+    }
+
+
     function Filtros() {
-        setMostrarFiltros(prev => { const novoValor = !prev
+        setMostrarFiltros(prev => {
+            const novoValor = !prev
+
             if (!novoValor) {
                 setFiltroTipo(null)
                 setFiltroOrdem(null)
@@ -31,26 +38,22 @@ function MenuPesq() {
             <div className='Cont-barraFiltro'>
 
                 <div className='BarraFiltro-barraPesq'>
-                    <div className='BarraPesq-barra'>
-                        <BarraPesq />
-                    </div>
+                    <div className='BarraPesq-barra'> <BarraPesq /> </div>
                 </div>
 
                 <div className='BarraFiltro-filtroBttns'>
+
                     <div className='FiltroBttns-iconBttn'>
                         <button onClick={Filtros} className='IconBttn-filtro'> <TbFilter size={45} color='rgba(112, 8, 8, 1)' /> </button>
                     </div>
 
+
                     <div className='FiltroBttns-bttnsDT'>
                         {mostrarFiltros && (
                             <>
-                                <button
-                                    onClick={() => setFiltroTipo("dist")}
-                                    className={`BttnsDT ${filtroTipo === "dist" ? "ativo" : ""}`}> <GiPathDistance size={25} /> <h4>Dist.</h4> </button>
+                                <button onClick={() => setFiltroTipo("dist")} className={`BttnsDT ${filtroTipo === "dist" ? "ativo" : ""}`}> <GiPathDistance size={25} /> <h4>Dist.</h4> </button>
 
-                                <button
-                                    onClick={() => setFiltroTipo("tempo")}
-                                    className={`BttnsDT ${filtroTipo === "tempo" ? "ativo" : ""}`}> <BsSmartwatch size={25} /> <h4>Tempo</h4> </button>
+                                <button onClick={() => setFiltroTipo("tempo")} className={`BttnsDT ${filtroTipo === "tempo" ? "ativo" : ""}`}> <BsSmartwatch size={25} /> <h4>Tempo</h4> </button>
                             </>
                         )}
                     </div>
@@ -58,32 +61,32 @@ function MenuPesq() {
                     <div className='FiltroBttns-bttnsMN'>
                         {mostrarFiltros && (
                             <>
-                                <button
-                                    onClick={() => setFiltroOrdem("desc")}
-                                    className={`BttnsMN ${filtroOrdem === "desc" ? "ativo" : ""}`}> <h4>Maior p/ menor</h4> <FaArrowDownWideShort size={15} /> </button>
+                                <button onClick={() => setFiltroOrdem("desc")} className={`BttnsMN ${filtroOrdem === "desc" ? "ativo" : ""}`} > <h4>Maior p/ menor</h4> <FaArrowDownWideShort size={15} /> </button>
 
-                                <button
-                                    onClick={() => setFiltroOrdem("asc")}
-                                    className={`BttnsMN ${filtroOrdem === "asc" ? "ativo" : ""}`}> <FaArrowDownShortWide size={15} /> <h4>Menor p/ maior</h4> </button>
+                                <button onClick={() => setFiltroOrdem("asc")} className={`BttnsMN ${filtroOrdem === "asc" ? "ativo" : ""}`}> <FaArrowDownShortWide size={15} /> <h4>Menor p/ maior</h4> </button>
                             </>
                         )}
                     </div>
 
                 </div>
-
             </div>
 
             <div className='Cont-dir'>
+
                 <div className='Dir-CdReg'>
-                    <BttnsReg funcao={() => setRegiao('Central')} nomeReg={"Central"} img={'Imgs/Central.png'} />
-                    <BttnsReg funcao={() => setRegiao('Norte')} nomeReg={"Norte"} img={'Imgs/Norte.png'} />
-                    <BttnsReg funcao={() => setRegiao('Leste')} nomeReg={"Leste"} img={'Imgs/Leste.png'} />
-                    <BttnsReg funcao={() => setRegiao('Sul')} nomeReg={"Sul"} img={'Imgs/Sul.png'} />
+                    <BttnsReg funcao={() => { setRegiao('Central'); fecharFiltros(); }} nomeReg="Central" img={'Imgs/Central.png'} />
+
+                    <BttnsReg funcao={() => { setRegiao('Norte'); fecharFiltros(); }} nomeReg="Norte" img={'Imgs/Norte.png'} />
+
+                    <BttnsReg funcao={() => { setRegiao('Leste'); fecharFiltros(); }} nomeReg="Leste" img={'Imgs/Leste.png'} />
+
+                    <BttnsReg funcao={() => { setRegiao('Sul'); fecharFiltros(); }} nomeReg="Sul" img={'Imgs/Sul.png'} />
                 </div>
 
                 <div className='Dir-TdsReg'>
-                    <BttnFln fun={() => setRegiao('Regiões')} fln={"Todas"} map={'Imgs/Geral.png'} />
+                    <BttnFln fun={() => { setRegiao('Regiões'); fecharFiltros(); }} fln="Todas" map={'Imgs/Geral.png'} />
                 </div>
+
             </div>
 
         </div>

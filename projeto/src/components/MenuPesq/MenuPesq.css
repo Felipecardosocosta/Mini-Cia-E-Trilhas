@@ -1,12 +1,16 @@
-.MenuPesq-cont{
-    height: 90px;
+/* =========================================================
+   CONTAINER PRINCIPAL
+   ========================================================= */
+.MenuPesq-cont {
     width: 95%;
+    min-height: 90px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     padding: 0.5rem;
+    gap: 1rem;
 
     border-radius: 20px;
     background-color: rgba(217, 217, 217, 1);
@@ -14,144 +18,216 @@
 
 
 
-.Cont-barraFiltro{
-    height: 100%;
-    width: 50%;
 
+.Cont-barraFiltro {
+    width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 0.4rem;
 }
-.BarraFiltro-barraPesq{
-    height: 45%;
+
+.BarraFiltro-barraPesq {
+    height: 45px;
     width: 100%;
 
     display: flex;
-    flex-direction: row;
-    
+    align-items: center;
 }
-.BarraPesq-barra{
-    height: 100%;
-    width: 96%;
 
+.BarraPesq-barra {
+    height: 75%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.PesqBttn{
+
+.PesqBttn {
     height: 85%;
     width: 90%;
-
-    border: solid 2px;
-    border-color: black;
+    border: 2px solid black;
     border-radius: 7px;
     cursor: pointer;
     background-color: white;
 }
 
-.BarraFiltro-filtroBttns{
-    height: 55%;
-    width: 100%;
 
+
+
+.BarraFiltro-filtroBttns {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding-top: 0.2rem;
+    align-items: center;
+    gap: 0.5rem;
 }
-.FiltroBttns-iconBttn{
-    height: 100%;
-    width: 10%;
+
+.FiltroBttns-iconBttn {
+    width: 45px;
+    height: 45px;
 }
-.IconBttn-filtro{
-    background-color: transparent;
-    height: 100%;
+
+.IconBttn-filtro {
     width: 100%;
+    height: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    
+
+    background: transparent;
     border: none;
+    cursor: pointer;
 }
-.FiltroBttns-bttnsDT{
-    height: 100%;
-    width: 40%;
+
+.FiltroBttns-bttnsDT,
+.FiltroBttns-bttnsMN {
+    flex: 1;
+    display: flex;
+    gap: 0.4rem;
+}
+
+
+
+
+.BttnsDT,
+.BttnsMN {
+    flex: 1;
+
+    min-height: 45px;
 
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    
-}
-.BttnsDT{
-    height: 100%;
-    width: 40%;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;    
-
-    border: solid 1px;
-    border-color: black;
+    border: 1px solid black;
     border-radius: 10px;
     cursor: pointer;
+    background-color: white;
 
+    transition: all 0.2s ease;
 }
-.FiltroBttns-bttnsMN{
-    height: 100%;
-    width: 60%;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-.BttnsMN{
-    height: 100%;
-    width: 40%;
-
-    display: flex;
+.BttnsMN {
     flex-direction: column;
-    justify-content:center;
-    align-items: center;    
-
-    border: solid 1px;
-    border-color: black;
-    border-radius: 10px;
-    cursor: pointer;
 }
-.BttnsDT.ativo, 
+
+
+.BttnsDT.ativo,
 .BttnsMN.ativo {
-    background-color: rgba(112, 8, 8, 0.2);
+    background-color: rgba(112, 8, 8, 0.15);
     border-color: rgba(112, 8, 8, 1);
-    transform: scale(1.05);
+    scale: 1.05;
     font-weight: bold;
 }
 
 
 
 
-.Cont-dir{
-    height: 100%;
+.Cont-dir {
     width: 50%;
-
     display: flex;
+    justify-content: space-between;
 }
+
 .Dir-CdReg {
-    height: 100%;
-    width: 80%;
-
     display: flex;
-    flex-direction: row;
+    flex: 1;
     justify-content: center;
     align-items: center;
-    gap: 5%;
+    gap: .4rem;
 }
-.Dir-TdsReg {
-    height: 100%;
-    width: 20%;
 
+.Dir-TdsReg {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 20%;
+}
+
+
+
+
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .MenuPesq-cont {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .Cont-barraFiltro,
+    .Cont-dir {
+        width: 100%;
+    }
+
+    .Dir-CdReg {
+        gap: 0.8rem;
+    }
+}
+
+/* Celulares */
+@media (max-width: 768px) {
+
+    .MenuPesq-cont {
+        padding: 0.8rem;
+        gap: 1.2rem;
+    }
+
+    .Cont-barraFiltro {
+        width: 100%;
+    }
+
+    .BarraFiltro-barraPesq {
+        height: 40px;
+    }
+
+    .FiltroBttns-iconBttn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .BttnsDT,
+    .BttnsMN {
+        min-height: 40px;
+        font-size: 0.85rem;
+    }
+
+    .Cont-dir {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .Dir-CdReg {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .Dir-TdsReg {
+        width: auto;
+    }
+}
+
+/* Telas muito pequenas */
+@media (max-width: 480px) {
+
+    .BttnsDT,
+    .BttnsMN {
+        font-size: 0.75rem;
+        padding: 0.3rem;
+    }
+
+    .BttnsMN h4,
+    .BttnsDT h4 {
+        font-size: 0.7rem;
+    }
+
+    .FiltroBttns-bttnsMN,
+    .FiltroBttns-bttnsDT {
+        flex-wrap: wrap;
+    }
 }
