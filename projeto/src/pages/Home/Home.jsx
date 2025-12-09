@@ -24,9 +24,9 @@ function Home() {
       <div className='cont-info-home'>
 
         <div className='cont-paragraphs'>
-          <h1 className='teste2ponto0' >Aventura te espera: Descruba todas
+          <h1 className='teste2ponto0' >Aventura te espera: Descubra todas
             as
-            <br />trilhas de Florianopólis</h1>
+            <br />trilhas de Florianópolis</h1>
           <p>
             Dicas, eventos e a comunidade
             <br />
